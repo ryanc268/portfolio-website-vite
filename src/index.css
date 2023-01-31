@@ -21,31 +21,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
-a {
-  font-size: 1.1rem;
-  color: white;
-}
-
 body {
   font-family: "Merriweather", serif;
 }
 
-h3 {
-  color: white;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-  color: white;
-}
 button:hover {
   border-color: #646cff;
 }
@@ -55,15 +34,8 @@ button:focus-visible {
 }
 
 p {
-  padding: 3rem 0rem;
-  color: #ccc;
   font-size: 1.4rem;
   line-height: 150%;
-}
-
-span {
-  font-weight: bold;
-  color: #01c4fa;
 }
 
 ::-webkit-scrollbar {
