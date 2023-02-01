@@ -1,10 +1,5 @@
 import { motion } from "framer-motion";
-import {
-  titleAnim,
-  fade,
-  photoAnim,
-  pageAnimation,
-} from "../components/Animation";
+import { titleAnim, fade, photoAnim, pageAnimation } from "../utils/Animation";
 import resume from "../assets/resume.pdf";
 import { SocialIcon } from "react-social-icons";
 

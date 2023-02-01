@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 const Nav = () => {
   const location = useLocation();
   const url = location.pathname;
+
+  const decideNavUnderline = () => (window.innerWidth <= 768 ? "16%" : "5%");
+
   return (
     <nav className="absolute top-0 z-10 w-screen justify-between whitespace-nowrap bg-zinc-800 py-4 text-center md:flex md:px-40 2xl:py-8">
       <h1>
@@ -23,7 +26,7 @@ const Nav = () => {
             className="absolute left-auto h-0.5 rounded-sm bg-cyan-400 md:h-1"
             transition={{ duration: 0.5 }}
             initial={{ width: "0%" }}
-            animate={{ width: url === "/" ? "5%" : "0%" }}
+            animate={{ width: url === "/" ? decideNavUnderline() : "0%" }}
           />
         </li>
         <li className="md:px-12 2xl:pl-20">
@@ -34,7 +37,9 @@ const Nav = () => {
             className="absolute left-auto h-0.5 rounded-sm bg-cyan-400 md:h-1"
             transition={{ duration: 0.5 }}
             initial={{ width: "0%" }}
-            animate={{ width: url.includes("/work") ? "5%" : "0%" }}
+            animate={{
+              width: url.includes("/work") ? decideNavUnderline() : "0%",
+            }}
           />
         </li>
         <li className="md:px-12 2xl:pl-20">
@@ -45,7 +50,9 @@ const Nav = () => {
             className="absolute left-auto h-0.5 rounded-sm bg-cyan-400 md:h-1"
             transition={{ duration: 0.5 }}
             initial={{ width: "0%" }}
-            animate={{ width: url === "/contact" ? "5%" : "0%" }}
+            animate={{
+              width: url === "/contact" ? decideNavUnderline() : "0%",
+            }}
           />
         </li>
         <li className="md:px-12 2xl:pl-20">
@@ -56,7 +63,7 @@ const Nav = () => {
             className="absolute left-auto h-0.5 rounded-sm bg-cyan-400 md:h-1"
             transition={{ duration: 0.5 }}
             initial={{ width: "0%" }}
-            animate={{ width: url === "/music" ? "5%" : "0%" }}
+            animate={{ width: url === "/music" ? decideNavUnderline() : "0%" }}
           />
         </li>
       </ul>
