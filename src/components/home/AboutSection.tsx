@@ -14,7 +14,7 @@ const AboutSection: React.FC = () => {
           </div>
           <div className="overflow-hidden">
             <motion.h2 variants={titleAnim}>
-              where <span className="text-cyan-400">Passion</span>
+              where <span className="text-cyan-custom">Passion</span>
             </motion.h2>
           </div>
           <div className="overflow-hidden">
@@ -29,7 +29,7 @@ const AboutSection: React.FC = () => {
         </motion.p>
         <Link to="/contact">
           <motion.button
-            className="rounded-md border-2 border-solid border-cyan-400 px-8 py-2 text-lg transition ease-in-out hover:bg-cyan-400 md:py-4 md:text-xl"
+            className="rounded-md border-2 border-solid border-cyan-custom px-8 py-2 text-lg transition ease-in-out hover:bg-cyan-custom md:py-4 md:text-xl"
             variants={fade}
           >
             Contact Me

@@ -11,7 +11,7 @@ const Nav = () => {
     <nav className="sticky top-0 z-10 w-screen justify-between whitespace-nowrap bg-zinc-800 py-4 text-center md:flex md:px-40 2xl:py-8">
       <h1>
         <Link
-          className="inline-block text-xl font-bold italic underline decoration-cyan-400 decoration-solid md:flex md:text-4xl"
+          className="inline-block text-xl font-bold italic underline decoration-cyan-custom decoration-solid md:flex md:text-4xl"
           to="/"
         >
           Ryan Coppa
@@ -23,7 +23,7 @@ const Nav = () => {
             About Me
           </Link>
           <motion.div
-            className="absolute left-auto h-0.5 rounded-sm bg-cyan-400 md:h-1"
+            className="absolute left-auto h-0.5 rounded-sm bg-cyan-custom md:h-1"
             transition={{ duration: 0.5 }}
             initial={{ width: "0%" }}
             animate={{ width: url === "/" ? decideNavUnderline() : "0%" }}
@@ -34,7 +34,7 @@ const Nav = () => {
             My Work
           </Link>
           <motion.div
-            className="absolute left-auto h-0.5 rounded-sm bg-cyan-400 md:h-1"
+            className="absolute left-auto h-0.5 rounded-sm bg-cyan-custom md:h-1"
             transition={{ duration: 0.5 }}
             initial={{ width: "0%" }}
             animate={{
@@ -47,7 +47,7 @@ const Nav = () => {
             Contact Me
           </Link>
           <motion.div
-            className="absolute left-auto h-0.5 rounded-sm bg-cyan-400 md:h-1"
+            className="absolute left-auto h-0.5 rounded-sm bg-cyan-custom md:h-1"
             transition={{ duration: 0.5 }}
             initial={{ width: "0%" }}
             animate={{
@@ -60,7 +60,7 @@ const Nav = () => {
             Music Prod
           </Link>
           <motion.div
-            className="absolute left-auto h-0.5 rounded-sm bg-cyan-400 md:h-1"
+            className="absolute left-auto h-0.5 rounded-sm bg-cyan-custom md:h-1"
             transition={{ duration: 0.5 }}
             initial={{ width: "0%" }}
             animate={{ width: url === "/music" ? decideNavUnderline() : "0%" }}

@@ -15,7 +15,7 @@ export const FaqSection: React.FC = () => {
       ref={element}
     >
       <h2 className="py-2 text-3xl md:px-40 md:py-0 md:text-7xl">
-        Have questions? <span className="block text-cyan-400">FAQ</span>
+        Have questions? <span className="block text-cyan-custom">FAQ</span>
       </h2>
       <LayoutGroup>
         <Toggle title="What Languages / Frameworks Do You Know?">

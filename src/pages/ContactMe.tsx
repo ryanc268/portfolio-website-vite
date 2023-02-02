@@ -23,7 +23,7 @@ export const ContactMe = () => {
         <div>
           <motion.div variants={titleAnim}>
             <a
-              className="rounded-md border-2 border-solid border-cyan-400 px-8 py-2 text-lg transition ease-in-out hover:bg-cyan-400 md:py-4 md:text-xl"
+              className="rounded-md border-2 border-solid border-cyan-custom px-8 py-2 text-lg transition ease-in-out hover:bg-cyan-custom md:py-4 md:text-xl"
               href={resume}
               download="Ryan_Coppa_Resume_Public.pdf"
             >

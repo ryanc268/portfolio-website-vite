@@ -20,7 +20,7 @@ const ServicesSection: React.FC = () => {
     >
       <div className="flex-1">
         <h2 className="py-8 text-center text-4xl md:text-7xl">
-          High <span className="text-cyan-400">Quality</span> experience
+          High <span className="text-cyan-custom">Quality</span> experience
         </h2>
         <div className="flex flex-wrap justify-center">
           <div className="flex basis-80 gap-4 py-2 md:basis-96 md:py-4">
