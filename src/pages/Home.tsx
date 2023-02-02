@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { pageAnimation } from "../utils/Animation";
 import AboutSection from "../components/home/AboutSection";
 import ServicesSection from "../components/home/ServicesSection";
+import FaqSection from "../components/home/FaqSection";
 
 export const Home = () => {
   return (
@@ -14,6 +15,7 @@ export const Home = () => {
     >
       <AboutSection />
       <ServicesSection />
+      <FaqSection />
     </motion.div>
   );
 };

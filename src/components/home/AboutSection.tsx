@@ -7,7 +7,7 @@ import portrait from "../../assets/portrait.png";
 const AboutSection: React.FC = () => {
   return (
     <motion.div className="items-center justify-between text-white md:flex md:p-40">
-      <motion.div className="flex-1 pt-28 text-center text-3xl md:flex-1 md:text-left md:text-7xl">
+      <motion.div className="flex-1 text-center text-3xl md:flex-1 md:text-left md:text-7xl">
         <motion.div>
           <div className="overflow-hidden">
             <motion.h2 variants={titleAnim}>Revolutionary solutions</motion.h2>

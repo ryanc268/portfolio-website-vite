@@ -8,7 +8,7 @@ const Nav = () => {
   const decideNavUnderline = () => (window.innerWidth <= 768 ? "16%" : "5%");
 
   return (
-    <nav className="absolute top-0 z-10 w-screen justify-between whitespace-nowrap bg-zinc-800 py-4 text-center md:flex md:px-40 2xl:py-8">
+    <nav className="sticky top-0 z-10 w-screen justify-between whitespace-nowrap bg-zinc-800 py-4 text-center md:flex md:px-40 2xl:py-8">
       <h1>
         <Link
           className="inline-block text-xl font-bold italic underline decoration-cyan-400 decoration-solid md:flex md:text-4xl"
