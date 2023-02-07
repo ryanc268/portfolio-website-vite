@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef, ReactEventHandler } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Player from "../components/musiclibrary/Player";
 import PlayableSong from "../components/musiclibrary/PlayableSong";
 import Library from "../components/musiclibrary/Library";
 import PlayerNav from "../components/musiclibrary/PlayerNav";
+import AudioVisualizer from "../components/AudioVisualizer"
 
 //import AudioVisualizer from "../components/AudioVisualizer";
 import { pageAnimation } from "../utils/Animation";
@@ -45,7 +46,7 @@ export const MusicLibrary: React.FC = () => {
   };
   const songEndHandler = async () => {
     let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
-    //updates the library to reflect that the next autiplayed song is "selected"
+    //updates the library to reflect that the next autoplayed song is "selected"
     await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     const newSongs = songs.map((song) => {
       if (song.id === songs[(currentIndex + 1) % songs.length].id) {
@@ -137,7 +138,7 @@ export const MusicLibrary: React.FC = () => {
           onEnded={songEndHandler}
           onLoadedData={audioLoadReady}
         ></audio>
-        {/* <AudioVisualizer isPlaying={isPlaying} audioRef={audioRef} /> */}
+        <AudioVisualizer isPlaying={isPlaying} audioRef={audioRef} />
       </div>
     </motion.div>
   );

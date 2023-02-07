@@ -52,8 +52,10 @@ const PlayableSong: React.FC<PlayableSongProps> = ({
         alt={currentSong.name}
         src={currentSong.cover}
       ></img>
-      <h2 className="pt-4 text-lg md:text-3xl">{currentSong.name}</h2>
-      <h3 className="text-base italic md:text-lg">
+      <h2 className="pt-4 font-montserrat font-normal text-lg md:text-4xl">
+        {currentSong.name}
+      </h2>
+      <h3 className="p-2 font-montserrat font-light text-sm md:text-lg">
         {currentSong.artist} ({currentSong.year})
       </h3>
     </div>

@@ -15,7 +15,9 @@ export const Router = () => {
           <Route index element={<Home />} />
           <Route path="/work" element={<MyWork />} />
           <Route path="/contact" element={<ContactMe />} />
-          <Route path="/music" element={<MusicLibrary />} />
+          <Route path="/music" element={<MusicLibrary />}>
+            <Route path=":id" element={<MusicLibrary />} />
+          </Route>
         </Routes>
       </AnimatePresence>
     </>
