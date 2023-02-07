@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { titleAnim, fade, photoAnim, pageAnimation } from "../utils/Animation";
 import resume from "../assets/resume.pdf";
 import { SocialIcon } from "react-social-icons";
+import ScrollTop from "../utils/ScrollTop";
 
 export const ContactMe = () => {
   return (
@@ -14,7 +15,10 @@ export const ContactMe = () => {
     >
       <div>
         <div>
-          <motion.h2 className="py-10 text-3xl md:text-7xl md:py-20" variants={titleAnim}>
+          <motion.h2
+            className="py-10 text-3xl md:py-20 md:text-7xl"
+            variants={titleAnim}
+          >
             Contact <span className="text-cyan-custom">Me</span>
           </motion.h2>
         </div>
@@ -53,6 +57,7 @@ export const ContactMe = () => {
           </motion.div>
         </div>
       </div>
+      <ScrollTop />
     </motion.div>
   );
 };

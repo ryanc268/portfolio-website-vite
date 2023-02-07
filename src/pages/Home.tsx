@@ -3,6 +3,7 @@ import { pageAnimation } from "../utils/Animation";
 import AboutSection from "../components/home/AboutSection";
 import ServicesSection from "../components/home/ServicesSection";
 import FaqSection from "../components/home/FaqSection";
+import ScrollTop from "../utils/ScrollTop";
 
 export const Home = () => {
   return (
@@ -16,6 +17,7 @@ export const Home = () => {
       <AboutSection />
       <ServicesSection />
       <FaqSection />
+      <ScrollTop />
     </motion.div>
   );
 };

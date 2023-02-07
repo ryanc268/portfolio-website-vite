@@ -19,9 +19,9 @@ import {
 import { useScroll } from "../hooks/useScroll";
 import ScrollTop from "../utils/ScrollTop";
 
-export const MyWork = () => {
+export const MyWork: React.FC = () => {
   const isMobile = () => {
-    return window.innerWidth < 700;
+    return window.innerWidth < 768;
   };
 
   const [element, controls] = useScroll(isMobile() ? 700 : 0);
@@ -55,7 +55,7 @@ export const MyWork = () => {
           variants={slider}
         ></motion.div>
       </motion.div>
-      <motion.div className="flex-1">
+      <motion.div className="px-10 py-4">
         <motion.h2 className="text-2xl" variants={fade}>
           <span className="text-cyan-custom">Valerian X</span> C# Mobile Game
         </motion.h2>
@@ -65,11 +65,17 @@ export const MyWork = () => {
         ></motion.div>
         <Link to="/work/valerianX">
           <div className="overflow-hidden">
-            <motion.img variants={photoAnim} src={card} alt="ValerianX Card" />
+            <motion.img
+              className="pt-4"
+              variants={photoAnim}
+              src={card}
+              alt="ValerianX Card"
+            />
           </div>
         </Link>
       </motion.div>
       <motion.div
+        className="px-10 py-4"
         variants={fade}
         animate={controls}
         initial="hidden"
@@ -84,10 +90,11 @@ export const MyWork = () => {
           variants={lineAnim}
         ></motion.div>
         <a href="https://ryanc268-typescript-websocket-game.up.railway.app/">
-          <img src={cubegame} alt="Cube Game Banner" />
+          <img className="pt-4" src={cubegame} alt="Cube Game Banner" />
         </a>
       </motion.div>
       <motion.div
+        className="px-10 py-4"
         variants={fade}
         animate={controls2}
         initial="hidden"
@@ -102,10 +109,11 @@ export const MyWork = () => {
           variants={lineAnim}
         ></motion.div>
         <Link to="/work/react-music-player">
-          <img src={reactbig} alt="React Icon" />
+          <img className="pt-4" src={reactbig} alt="React Icon" />
         </Link>
       </motion.div>
       <motion.div
+        className="px-10 py-4"
         variants={fade}
         animate={controls3}
         initial="hidden"
@@ -120,7 +128,7 @@ export const MyWork = () => {
           variants={lineAnim}
         ></motion.div>
         <Link className="flex justify-center" to="/work/goon-bot">
-          <img src={goonIcon} alt="Goon Bot Icon" />
+          <img className="pt-4" src={goonIcon} alt="Goon Bot Icon" />
         </Link>
       </motion.div>
       <ScrollTop />
