@@ -24,13 +24,14 @@ export const MyWork: React.FC = () => {
     return window.innerWidth < 768;
   };
 
-  const [element, controls] = useScroll(isMobile() ? 700 : 0);
-  const [element2, controls2] = useScroll(isMobile() ? 900 : 0);
+  const [element, controls] = useScroll(0);
+  const [element2, controls2] = useScroll(0);
   const [element3, controls3] = useScroll(0);
+  const [element4, controls4] = useScroll(0);
 
   return (
     <motion.div
-      className="flex-1 text-center"
+      className="flex-1 flex-wrap justify-center text-center md:flex py-4"
       variants={pageAnimation}
       initial="hidden"
       animate="show"
@@ -39,49 +40,51 @@ export const MyWork: React.FC = () => {
     >
       <motion.div variants={sliderContainer}>
         <motion.div
-          className="fixed left-0 z-20 h-screen w-screen bg-indigo-900"
+          className="fixed left-0 top-0 z-20 h-screen w-screen bg-indigo-900"
           variants={slider}
         ></motion.div>
         <motion.div
-          className="fixed left-0 z-20 h-screen w-screen bg-cyan-600"
+          className="fixed left-0 top-0 z-20 h-screen w-screen bg-cyan-600"
           variants={slider}
         ></motion.div>
         <motion.div
-          className="fixed left-0 z-20 h-screen w-screen bg-violet-900"
+          className="fixed left-0 top-0 z-20 h-screen w-screen bg-violet-900"
           variants={slider}
         ></motion.div>
         <motion.div
-          className="fixed left-0 z-20 h-screen w-screen bg-cyan-300"
+          className="fixed left-0 top-0 z-20 h-screen w-screen bg-cyan-300"
           variants={slider}
         ></motion.div>
       </motion.div>
-      <motion.div className="px-10 py-4">
-        <motion.h2 className="text-2xl" variants={fade}>
+      <motion.div
+        className="px-10 py-4 md:w-2/5"
+        variants={fade}
+        animate={controls}
+        initial="hidden"
+        ref={element}
+      >
+        <motion.h2 className="text-2xl py-4 md:text-4xl">
           <span className="text-cyan-custom">Valerian X</span> C# Mobile Game
+          Made With Unity 2D
         </motion.h2>
         <motion.div
           className="h-0.5 bg-cyan-custom"
           variants={lineAnim}
         ></motion.div>
         <Link to="/work/valerianX">
-          <div className="overflow-hidden">
-            <motion.img
-              className="pt-4"
-              variants={photoAnim}
-              src={card}
-              alt="ValerianX Card"
-            />
+          <div className="flex justify-center overflow-hidden">
+            <img className="pt-4" src={card} alt="ValerianX Card" />
           </div>
         </Link>
       </motion.div>
       <motion.div
-        className="px-10 py-4"
+        className="px-10 py-4 md:w-2/5"
         variants={fade}
-        animate={controls}
+        animate={controls2}
         initial="hidden"
-        ref={element}
+        ref={element2}
       >
-        <motion.h2 className="text-2xl">
+        <motion.h2 className="text-2xl py-4 md:text-4xl">
           <span className="text-cyan-custom">Cube Game</span> Multiplayer
           Typescript Party-Game using Websockets
         </motion.h2>
@@ -89,18 +92,21 @@ export const MyWork: React.FC = () => {
           className="h-0.5 bg-cyan-custom"
           variants={lineAnim}
         ></motion.div>
-        <a href="https://ryanc268-typescript-websocket-game.up.railway.app/">
+        <a
+          className=" flex justify-center"
+          href="https://ryanc268-typescript-websocket-game.up.railway.app/"
+        >
           <img className="pt-4" src={cubegame} alt="Cube Game Banner" />
         </a>
       </motion.div>
       <motion.div
-        className="px-10 py-4"
+        className="px-10 py-4 md:w-2/5"
         variants={fade}
-        animate={controls2}
+        animate={controls3}
         initial="hidden"
-        ref={element2}
+        ref={element3}
       >
-        <motion.h2 className="text-2xl">
+        <motion.h2 className="text-2xl py-4 md:text-4xl">
           React <span className="text-cyan-custom">Audio Library</span> w/
           Visualization (Featured in Music Prod Tab)
         </motion.h2>
@@ -108,18 +114,18 @@ export const MyWork: React.FC = () => {
           className="h-0.5 bg-cyan-custom"
           variants={lineAnim}
         ></motion.div>
-        <Link to="/work/react-music-player">
-          <img className="pt-4" src={reactbig} alt="React Icon" />
+        <Link className="flex justify-center" to="/music">
+          <img className="pt-4 md:w-full" src={reactbig} alt="React Icon" />
         </Link>
       </motion.div>
       <motion.div
-        className="px-10 py-4"
+        className="px-10 py-4 md:w-2/5"
         variants={fade}
-        animate={controls3}
+        animate={controls4}
         initial="hidden"
-        ref={element3}
+        ref={element4}
       >
-        <motion.h2 className="text-2xl">
+        <motion.h2 className="text-2xl py-4 md:text-4xl">
           <span className="text-cyan-custom">Goon Bot</span> NodeJS Discord Bot
           (Page Under Contruction)
         </motion.h2>
@@ -128,7 +134,7 @@ export const MyWork: React.FC = () => {
           variants={lineAnim}
         ></motion.div>
         <Link className="flex justify-center" to="/work/goon-bot">
-          <img className="pt-4" src={goonIcon} alt="Goon Bot Icon" />
+          <img className="pt-4 md:w-full" src={goonIcon} alt="Goon Bot Icon" />
         </Link>
       </motion.div>
       <ScrollTop />

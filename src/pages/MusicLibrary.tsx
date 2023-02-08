@@ -5,9 +5,7 @@ import Player from "../components/musiclibrary/Player";
 import PlayableSong from "../components/musiclibrary/PlayableSong";
 import Library from "../components/musiclibrary/Library";
 import PlayerNav from "../components/musiclibrary/PlayerNav";
-import AudioVisualizer from "../components/AudioVisualizer"
-
-//import AudioVisualizer from "../components/AudioVisualizer";
+import AudioVisualizer from "../components/AudioVisualizer";
 import { pageAnimation } from "../utils/Animation";
 //Animations
 import { motion } from "framer-motion";
@@ -29,7 +27,7 @@ export const MusicLibrary: React.FC = () => {
     volume: 0.4,
   });
   const [libraryStatus, setLibraryStatus] = useState(false);
-  //Event Handlers
+  //Event Handlers;
   //TODO: fix any
   const timeUpdateHandler = (e: any) => {
     const current = e.target.currentTime;
@@ -90,7 +88,6 @@ export const MusicLibrary: React.FC = () => {
     } else if (url.includes("/music/")) {
       navigate("/music");
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url]);
 
   return (
