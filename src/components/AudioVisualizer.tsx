@@ -1,51 +1,58 @@
-import React, { MutableRefObject, useEffect, useRef } from "react";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 
 interface AudioVisualizerProps {
   isPlaying: boolean;
   audioRef: MutableRefObject<HTMLAudioElement | null>;
 }
 
-const audioContext = new AudioContext();
-
 const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
   isPlaying,
   audioRef,
 }) => {
+  const didLoad = useRef<boolean>(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
   const contextRef = useRef<CanvasRenderingContext2D>();
 
-  let audioSource: MediaElementAudioSourceNode;
-  let analyser: AnalyserNode;
+  const [audioContext, setAudioContext] = useState<AudioContext>();
+
+  let audioSource = useRef<MediaElementAudioSourceNode | null>(null);
+  let analyser = useRef<AnalyserNode | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas!.getContext("2d");
     if (!context) throw new Error("Visualizer Could Not Get Canvas Context");
     contextRef.current = context;
-    startVisualizer();
-    return () => {
-      audioSource.disconnect();
-      analyser.disconnect();
-      audioContext.suspend();
-    };
   }, []);
 
   useEffect(() => {
-    audioContext.resume();
+    if (didLoad.current) {
+      setAudioContext(new AudioContext());
+    } else didLoad.current = true;
   }, [isPlaying]);
+
+  useEffect(() => {
+    if (didLoad.current && isPlaying) {
+      startVisualizer();
+      audioContext!.resume();
+    }
+  }, [audioContext]);
 
   //Event Handlers
   const startVisualizer = () => {
+    //setAudioContext();
     const audio = audioRef.current as HTMLAudioElement;
-    if (!audioSource) {
-      audioSource = audioContext.createMediaElementSource(audio);
-      analyser = audioContext.createAnalyser();
-      audioSource.connect(analyser);
-      analyser.connect(audioContext.destination);
-      analyser.fftSize = 1024;
+
+    if (!audioSource.current) {
+      audioSource.current = audioContext!.createMediaElementSource(audio);
+      analyser.current = audioContext!.createAnalyser();
+      audioSource.current.connect(analyser.current);
+      analyser.current.connect(audioContext!.destination);
+      analyser.current.fftSize = 1024;
     }
     //will be half of fftSize
-    const bufferLength = analyser.frequencyBinCount;
+    const bufferLength = analyser.current!.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
     const barWidth = canvasRef.current!.width / bufferLength;
@@ -55,20 +62,21 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
 
     const animate = () => {
       x = 0;
-      contextRef.current!.clearRect(
-        0,
-        0,
-        canvasRef.current!.width,
-        canvasRef.current!.height
-      );
-      if (!audio.paused) {
-        //console.log("animating");
-        analyser.getByteFrequencyData(dataArray);
-        drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray);
+      if (contextRef.current && canvasRef.current) {
+        contextRef.current.clearRect(
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
+        if (!audio.paused) {
+          analyser.current!.getByteFrequencyData(dataArray);
+          drawVisualizer(bufferLength, x, barWidth, barHeight, dataArray);
+        }
       }
       requestAnimationFrame(animate);
     };
-    animate();
+    if (isPlaying) animate();
   };
 
   const drawVisualizer = (
