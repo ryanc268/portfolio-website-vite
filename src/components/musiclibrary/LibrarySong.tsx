@@ -48,7 +48,7 @@ const LibrarySong: React.FC<LibrarySongProps> = ({
       }`}
     >
       <img
-        className="w-1/4 rounded-lg md:w-1/4"
+        className="w-1/4 rounded-lg"
         alt={song.name}
         src={song.cover}
       ></img>

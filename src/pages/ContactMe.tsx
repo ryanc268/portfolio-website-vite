@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import { titleAnim, fade, photoAnim, pageAnimation } from "../utils/Animation";
+import { titleAnim, pageAnimation } from "../utils/Animation";
 import resume from "../assets/resume.pdf";
 import { SocialIcon } from "react-social-icons";
 import ScrollTop from "../utils/ScrollTop";
+import { Helmet } from "react-helmet";
 
 export const ContactMe = () => {
   return (
@@ -13,6 +14,7 @@ export const ContactMe = () => {
       animate="show"
       exit="exit"
     >
+      <CustomHelmet />
       <div>
         <div>
           <motion.h2
@@ -59,5 +61,25 @@ export const ContactMe = () => {
       </div>
       <ScrollTop />
     </motion.div>
+  );
+};
+
+const CustomHelmet = () => {
+  return (
+    <Helmet>
+      <title>Contact</title>
+      <meta
+        name="description"
+        content="Contact me for any inquiries or further interest in my projects!"
+      />
+      <meta property="og:title" content="Contact Me" />
+      <meta property="og:description" content="Contact page of my portfolio!" />
+      <meta property="og:url" content="https://www.ryancoppa.com/contact" />
+      <meta name="twitter:title" content="Contact Me" />
+      <meta
+        name="twitter:description"
+        content="Contact me for any inquiries or further interest in my projects!"
+      />
+    </Helmet>
   );
 };

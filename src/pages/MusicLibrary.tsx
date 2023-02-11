@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 
 import data from "../assets/data/data";
 import { Song, SongInfo } from "../global/interfaces";
+import ScrollTop from "../utils/ScrollTop";
 
 export const MusicLibrary: React.FC = () => {
   //Ref
@@ -137,6 +138,7 @@ export const MusicLibrary: React.FC = () => {
         ></audio>
         <AudioVisualizer isPlaying={isPlaying} audioRef={audioRef} />
       </div>
+      <ScrollTop />
     </motion.div>
   );
 };

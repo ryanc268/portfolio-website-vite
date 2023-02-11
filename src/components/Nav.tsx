@@ -63,7 +63,7 @@ const Nav = () => {
             className="absolute left-auto h-0.5 rounded-sm bg-cyan-custom md:h-1"
             transition={{ duration: 0.5 }}
             initial={{ width: "0%" }}
-            animate={{ width: url === "/music" ? decideNavUnderline() : "0%" }}
+            animate={{ width: url.includes("/music") ? decideNavUnderline() : "0%" }}
           />
         </li>
       </ul>
