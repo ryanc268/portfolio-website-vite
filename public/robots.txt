@@ -1,5 +1,7 @@
 # https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Disallow:
-User-agent: Googlebot-Image
-Disallow: /
+
+User-agent: * 
+Disallow: /*.jpg$
+Disallow: /*.jpeg$
+Disallow: /*.gif$
+Disallow: /*.png$
