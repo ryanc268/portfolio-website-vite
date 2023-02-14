@@ -46,16 +46,16 @@ const PlayableSong: React.FC<PlayableSongProps> = ({
         />
       </Helmet>
       <img
-        className={`w-80 h-80 rounded-full md:w-96 md:h-96 ${
+        className={`h-80 w-80 rounded-full md:h-96 md:w-96 ${
           isPlaying ? "animate-spin-slow" : ""
         }`}
         alt={currentSong.name}
         src={currentSong.cover}
       ></img>
-      <h2 className="pt-4 font-montserrat font-normal text-lg md:text-4xl">
+      <h2 className="pt-4 font-montserrat text-lg font-normal md:text-4xl">
         {currentSong.name}
       </h2>
-      <h3 className="p-2 font-montserrat font-light text-sm md:text-lg">
+      <h3 className="p-2 font-montserrat text-sm font-light md:text-lg">
         {currentSong.artist} ({currentSong.year})
       </h3>
     </div>

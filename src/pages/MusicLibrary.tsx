@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import data from "../assets/data/data";
 import { Song, SongInfo } from "../global/interfaces";
 import ScrollTop from "../utils/ScrollTop";
+import { Visualizer } from "../global/enums";
 
 export const MusicLibrary: React.FC = () => {
   //Ref
@@ -21,6 +22,7 @@ export const MusicLibrary: React.FC = () => {
   const [songs, setSongs] = useState<Song[]>(data());
   const [currentSong, setCurrentSong] = useState<Song>(songs[0]);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [visualizer, setVisualizer] = useState<Visualizer>(Visualizer.BASIC);
   const [songInfo, setSongInfo] = useState<SongInfo>({
     currentTime: 0,
     duration: 0,
@@ -107,6 +109,8 @@ export const MusicLibrary: React.FC = () => {
         <PlayerNav
           libraryStatus={libraryStatus}
           setLibraryStatus={setLibraryStatus}
+          visualizer={visualizer}
+          setVisualizer={setVisualizer}
         />
         <PlayableSong currentSong={currentSong} isPlaying={isPlaying} />
         <Player
@@ -136,7 +140,11 @@ export const MusicLibrary: React.FC = () => {
           onEnded={songEndHandler}
           onLoadedData={audioLoadReady}
         ></audio>
-        <AudioVisualizer isPlaying={isPlaying} audioRef={audioRef} />
+        <AudioVisualizer
+          isPlaying={isPlaying}
+          audioRef={audioRef}
+          visualizer={visualizer}
+        />
       </div>
       <ScrollTop />
     </motion.div>
