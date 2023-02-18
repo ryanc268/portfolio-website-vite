@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMusic } from "@fortawesome/free-solid-svg-icons";
 import { RadioGroup } from "@headlessui/react";
@@ -11,7 +11,7 @@ interface PlayerNavProps {
   setVisualizer: React.Dispatch<React.SetStateAction<Visualizer>>;
 }
 
-const memoryOptions = Object.values(Visualizer)
+const visualizerValues = Object.values(Visualizer)
   .filter((value) => typeof value !== "string")
   .map((value) => value as Visualizer);
 
@@ -36,8 +36,8 @@ const PlayerNav: React.FC<PlayerNavProps> = ({
           <RadioGroup.Label className="sr-only">
             Choose a memory option
           </RadioGroup.Label>
-          <div className="flex flex-row justify-center gap-2 md:gap-8 md:px-40">
-            {memoryOptions.map((option) => (
+          <div className="flex flex-row justify-center gap-1 md:gap-4 md:px-40">
+            {visualizerValues.map((option) => (
               <RadioGroup.Option
                 key={option}
                 value={option}

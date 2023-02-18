@@ -94,7 +94,7 @@ const landscapes: string[] = [
   Title,
 ];
 
-const memoryOptions = [
+const artLibraries = [
   { name: "Characters", assets: characters },
   { name: "Monsters", assets: monsters },
   { name: "Landscapes", assets: landscapes },
@@ -105,7 +105,7 @@ function classNames(...classes: string[]) {
 }
 
 const ValerianX = () => {
-  const [mem, setMem] = useState(memoryOptions[0]);
+  const [library, setLibrary] = useState(artLibraries[0]);
   return (
     <motion.div
       className="overflow-x-hidden"
@@ -119,13 +119,13 @@ const ValerianX = () => {
         <h2 className="py-2 text-center font-montserrat text-4xl font-light md:py-4 md:text-6xl">
           Valerian X
         </h2>
-        <div className="">
-          <RadioGroup value={mem} onChange={setMem} className="mt-2">
+        <div>
+          <RadioGroup value={library} onChange={setLibrary} className="mt-2">
             <RadioGroup.Label className="sr-only">
               Choose a memory option
             </RadioGroup.Label>
             <div className="flex flex-row justify-center gap-2 md:gap-8 md:px-40">
-              {memoryOptions.map((option) => (
+              {artLibraries.map((option) => (
                 <RadioGroup.Option
                   key={option.name}
                   value={option}
@@ -147,7 +147,7 @@ const ValerianX = () => {
         </div>
         <div className="pt-4">
           <div className="flex h-60 flex-row flex-wrap items-center justify-center overflow-y-scroll md:h-96">
-            {mem.assets.map((c, i) => (
+            {library.assets.map((c, i) => (
               <img key={i} className="w-1/4 p-0.5 md:w-1/5" src={c}></img>
             ))}
           </div>

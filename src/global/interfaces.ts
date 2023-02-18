@@ -1,6 +1,5 @@
-//image?: HTMLImageElement
-//image?: String
-//image?: File
+import { MutableRefObject } from "react";
+
 export interface Song {
   name: string;
   artist: string;
@@ -19,4 +18,11 @@ export interface SongInfo {
   animationPercerntage: number;
   volume: number;
   animationPercentage?: number;
+}
+
+export interface VisualizerProps {
+  isPlaying: boolean;
+  audioRef: MutableRefObject<HTMLAudioElement | null>;
+  audioContext: AudioContext;
+  audioSource: MutableRefObject<MediaElementAudioSourceNode | null>;
 }
