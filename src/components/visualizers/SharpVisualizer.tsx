@@ -53,7 +53,6 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
     let barHeight: number;
 
     const animate = () => {
-      console.log("Sharp");
       if (contextRef.current && canvasRef.current) {
         contextRef.current.clearRect(
           0,

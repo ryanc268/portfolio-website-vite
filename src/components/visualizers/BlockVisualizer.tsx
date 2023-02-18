@@ -9,6 +9,8 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
 }) => {
   const FFT_SIZE = 1024;
 
+  const DATA_ARRAY_COEFFICIENT = isMobile() ? 1.75 : 3;
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const contextRef = useRef<CanvasRenderingContext2D>();
@@ -46,6 +48,12 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
     analyser.current.connect(audioContext!.destination);
     analyser.current.fftSize = FFT_SIZE;
 
+    contextRef.current!.lineCap = "square";
+    contextRef.current!.shadowOffsetX = 4;
+    contextRef.current!.shadowOffsetY = 2;
+    contextRef.current!.shadowBlur = 5;
+    contextRef.current!.shadowColor = "black";
+
     //will be half of fftSize
     const bufferLength = analyser.current!.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
@@ -53,7 +61,6 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
     let barHeight: number;
 
     const animate = () => {
-      console.log("Block");
       if (contextRef.current && canvasRef.current) {
         contextRef.current.clearRect(
           0,
@@ -76,13 +83,8 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
     barHeight: number,
     dataArray: Uint8Array
   ) => {
-    contextRef.current!.lineCap = "square";
-    contextRef.current!.shadowOffsetX = 4;
-    contextRef.current!.shadowOffsetY = 2;
-    contextRef.current!.shadowBlur = 5;
-    contextRef.current!.shadowColor = "black";
     for (let i = 0; i < bufferLength; i++) {
-      barHeight = isMobile() ? dataArray[i] / 1.75 : dataArray[i] / 3;
+      barHeight = dataArray[i] / DATA_ARRAY_COEFFICIENT;
       contextRef.current!.save();
       //Move to middle of screen
       contextRef.current!.translate(

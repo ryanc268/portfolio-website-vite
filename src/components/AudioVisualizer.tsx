@@ -72,7 +72,7 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
     }
   };
 
-  return <>{renderVizualizer()}</>;
+  return <>{isPlaying && renderVizualizer()}</>;
 };
 
 export default AudioVisualizer;

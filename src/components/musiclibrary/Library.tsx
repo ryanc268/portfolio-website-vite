@@ -21,7 +21,7 @@ const Library: React.FC<LibraryProps> = ({
 }) => {
   return (
     <div
-      className={`Library fixed left-0 top-0 pt-24 h-screen w-screen -translate-x-full overflow-x-hidden bg-zinc-800 transition-all duration-500 md:w-1/5 2xl:w-1/6 ${
+      className={`Library fixed left-0 top-0 z-20 h-screen w-screen -translate-x-full overflow-x-hidden bg-zinc-800 pt-24 transition-all duration-500 md:w-1/5 2xl:w-1/6 ${
         libraryStatus
           ? "translate-x-0 opacity-100 md:shadow-2xl md:shadow-zinc-400"
           : ""

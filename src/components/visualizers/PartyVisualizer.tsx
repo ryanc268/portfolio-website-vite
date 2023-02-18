@@ -53,7 +53,6 @@ const PartyVisualizer: React.FC<VisualizerProps> = ({
     let barHeight: number;
 
     const animate = () => {
-      console.log("Party");
       if (contextRef.current && canvasRef.current) {
         contextRef.current.clearRect(
           0,

@@ -52,7 +52,6 @@ const BasicVisualizer: React.FC<VisualizerProps> = ({
     let x: number;
 
     const animate = () => {
-      console.log("Basic");
       x = 0;
       if (contextRef.current && canvasRef.current) {
         contextRef.current.clearRect(

@@ -109,12 +109,10 @@ const Player: React.FC<PlayerProps> = ({
         console.log("Error with MediaSession (Generic) on current device");
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSong, isPlaying]);
 
   useEffect(() => {
     mediaSessionTimeHandler();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [songInfo]);
 
   //Event Handlers
@@ -147,10 +145,9 @@ const Player: React.FC<PlayerProps> = ({
       );
     }
   };
-  //TODO: fix any
-  const dragHandler = (e: any) => {
-    audioRef.current!.currentTime = e.target.value;
-    setSongInfo({ ...songInfo, currentTime: e.target.value });
+  const dragHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    audioRef.current!.currentTime = +e.target.value;
+    setSongInfo({ ...songInfo, currentTime: +e.target.value });
   };
   const skipTrackHandler = async (direction: TrackDirection) => {
     let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
@@ -175,9 +172,8 @@ const Player: React.FC<PlayerProps> = ({
     transform: `translateX(${songInfo.animationPercentage}%)`,
   };
 
-  //TODO: fix any
-  const changeVolume = (e: any) => {
-    let value = e.target.value;
+  const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = +e.target.value;
     audioRef.current!.volume = value;
     setSongInfo({ ...songInfo, volume: value });
   };
