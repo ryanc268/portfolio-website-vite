@@ -186,9 +186,11 @@ const Player: React.FC<PlayerProps> = ({
       for (let i = 0; i < e.target.files.length; i++) {
         const uploadId = e.target.files[i].lastModified.toString();
         //check if the current uploaded song ID matches an id already in the library
-        //If exists, skip upload, if it doesn't then add to the front of the library
-        const songIncluded = !songs.every((s) => s.id !== uploadId);
-        if (!songIncluded) {
+        //also verifies the file is an mpeg/mp3 (for phones mainly)
+        const songOkay =
+          songs.every((s) => s.id !== uploadId) &&
+          e.target.files[i].type === "audio/mpeg";
+        if (songOkay) {
           const uploadedSong: Song = {
             name: e.target.files[i].name,
             artist: "",
