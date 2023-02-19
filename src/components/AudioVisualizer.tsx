@@ -4,6 +4,7 @@ import BasicVisualizer from "./visualizers/BasicVisualizer";
 import BlockVisualizer from "./visualizers/BlockVisualizer";
 import PartyVisualizer from "./visualizers/PartyVisualizer";
 import SharpVisualizer from "./visualizers/SharpVisualizer";
+import ChaosVisualizer from "./visualizers/ChaosVisualizer";
 
 interface AudioVisualizerProps {
   isPlaying: boolean;
@@ -49,6 +50,14 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
       case Visualizer.BLOCK:
         return (
           <BlockVisualizer
+            audioRef={audioRef}
+            audioContext={audioContext}
+            audioSource={audioSource}
+          />
+        );
+      case Visualizer.CHAOS:
+        return (
+          <ChaosVisualizer
             audioRef={audioRef}
             audioContext={audioContext}
             audioSource={audioSource}

@@ -1,15 +1,19 @@
 import { useEffect, useRef } from "react";
 import { VisualizerProps } from "../../global/interfaces";
 
-const SharpVisualizer: React.FC<VisualizerProps> = ({
+const ChaosVisualizer: React.FC<VisualizerProps> = ({
   audioRef,
   audioContext,
   audioSource,
 }: VisualizerProps) => {
   //Only use doubles or halves
-  const FFT_SIZE = 2048;
+  const FFT_SIZE = 128;
 
-  const DATA_ARRAY_COEFFICIENT = isMobile() ? 3 : 2.5;
+  const DATA_ARRAY_COEFFICIENT = isMobile() ? 2.5 : 3.5;
+
+  const BASE = isMobile() ? 20 : 15;
+
+  const DIVISOR = isMobile() ? 5 : 6.5;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -48,6 +52,14 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
     analyser.current.connect(audioContext.destination);
     analyser.current.fftSize = FFT_SIZE;
 
+    if (contextRef.current) {
+      contextRef.current.lineCap = "square";
+      contextRef.current.shadowOffsetX = 4;
+      contextRef.current.shadowOffsetY = 2;
+      contextRef.current.shadowBlur = 5;
+      contextRef.current.shadowColor = "black";
+    }
+
     //will be half of fftSize
     const bufferLength = analyser.current.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
@@ -64,7 +76,7 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
         );
         if (!audio.paused && analyser.current) {
           analyser.current.getByteFrequencyData(dataArray);
-          drawSharpVisualizer(bufferLength, barHeight, dataArray);
+          drawChaosVisualizer(bufferLength, barHeight, dataArray);
         }
       }
       animationId = requestAnimationFrame(animate);
@@ -72,31 +84,68 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
     animate();
   };
 
-  const drawSharpVisualizer = (
+  const drawChaosVisualizer = (
     bufferLength: number,
     barHeight: number,
     dataArray: Uint8Array
   ) => {
     if (!contextRef.current || !canvasRef.current) return;
     for (let i = 0; i < bufferLength; i++) {
-      barHeight = dataArray[i] * DATA_ARRAY_COEFFICIENT;
-      contextRef.current.save();
-      //Move to middle of screen
+      barHeight = dataArray[i] / DATA_ARRAY_COEFFICIENT;
+      contextRef.current?.save();
       contextRef.current.translate(
         canvasRef.current.width / 2,
         canvasRef.current.height / 2
       );
-      contextRef.current.rotate(i * 15);
-      //Calculate colour
-      const hue = 120 + i * 0.4;
-      contextRef.current.fillStyle = `hsl(${hue}, 100%, 50%)`;
+      contextRef.current.rotate(i);
+
+      contextRef.current.lineWidth = barHeight / 4;
       contextRef.current.beginPath();
-      //draw the shape
-      contextRef.current.arc(10, barHeight / 6, barHeight / 8, 0, Math.PI / 6);
+      contextRef.current.moveTo(0, 0);
+      contextRef.current.lineTo(0, barHeight);
+      contextRef.current.stroke();
+
+      contextRef.current.lineWidth = barHeight / 5;
+      const hue = 250 + i * 20;
+      contextRef.current.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+      contextRef.current.beginPath();
+      contextRef.current.moveTo(0, 0);
+      contextRef.current.lineTo(0, barHeight);
+      contextRef.current.stroke();
+
+      contextRef.current.restore();
+    }
+
+    for (let i = bufferLength; i > 0; i--) {
+      barHeight =
+        dataArray[i] >= BASE
+          ? dataArray[i] / DIVISOR < BASE
+            ? BASE
+            : dataArray[i] / DIVISOR
+          : BASE;
+      contextRef.current?.save();
+      contextRef.current.translate(
+        canvasRef.current.width / 2,
+        canvasRef.current.height / 2
+      );
+      contextRef.current.rotate(i);
+      contextRef.current.lineWidth = 3;
+      contextRef.current.beginPath();
+      contextRef.current.arc(
+        0,
+        barHeight * 3.5,
+        barHeight / 2.5,
+        0,
+        Math.PI * 2
+      );
+      const hue = 250 + i * 2;
+      contextRef.current.fillStyle = `hsl(${hue}, 100%, 50%)`;
       contextRef.current.fill();
+      contextRef.current.stroke();
       contextRef.current.restore();
     }
   };
+
   return (
     <canvas
       className="fixed top-0 left-0 -z-10 h-screen w-screen"
@@ -105,4 +154,4 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
   );
 };
 
-export default SharpVisualizer;
+export default ChaosVisualizer;

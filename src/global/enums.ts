@@ -9,4 +9,5 @@ export enum Visualizer {
   PARTY,
   SHARP,
   BLOCK,
+  CHAOS,
 }

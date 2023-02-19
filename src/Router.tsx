@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { MyWork } from "./pages/MyWork";

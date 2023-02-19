@@ -7,9 +7,9 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
   audioSource,
 }: VisualizerProps) => {
   //Only use doubles or halves
-  const FFT_SIZE = 1024;
+  const FFT_SIZE = 512;
 
-  const DATA_ARRAY_COEFFICIENT = isMobile() ? 1.75 : 3;
+  const DATA_ARRAY_COEFFICIENT = isMobile() ? 1.8 : 2.5;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
