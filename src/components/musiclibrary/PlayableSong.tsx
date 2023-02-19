@@ -46,7 +46,7 @@ const PlayableSong: React.FC<PlayableSongProps> = ({
         />
       </Helmet>
       <img
-        className={`h-60 w-60 rounded-full md:h-96 md:w-96 ${
+        className={`h-60 w-60 rounded-full md:h-80 md:w-80 2xl:h-96 2xl:w-96 ${
           isPlaying ? "animate-spin-slow" : ""
         }`}
         alt={currentSong.name}

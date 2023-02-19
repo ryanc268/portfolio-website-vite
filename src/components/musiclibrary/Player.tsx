@@ -10,6 +10,8 @@ import {
 import { Song, SongInfo } from "../../global/interfaces";
 import { TrackDirection } from "../../global/enums";
 
+import logo from "/src/assets/logo192.png";
+
 interface PlayerProps {
   audioRef: MutableRefObject<HTMLAudioElement | null>;
   currentSong: Song;
@@ -176,9 +178,41 @@ const Player: React.FC<PlayerProps> = ({
     if (audioRef.current) audioRef.current.volume = value;
     setSongInfo({ ...songInfo, volume: value });
   };
+
+  const uploadCustomSong = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //Keeps track to know if any new songs upload so we can move to them
+    let songsUploaded = 0;
+    if (audioRef.current && e.target.files) {
+      for (let i = 0; i < e.target.files.length; i++) {
+        const uploadId = e.target.files[i].lastModified.toString();
+        //check if the current uploaded song ID matches an id already in the library
+        //If exists, skip upload, if it doesn't then add to the front of the library
+        const songIncluded = !songs.every((s) => s.id !== uploadId);
+        if (!songIncluded) {
+          const uploadedSong: Song = {
+            name: e.target.files[i].name,
+            artist: "",
+            year: e.target.files[i].lastModified,
+            cover: logo,
+            id: uploadId,
+            url: "",
+            active: false,
+            color: ["#3B4E59", "#1B272F"],
+            audio: URL.createObjectURL(e.target.files[i]),
+          };
+          songs.unshift(uploadedSong);
+          songsUploaded++;
+        }
+      }
+      if (songsUploaded > 0) {
+        setCurrentSong(songs[0]);
+        activeLibraryHandler(songs[0]);
+      }
+    }
+  };
   return (
     <div className="flex flex-col items-center justify-between">
-      <div className="z-10 flex w-10/12 items-center pt-4 md:w-1/2">
+      <div className="z-10 flex w-10/12 items-center md:w-1/2">
         <p className="px-2 text-sm md:text-xl">
           {getTime(songInfo.currentTime)}
         </p>
@@ -225,8 +259,23 @@ const Player: React.FC<PlayerProps> = ({
           icon={faAngleRight}
         />
       </div>
-      <div className="pt-8">
+      <div className="flex flex-col items-center justify-between pt-4">
+        <label
+          className="rounded border border-gray-200 p-1 font-montserrat text-sm hover:bg-indigo-700 md:p-2 md:text-base"
+          htmlFor="upload"
+        >
+          Upload Your Own Music
+        </label>
+        <input
+          className="hidden"
+          type="file"
+          id="upload"
+          onChange={uploadCustomSong}
+          multiple
+          accept="audio/mp3"
+        />
         <FontAwesomeIcon
+          className="pt-4"
           onClick={() => setActiveVolume(!activeVolume)}
           icon={faVolumeDown}
           size="2x"
