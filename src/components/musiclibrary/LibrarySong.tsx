@@ -20,9 +20,9 @@ const LibrarySong: React.FC<LibrarySongProps> = ({
   isPlaying,
   setSongs,
 }) => {
-  const songSelectHandler = async () => {
+  const songSelectHandler = () => {
     //const selectedSong = songs.filter((state) => state, id === id);
-    await setCurrentSong(song);
+    setCurrentSong(song);
 
     const newSongs = songs.map((song) => {
       if (song.id === id) {

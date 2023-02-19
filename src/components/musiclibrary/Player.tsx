@@ -61,10 +61,10 @@ const Player: React.FC<PlayerProps> = ({
         navigator.mediaSession.setActionHandler("pause", () =>
           playSongHandler()
         );
-        navigator.mediaSession.setActionHandler("nexttrack", async () =>
+        navigator.mediaSession.setActionHandler("nexttrack", () =>
           skipTrackHandler(TrackDirection.FORWARD)
         );
-        navigator.mediaSession.setActionHandler("previoustrack", async () =>
+        navigator.mediaSession.setActionHandler("previoustrack", () =>
           skipTrackHandler(TrackDirection.BACK)
         );
         navigator.mediaSession.metadata = new MediaMetadata({
@@ -148,20 +148,20 @@ const Player: React.FC<PlayerProps> = ({
     if (audioRef.current) audioRef.current.currentTime = +e.target.value;
     setSongInfo({ ...songInfo, currentTime: +e.target.value });
   };
-  const skipTrackHandler = async (direction: TrackDirection) => {
+  const skipTrackHandler = (direction: TrackDirection) => {
     const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     if (direction === TrackDirection.FORWARD) {
-      await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
+      setCurrentSong(songs[(currentIndex + 1) % songs.length]);
       activeLibraryHandler(songs[(currentIndex + 1) % songs.length]);
     }
     if (direction === TrackDirection.BACK) {
       if ((currentIndex - 1) % songs.length === -1) {
-        await setCurrentSong(songs[songs.length - 1]);
+        setCurrentSong(songs[songs.length - 1]);
         activeLibraryHandler(songs[songs.length - 1]);
         if (isPlaying) audioRef.current?.play();
         return;
       }
-      await setCurrentSong(songs[(currentIndex - 1) % songs.length]);
+      setCurrentSong(songs[(currentIndex - 1) % songs.length]);
       activeLibraryHandler(songs[(currentIndex - 1) % songs.length]);
     }
     if (isPlaying) audioRef.current?.play();
