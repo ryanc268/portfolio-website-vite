@@ -44,12 +44,12 @@ export const FaqSection: React.FC = () => {
         <Toggle title="What Technologies Have You Used For Your Games?">
           <div className="text-gray-300 md:pb-8">
             <p className="text-sm md:text-2xl">
-              Right now the only game I've made officially is Valerian X which
-              is a mobile game made in Unity with C# but I plan on eventually
-              exploring Rust as a language and making games built directly into
-              my websites. I could write Typescript games but Rust seems to be
-              the latest and greatest for web-based games (picture a Javascript
-              + C++ hybrid).
+              Right now the only game I&apos;ve made officially is Valerian X
+              which is a mobile game made in Unity with C# but I plan on
+              eventually exploring Rust as a language and making games built
+              directly into my websites. I could write Typescript games but Rust
+              seems to be the latest and greatest for web-based games (picture a
+              Javascript + C++ hybrid).
               <span>Edit: I made a browser Typescript game :)</span>
             </p>
           </div>
@@ -68,9 +68,10 @@ export const FaqSection: React.FC = () => {
         <Toggle title="What Type of Freelance Work Are You Open to Take?">
           <div className="text-gray-300 md:pb-8">
             <p className="text-sm md:text-2xl">
-              Right now I'm mainly focused on my regular 9-5 job while learning
-              Typescript in my free time HOWEVER I will always take freelance
-              requests both front and back-end and we can discuss from there
+              Right now I&apos;m mainly focused on my regular 9-5 job while
+              learning Typescript in my free time HOWEVER I will always take
+              freelance requests both front and back-end and we can discuss from
+              there
             </p>
           </div>
         </Toggle>

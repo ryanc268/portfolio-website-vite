@@ -2,11 +2,10 @@ import { useEffect, useRef } from "react";
 import { VisualizerProps } from "../../global/interfaces";
 
 const BlockVisualizer: React.FC<VisualizerProps> = ({
-  isPlaying,
   audioRef,
   audioContext,
   audioSource,
-}) => {
+}: VisualizerProps) => {
   const FFT_SIZE = 1024;
 
   const DATA_ARRAY_COEFFICIENT = isMobile() ? 1.75 : 3;
@@ -15,7 +14,7 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
 
   const contextRef = useRef<CanvasRenderingContext2D>();
 
-  let analyser = useRef<AnalyserNode | null>(null);
+  const analyser = useRef<AnalyserNode | null>(null);
 
   let animationId = 0;
 
@@ -26,13 +25,13 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
   //Initial Page load
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas!.getContext("2d");
+    const context = canvas?.getContext("2d");
     if (!context) throw new Error("Visualizer Could Not Get Canvas Context");
     contextRef.current = context;
     startVisualizer();
-    audioContext!.resume();
+    audioContext?.resume();
     return () => {
-      audioSource.current!.disconnect();
+      audioSource.current?.disconnect();
       cancelAnimationFrame(animationId);
     };
   }, []);
@@ -42,20 +41,22 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
     const audio = audioRef.current as HTMLMediaElement;
 
     audioSource.current =
-      audioSource.current || audioContext!.createMediaElementSource(audio);
-    analyser.current = audioContext!.createAnalyser();
+      audioSource.current || audioContext.createMediaElementSource(audio);
+    analyser.current = audioContext.createAnalyser();
     audioSource.current.connect(analyser.current);
-    analyser.current.connect(audioContext!.destination);
+    analyser.current.connect(audioContext.destination);
     analyser.current.fftSize = FFT_SIZE;
 
-    contextRef.current!.lineCap = "square";
-    contextRef.current!.shadowOffsetX = 4;
-    contextRef.current!.shadowOffsetY = 2;
-    contextRef.current!.shadowBlur = 5;
-    contextRef.current!.shadowColor = "black";
+    if (contextRef.current) {
+      contextRef.current.lineCap = "square";
+      contextRef.current.shadowOffsetX = 4;
+      contextRef.current.shadowOffsetY = 2;
+      contextRef.current.shadowBlur = 5;
+      contextRef.current.shadowColor = "black";
+    }
 
     //will be half of fftSize
-    const bufferLength = analyser.current!.frequencyBinCount;
+    const bufferLength = analyser.current.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
     let barHeight: number;
@@ -68,8 +69,8 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
           canvasRef.current.width,
           canvasRef.current.height
         );
-        if (!audio.paused) {
-          analyser.current!.getByteFrequencyData(dataArray);
+        if (!audio.paused && analyser.current) {
+          analyser.current.getByteFrequencyData(dataArray);
           drawBlockVisualizer(bufferLength, barHeight, dataArray);
         }
       }
@@ -83,29 +84,30 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
     barHeight: number,
     dataArray: Uint8Array
   ) => {
+    if (!contextRef.current || !canvasRef.current) return;
     for (let i = 0; i < bufferLength; i++) {
       barHeight = dataArray[i] / DATA_ARRAY_COEFFICIENT;
-      contextRef.current!.save();
+      contextRef.current?.save();
       //Move to middle of screen
-      contextRef.current!.translate(
-        canvasRef.current!.width / 2,
-        canvasRef.current!.height / 2
+      contextRef.current.translate(
+        canvasRef.current.width / 2,
+        canvasRef.current.height / 2
       );
-      contextRef.current!.rotate(i * 6);
-      contextRef.current!.lineWidth = barHeight / 4;
-      contextRef.current!.beginPath();
-      contextRef.current!.moveTo(0, 0);
-      contextRef.current!.lineTo(0, barHeight);
-      contextRef.current!.stroke();
+      contextRef.current.rotate(i * 6);
+      contextRef.current.lineWidth = barHeight / 4;
+      contextRef.current.beginPath();
+      contextRef.current.moveTo(0, 0);
+      contextRef.current.lineTo(0, barHeight);
+      contextRef.current.stroke();
 
-      contextRef.current!.lineWidth = barHeight / 5;
-      contextRef.current!.strokeStyle = `rgba(150,150,150,1)`;
-      contextRef.current!.beginPath();
-      contextRef.current!.moveTo(0, 0);
-      contextRef.current!.lineTo(0, barHeight);
-      contextRef.current!.stroke();
+      contextRef.current.lineWidth = barHeight / 5;
+      contextRef.current.strokeStyle = `rgba(150,150,150,1)`;
+      contextRef.current.beginPath();
+      contextRef.current.moveTo(0, 0);
+      contextRef.current.lineTo(0, barHeight);
+      contextRef.current.stroke();
 
-      contextRef.current!.restore();
+      contextRef.current.restore();
     }
   };
 

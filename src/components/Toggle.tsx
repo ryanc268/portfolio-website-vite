@@ -6,7 +6,7 @@ interface ToggleProps {
   title: string;
 }
 
-const Toggle: React.FC<ToggleProps> = ({ children, title }) => {
+const Toggle: React.FC<ToggleProps> = ({ children, title }: ToggleProps) => {
   const [toggle, setToggle] = useState(false);
   return (
     <motion.div

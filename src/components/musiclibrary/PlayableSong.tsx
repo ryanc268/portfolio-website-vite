@@ -1,6 +1,6 @@
 import React from "react";
 //Dynamic Meta Tag Content
-import Helmet from "react-helmet";
+import { Helmet } from "react-helmet";
 import { Song } from "../../global/interfaces";
 
 interface PlayableSongProps {

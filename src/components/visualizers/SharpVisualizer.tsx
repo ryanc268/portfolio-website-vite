@@ -2,18 +2,17 @@ import { useEffect, useRef } from "react";
 import { VisualizerProps } from "../../global/interfaces";
 
 const SharpVisualizer: React.FC<VisualizerProps> = ({
-  isPlaying,
   audioRef,
   audioContext,
   audioSource,
-}) => {
+}: VisualizerProps) => {
   const FFT_SIZE = 1024;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const contextRef = useRef<CanvasRenderingContext2D>();
 
-  let analyser = useRef<AnalyserNode | null>(null);
+  const analyser = useRef<AnalyserNode | null>(null);
 
   let animationId = 0;
 
@@ -24,13 +23,13 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
   //Initial Page load
   useEffect(() => {
     const canvas = canvasRef.current;
-    const context = canvas!.getContext("2d");
+    const context = canvas?.getContext("2d");
     if (!context) throw new Error("Visualizer Could Not Get Canvas Context");
     contextRef.current = context;
     startVisualizer();
-    audioContext!.resume();
+    audioContext?.resume();
     return () => {
-      audioSource.current!.disconnect();
+      audioSource.current?.disconnect();
       cancelAnimationFrame(animationId);
     };
   }, []);
@@ -40,14 +39,14 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
     const audio = audioRef.current as HTMLMediaElement;
 
     audioSource.current =
-      audioSource.current || audioContext!.createMediaElementSource(audio);
-    analyser.current = audioContext!.createAnalyser();
+      audioSource.current || audioContext.createMediaElementSource(audio);
+    analyser.current = audioContext.createAnalyser();
     audioSource.current.connect(analyser.current);
-    analyser.current.connect(audioContext!.destination);
+    analyser.current.connect(audioContext.destination);
     analyser.current.fftSize = FFT_SIZE;
 
     //will be half of fftSize
-    const bufferLength = analyser.current!.frequencyBinCount;
+    const bufferLength = analyser.current.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
     let barHeight: number;
@@ -60,8 +59,8 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
           canvasRef.current.width,
           canvasRef.current.height
         );
-        if (!audio.paused) {
-          analyser.current!.getByteFrequencyData(dataArray);
+        if (!audio.paused && analyser.current) {
+          analyser.current.getByteFrequencyData(dataArray);
           drawSharpVisualizer(bufferLength, barHeight, dataArray);
         }
       }
@@ -75,23 +74,24 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
     barHeight: number,
     dataArray: Uint8Array
   ) => {
+    if (!contextRef.current || !canvasRef.current) return;
     for (let i = 0; i < bufferLength; i++) {
       barHeight = isMobile() ? dataArray[i] * 5 : dataArray[i] * 2.5;
-      contextRef.current!.save();
+      contextRef.current.save();
       //Move to middle of screen
-      contextRef.current!.translate(
-        canvasRef.current!.width / 2,
-        canvasRef.current!.height / 2
+      contextRef.current.translate(
+        canvasRef.current.width / 2,
+        canvasRef.current.height / 2
       );
-      contextRef.current!.rotate(i * 15);
+      contextRef.current.rotate(i * 15);
       //Calculate colour
       const hue = 120 + i * 0.4;
-      contextRef.current!.fillStyle = `hsl(${hue}, 100%, 50%)`;
-      contextRef.current!.beginPath();
+      contextRef.current.fillStyle = `hsl(${hue}, 100%, 50%)`;
+      contextRef.current.beginPath();
       //draw the shape
-      contextRef.current!.arc(10, barHeight / 6, barHeight / 8, 0, Math.PI / 6);
-      contextRef.current!.fill();
-      contextRef.current!.restore();
+      contextRef.current.arc(10, barHeight / 6, barHeight / 8, 0, Math.PI / 6);
+      contextRef.current.fill();
+      contextRef.current.restore();
     }
   };
   return (

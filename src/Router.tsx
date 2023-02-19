@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { MyWork } from "./pages/MyWork";
@@ -36,7 +37,7 @@ export const Router = () => {
 const CustomHelmet = () => {
   return (
     <Helmet>
-      <title>Ryan Coppa's Portfolio</title>
+      <title>Ryan Coppa&apos;s Portfolio</title>
       <meta
         name="description"
         content="Home of all his personal programming projects and music production. Ryan Coppa is a 27 year old passionate Software Engineer who excels at finding modern solutions to any problem!"

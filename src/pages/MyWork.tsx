@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 import {
   pageAnimation,
   fade,
-  photoAnim,
   lineAnim,
   slider,
   sliderContainer,

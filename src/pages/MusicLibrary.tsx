@@ -32,9 +32,9 @@ export const MusicLibrary: React.FC = () => {
   const [libraryStatus, setLibraryStatus] = useState(false);
   //Event Handlers;
   //TODO: fix any
-  const timeUpdateHandler = (e: any) => {
-    const current = e.target.currentTime;
-    const duration = e.target.duration;
+  const timeUpdateHandler = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+    const current = e.currentTarget.currentTime;
+    const duration = e.currentTarget.duration;
     const roundedCurrent = Math.round(current);
     const roundedDuration = Math.round(duration);
     const animation = Math.round((roundedCurrent / roundedDuration) * 100);
@@ -46,7 +46,7 @@ export const MusicLibrary: React.FC = () => {
     });
   };
   const songEndHandler = async () => {
-    let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+    const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     //updates the library to reflect that the next autoplayed song is "selected"
     await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
     const newSongs = songs.map((song) => {
@@ -114,7 +114,7 @@ export const MusicLibrary: React.FC = () => {
         />
         <PlayableSong currentSong={currentSong} isPlaying={isPlaying} />
         <Player
-          audioRef={audioRef || null}
+          audioRef={audioRef}
           setIsPlaying={setIsPlaying}
           isPlaying={isPlaying}
           currentSong={currentSong}
@@ -125,7 +125,7 @@ export const MusicLibrary: React.FC = () => {
           setSongs={setSongs}
         />
         <Library
-          audioRef={audioRef || undefined}
+          audioRef={audioRef}
           songs={songs}
           setCurrentSong={setCurrentSong}
           isPlaying={isPlaying}

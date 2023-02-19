@@ -16,18 +16,15 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
   audioRef,
   visualizer,
 }) => {
-  const [audioContext, setAudioContext] = useState<AudioContext>(
-    new AudioContext()
-  );
+  const [audioContext] = useState<AudioContext>(new AudioContext());
 
-  let audioSource = useRef<MediaElementAudioSourceNode | null>(null);
+  const audioSource = useRef<MediaElementAudioSourceNode | null>(null);
 
   const renderVizualizer = () => {
     switch (visualizer) {
       case Visualizer.BASIC:
         return (
           <BasicVisualizer
-            isPlaying={isPlaying}
             audioRef={audioRef}
             audioContext={audioContext}
             audioSource={audioSource}
@@ -36,7 +33,6 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
       case Visualizer.PARTY:
         return (
           <PartyVisualizer
-            isPlaying={isPlaying}
             audioRef={audioRef}
             audioContext={audioContext}
             audioSource={audioSource}
@@ -45,7 +41,6 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
       case Visualizer.SHARP:
         return (
           <SharpVisualizer
-            isPlaying={isPlaying}
             audioRef={audioRef}
             audioContext={audioContext}
             audioSource={audioSource}
@@ -54,7 +49,6 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
       case Visualizer.BLOCK:
         return (
           <BlockVisualizer
-            isPlaying={isPlaying}
             audioRef={audioRef}
             audioContext={audioContext}
             audioSource={audioSource}
@@ -63,7 +57,6 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
       default:
         return (
           <BasicVisualizer
-            isPlaying={isPlaying}
             audioRef={audioRef}
             audioContext={audioContext}
             audioSource={audioSource}

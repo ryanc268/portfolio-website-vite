@@ -21,7 +21,6 @@ export interface SongInfo {
 }
 
 export interface VisualizerProps {
-  isPlaying: boolean;
   audioRef: MutableRefObject<HTMLAudioElement | null>;
   audioContext: AudioContext;
   audioSource: MutableRefObject<MediaElementAudioSourceNode | null>;

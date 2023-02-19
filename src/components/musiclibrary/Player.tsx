@@ -1,5 +1,4 @@
 import React, { useState, useEffect, MutableRefObject } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -122,7 +121,7 @@ const Player: React.FC<PlayerProps> = ({
       setIsPlaying(!isPlaying);
     } else {
       audioRef.current?.play();
-      audioRef.current!.volume = songInfo.volume;
+      if (audioRef.current) audioRef.current.volume = songInfo.volume;
       setIsPlaying(!isPlaying);
     }
   };
@@ -146,11 +145,11 @@ const Player: React.FC<PlayerProps> = ({
     }
   };
   const dragHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    audioRef.current!.currentTime = +e.target.value;
+    if (audioRef.current) audioRef.current.currentTime = +e.target.value;
     setSongInfo({ ...songInfo, currentTime: +e.target.value });
   };
   const skipTrackHandler = async (direction: TrackDirection) => {
-    let currentIndex = songs.findIndex((song) => song.id === currentSong.id);
+    const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
     if (direction === TrackDirection.FORWARD) {
       await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
       activeLibraryHandler(songs[(currentIndex + 1) % songs.length]);
@@ -173,8 +172,8 @@ const Player: React.FC<PlayerProps> = ({
   };
 
   const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = +e.target.value;
-    audioRef.current!.volume = value;
+    const value = +e.target.value;
+    if (audioRef.current) audioRef.current.volume = value;
     setSongInfo({ ...songInfo, volume: value });
   };
   return (
