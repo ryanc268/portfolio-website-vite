@@ -6,13 +6,16 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
   audioContext,
   audioSource,
 }: VisualizerProps) => {
+  //Only use doubles or halves
   const FFT_SIZE = 1024;
+
+  const DATA_ARRAY_COEFFICIENT = isMobile() ? 5 : 2.5;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const contextRef = useRef<CanvasRenderingContext2D>();
 
-  const analyser = useRef<AnalyserNode | null>(null);
+  const analyser = useRef<AnalyserNode>();
 
   let animationId = 0;
 
@@ -76,7 +79,7 @@ const SharpVisualizer: React.FC<VisualizerProps> = ({
   ) => {
     if (!contextRef.current || !canvasRef.current) return;
     for (let i = 0; i < bufferLength; i++) {
-      barHeight = isMobile() ? dataArray[i] * 5 : dataArray[i] * 2.5;
+      barHeight = dataArray[i] * DATA_ARRAY_COEFFICIENT;
       contextRef.current.save();
       //Move to middle of screen
       contextRef.current.translate(

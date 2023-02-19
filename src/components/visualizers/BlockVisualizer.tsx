@@ -6,6 +6,7 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
   audioContext,
   audioSource,
 }: VisualizerProps) => {
+  //Only use doubles or halves
   const FFT_SIZE = 1024;
 
   const DATA_ARRAY_COEFFICIENT = isMobile() ? 1.75 : 3;
@@ -14,7 +15,7 @@ const BlockVisualizer: React.FC<VisualizerProps> = ({
 
   const contextRef = useRef<CanvasRenderingContext2D>();
 
-  const analyser = useRef<AnalyserNode | null>(null);
+  const analyser = useRef<AnalyserNode>();
 
   let animationId = 0;
 

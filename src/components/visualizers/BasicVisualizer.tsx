@@ -6,13 +6,14 @@ const BasicVisualizer: React.FC<VisualizerProps> = ({
   audioContext,
   audioSource,
 }: VisualizerProps) => {
-  const FFT_SIZE = 1024; //1024
+  //Only use doubles or halves
+  const FFT_SIZE = 1024;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const contextRef = useRef<CanvasRenderingContext2D>();
 
-  const analyser = useRef<AnalyserNode | null>(null);
+  const analyser = useRef<AnalyserNode>();
 
   let animationId = 0;
 
