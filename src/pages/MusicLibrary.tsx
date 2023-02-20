@@ -30,9 +30,11 @@ export const MusicLibrary: React.FC = () => {
     volume: 0.4,
   });
   const [libraryStatus, setLibraryStatus] = useState(false);
+
   //Event Handlers;
-  //TODO: fix any
-  const timeUpdateHandler = (e: React.SyntheticEvent<HTMLAudioElement, Event>) => {
+  const timeUpdateHandler = (
+    e: React.SyntheticEvent<HTMLAudioElement, Event>
+  ) => {
     const current = e.currentTarget.currentTime;
     const duration = e.currentTarget.duration;
     const roundedCurrent = Math.round(current);

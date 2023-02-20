@@ -20,7 +20,7 @@ const LibrarySong: React.FC<LibrarySongProps> = ({
   isPlaying,
   setSongs,
 }) => {
-  const songSelectHandler = () => {
+  const songSelectHandler = async () => {
     //const selectedSong = songs.filter((state) => state, id === id);
     setCurrentSong(song);
 
@@ -37,7 +37,7 @@ const LibrarySong: React.FC<LibrarySongProps> = ({
         };
       }
     });
-    setSongs(newSongs);
+    await setSongs(newSongs);
     if (isPlaying) audioRef.current?.play();
   };
   return (

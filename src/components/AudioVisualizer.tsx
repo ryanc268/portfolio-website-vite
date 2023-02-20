@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useRef, useState } from "react";
+import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { Visualizer } from "../global/enums";
 import BasicVisualizer from "./visualizers/BasicVisualizer";
 import BlockVisualizer from "./visualizers/BlockVisualizer";
@@ -20,6 +20,14 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
   const [audioContext] = useState<AudioContext>(new AudioContext());
 
   const audioSource = useRef<MediaElementAudioSourceNode | null>(null);
+
+  const didLoad = useRef<boolean>(false);
+
+  //TODO: Fix - AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page
+  useEffect(() => {
+    if (didLoad.current && isPlaying) audioContext.resume();
+    else didLoad.current = true;
+  }, [isPlaying]);
 
   const renderVizualizer = () => {
     switch (visualizer) {

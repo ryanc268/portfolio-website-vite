@@ -24,7 +24,6 @@ const BasicVisualizer: React.FC<VisualizerProps> = ({
     if (!context) throw new Error("Visualizer Could Not Get Canvas Context");
     contextRef.current = context;
     startVisualizer();
-    audioContext?.resume();
     return () => {
       audioSource.current?.disconnect();
       cancelAnimationFrame(animationId);
