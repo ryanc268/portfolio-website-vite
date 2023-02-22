@@ -63,12 +63,16 @@ export const ContactMe = () => {
                 <a
                   className="px-2 font-montserrat text-xs hover:underline"
                   href="https://www.linkedin.com/company/fitnesskeeper-inc-?trk=public-profile-badge-profile-badge_company-name"
+                  rel="noreferrer"
+                  target="_blank"
                 >
                   Runkeeper (ASICS Digital)
                 </a>
                 <a
                   className="px-2 font-montserrat text-xs hover:underline"
                   href="https://www.linkedin.com/school/durham-college/?trk=public-profile-badge-profile-badge_school-name"
+                  rel="noreferrer"
+                  target="_blank"
                 >
                   Durham College
                 </a>
@@ -76,6 +80,8 @@ export const ContactMe = () => {
               <a
                 className="my-2 w-1/2 rounded-lg border border-white p-2 font-montserrat text-sm hover:bg-slate-800"
                 href="https://ca.linkedin.com/in/ryan-coppa?trk=profile-badge"
+                rel="noreferrer"
+                target="_blank"
               >
                 View My Profile
               </a>
@@ -107,6 +113,8 @@ export const ContactMe = () => {
               <a
                 className="my-4 w-1/2 rounded-lg border border-white p-2 font-montserrat text-sm hover:bg-slate-800"
                 href="https://github.com/ryanc268"
+                rel="noreferrer"
+                target="_blank"
               >
                 View My Code
               </a>

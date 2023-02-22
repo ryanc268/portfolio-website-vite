@@ -92,6 +92,8 @@ export const MyWork: React.FC = () => {
         <a
           className=" flex justify-center"
           href="https://ryanc268-typescript-websocket-game.up.railway.app/"
+          rel="noreferrer"
+          target="_blank"
         >
           <img className="pt-4" src={cubegame} alt="Cube Game Banner" />
         </a>
