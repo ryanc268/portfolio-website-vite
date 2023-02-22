@@ -13,7 +13,7 @@ const PlayableSong: React.FC<PlayableSongProps> = ({
   isPlaying,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center p-10 text-center">
+    <div className="flex flex-col items-center justify-center px-4 py-8 text-center">
       <Helmet>
         <title>
           {(isPlaying ? "\u25B6" : "\u25A0") +

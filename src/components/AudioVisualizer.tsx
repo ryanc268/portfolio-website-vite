@@ -5,6 +5,7 @@ import BlockVisualizer from "./visualizers/BlockVisualizer";
 import PartyVisualizer from "./visualizers/PartyVisualizer";
 import SharpVisualizer from "./visualizers/SharpVisualizer";
 import ChaosVisualizer from "./visualizers/ChaosVisualizer";
+// import RunescapeVisualizer from "./visualizers/RunescapeVisualizer";
 
 interface AudioVisualizerProps {
   isPlaying: boolean;
@@ -71,6 +72,14 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
             audioSource={audioSource}
           />
         );
+      // case Visualizer.RS:
+      //   return (
+      //     <RunescapeVisualizer
+      //       audioRef={audioRef}
+      //       audioContext={audioContext}
+      //       audioSource={audioSource}
+      //     />
+      //   );
       default:
         return (
           <BasicVisualizer

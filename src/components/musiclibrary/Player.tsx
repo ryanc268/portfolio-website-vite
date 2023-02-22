@@ -247,7 +247,7 @@ const Player: React.FC<PlayerProps> = ({
           {songInfo.duration ? getTime(songInfo.duration) : "0:00"}
         </p>
       </div>
-      <div className="z-10 flex w-3/4 items-center justify-between pt-8 md:w-1/2">
+      <div className="z-10 flex w-3/4 items-center justify-between pt-8 md:w-1/2 md:pt-4 2xl:pt-8">
         <FontAwesomeIcon
           onClick={() => skipTrackHandler(TrackDirection.BACK)}
           className="skip-back"
