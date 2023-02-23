@@ -29,7 +29,7 @@ const AboutSection: React.FC = () => {
         </motion.p>
         <Link to="/contact">
           <motion.button
-            className="rounded-md border-2 border-solid border-cyan-custom px-8 py-2 text-lg transition ease-in-out hover:bg-cyan-custom md:py-4 md:text-xl"
+            className="rounded-md border-2 border-solid border-cyan-custom px-8 py-2 text-lg transition ease-in-out hover:border-indigo-700 hover:bg-cyan-custom md:py-4 md:text-xl"
             variants={fade}
           >
             Contact Me

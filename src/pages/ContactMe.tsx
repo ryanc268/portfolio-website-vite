@@ -3,6 +3,8 @@ import { titleAnim, pageAnimation } from "../utils/Animation";
 import resume from "../assets/resume.pdf";
 import ScrollTop from "../utils/ScrollTop";
 import { Helmet } from "react-helmet";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import linkedinlogo from "/src/assets/linkedinlogo.png";
 import githublogo from "/src/assets/githublogo.png";
 import githublogo2 from "/src/assets/githublogo2.png";
@@ -30,13 +32,17 @@ export const ContactMe = () => {
       </div>
       <div>
         <div>
-          <motion.div className="py-4 md:py-10" variants={titleAnim}>
+          <motion.div
+            className="flex justify-center py-4 md:py-10"
+            variants={titleAnim}
+          >
             <a
-              className="rounded-md border-2 border-solid border-cyan-custom px-4 py-1 font-montserrat text-xs transition ease-in-out hover:bg-cyan-custom md:py-4 md:text-xl"
+              className="rounded-md border-2 border-solid border-cyan-custom px-4 py-1 font-montserrat text-xs transition ease-in-out hover:border-indigo-700 hover:bg-cyan-custom md:py-4 md:text-xl"
               href={resume}
               download="Ryan_Coppa_Resume_Public.pdf"
             >
               Download My Public Resume
+              <FontAwesomeIcon className="pl-2" icon={faFilePdf} size="xl" />
             </a>
           </motion.div>
         </div>
@@ -106,7 +112,7 @@ export const ContactMe = () => {
                 alt="Profile Picture"
                 src={logo}
               />
-              <h3 className="my-3 text-2xl">Ryanc268</h3>
+              <h3 className="my-2 text-2xl">Ryanc268</h3>
               <h4 className="font-montserrat text-sm">
                 Front-end, Full-Stack & Backend Projects
               </h4>

@@ -20,24 +20,30 @@ export const FaqSection: React.FC = () => {
       <LayoutGroup>
         <Toggle title="What Languages / Frameworks Do You Know?">
           <div className="text-gray-300 md:pb-8">
-            <p className="text-sm md:text-2xl">In order of experience: </p>
+            <p className="text-sm underline md:text-2xl">
+              In order of experience:{" "}
+            </p>
             <p className="text-sm md:text-2xl">
               Java, Javascript/Typescript (front and back-end), NextJS, C#, SQL,
               CSS, TailwindCSS, React, Kotlin, HTML5
             </p>
-            <p className="text-sm md:text-2xl">Future Interests: </p>
-            <p className="text-sm md:text-2xl">Rust & PrismaDB</p>
+            <br />
+            <p className="text-sm underline md:text-2xl">Future Interests: </p>
+            <p className="text-sm md:text-2xl">Rust + Leptos & SvelteKit</p>
           </div>
         </Toggle>
         <Toggle title="What Did You Use to Make This Website?">
           <div className="text-gray-300 md:pb-8">
             <p className="text-sm md:text-2xl">
-              This website is entirely made using React with following
-              libraries:
+              This website is made entirely using React + Vite + Typescript as a
+              SPA
             </p>
+            <br />
+            <p className="underline">Additional libraries / tools include:</p>
             <p className="text-sm md:text-2xl">
-              React, Framer-Motion, Styled-Components,
-              React-Intersection-Observer, React-Helmet and React-Router-Dom
+              Pnpm, &apos;create vite react-ts&apos;, TailwindCSS,
+              Framer-Motion, React-Intersection-Observer, React-Helmet and
+              React-Router-Dom
             </p>
           </div>
         </Toggle>
@@ -49,8 +55,10 @@ export const FaqSection: React.FC = () => {
               eventually exploring Rust as a language and making games built
               directly into my websites. I could write Typescript games but Rust
               seems to be the latest and greatest for web-based games (picture a
-              Javascript + C++ hybrid).
-              <span>Edit: I made a browser Typescript game :)</span>
+              Javascript & C++ hybrid).
+            </p>
+            <p className="font-bold">
+              Edit: I made a browser Typescript game :)
             </p>
           </div>
         </Toggle>
