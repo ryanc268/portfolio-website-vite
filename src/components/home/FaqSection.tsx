@@ -21,7 +21,7 @@ export const FaqSection: React.FC = () => {
         <Toggle title="What Languages / Frameworks Do You Know?">
           <div className="text-gray-300 md:pb-8">
             <p className="text-sm underline md:text-2xl">
-              In order of experience:{" "}
+              In order of experience:
             </p>
             <p className="text-sm md:text-2xl">
               Java, Javascript/Typescript (front and back-end), NextJS, C#, SQL,
@@ -39,7 +39,9 @@ export const FaqSection: React.FC = () => {
               SPA
             </p>
             <br />
-            <p className="underline">Additional libraries / tools include:</p>
+            <p className="text-sm underline md:text-2xl">
+              Additional libraries / tools include:
+            </p>
             <p className="text-sm md:text-2xl">
               Pnpm, &apos;create vite react-ts&apos;, TailwindCSS,
               Framer-Motion, React-Intersection-Observer, React-Helmet and
