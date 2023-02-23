@@ -59,7 +59,7 @@ export const FaqSection: React.FC = () => {
               seems to be the latest and greatest for web-based games (picture a
               Javascript & C++ hybrid).
             </p>
-            <p className="font-bold">
+            <p className="text-sm font-bold md:text-2xl">
               Edit: I made a browser Typescript game :)
             </p>
           </div>
