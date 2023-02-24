@@ -1,4 +1,6 @@
-export const pageAnimation = {
+import { Variants } from "framer-motion";
+
+export const pageAnimation: Variants = {
   hidden: {
     opacity: 0,
     y: 300,
@@ -20,7 +22,7 @@ export const pageAnimation = {
   },
 };
 
-export const titleAnim = {
+export const titleAnim: Variants = {
   hidden: {
     y: 200,
   },
@@ -30,7 +32,7 @@ export const titleAnim = {
   },
 };
 
-export const fade = {
+export const fade: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -38,7 +40,7 @@ export const fade = {
   },
 };
 
-export const photoAnim = {
+export const photoAnim: Variants = {
   hidden: { scale: 1.5, opacity: 0 },
   show: {
     scale: 1,
@@ -50,7 +52,7 @@ export const photoAnim = {
   },
 };
 
-export const lineAnim = {
+export const lineAnim: Variants = {
   hidden: { width: "0%" },
   show: {
     width: "100%",
@@ -60,7 +62,7 @@ export const lineAnim = {
   },
 };
 
-export const slider = {
+export const slider: Variants = {
   hidden: { x: "-130%", skew: "45deg" },
   show: {
     x: "100%",
@@ -69,18 +71,55 @@ export const slider = {
   },
 };
 
-export const sliderContainer = {
+export const sliderContainer: Variants = {
   hidden: { opacity: 1 },
   show: { opacity: 1, transition: { staggerChildren: 0.15, ease: "easeOut" } },
 };
 
-export const scrollReveal = {
+export const scrollReveal: Variants = {
   hidden: { opacity: 0, scale: 1.2, transition: { duration: 0.5 } },
   show: {
     opacity: 1,
     scale: 1,
     transition: {
       duration: 0.5,
+    },
+  },
+};
+
+export const spinEntryRight: Variants = {
+  hidden: {
+    x: 500,
+    opacity: 0,
+    scale: 0,
+  },
+  show: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    rotate: 360,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
+export const cardAnim: Variants = {
+  hidden: {
+    y: 500,
+    x: -500,
+    opacity: 0,
+    scale: 0,
+  },
+  show: {
+    y: 0,
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    rotate: 360,
+    transition: {
+      type: "spring",
+      mass: 2,
     },
   },
 };

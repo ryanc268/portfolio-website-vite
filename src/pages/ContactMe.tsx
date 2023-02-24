@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { titleAnim, pageAnimation } from "../utils/Animation";
+import { pageAnimation, cardAnim, spinEntryRight } from "../utils/Animation";
 import resume from "../assets/resume.pdf";
 import ScrollTop from "../utils/ScrollTop";
 import { Helmet } from "react-helmet";
@@ -17,14 +17,13 @@ export const ContactMe = () => {
       variants={pageAnimation}
       initial="hidden"
       animate="show"
-      exit="exit"
     >
       <CustomHelmet />
       <div>
         <div>
           <motion.h2
             className="py-2 text-4xl md:py-10 md:text-7xl"
-            variants={titleAnim}
+            variants={spinEntryRight}
           >
             Contact <span className="text-cyan-custom">Me</span>
           </motion.h2>
@@ -34,7 +33,7 @@ export const ContactMe = () => {
         <div>
           <motion.div
             className="flex justify-center py-4 md:py-10"
-            variants={titleAnim}
+            variants={spinEntryRight}
           >
             <a
               className="rounded-md border-2 border-solid border-cyan-custom px-4 py-1 font-montserrat text-xs transition ease-in-out hover:border-indigo-700 hover:bg-cyan-custom md:py-4 md:text-xl"
@@ -47,7 +46,7 @@ export const ContactMe = () => {
           </motion.div>
         </div>
         <div className="flex w-screen flex-col items-center justify-center gap-4 md:flex-row md:gap-20 md:py-8">
-          <motion.div variants={titleAnim}>
+          <motion.div variants={cardAnim}>
             <div className="flex h-80 w-80 flex-col items-center rounded-lg bg-slate-900 hover:shadow-2xl hover:shadow-slate-500">
               <div className="w-full rounded-t-lg bg-slate-800">
                 <img
@@ -93,7 +92,7 @@ export const ContactMe = () => {
               </a>
             </div>
           </motion.div>
-          <motion.div variants={titleAnim}>
+          <motion.div variants={cardAnim}>
             <div className="flex h-80 w-80 flex-col items-center rounded-lg bg-slate-900 hover:shadow-2xl hover:shadow-slate-500">
               <div className="flex w-full flex-row rounded-t-lg bg-slate-800">
                 <img
