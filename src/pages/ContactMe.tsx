@@ -1,5 +1,11 @@
 import { motion } from "framer-motion";
-import { pageAnimation, cardAnim, spinEntryRight } from "../utils/Animation";
+import {
+  pageAnimation,
+  cardAnim,
+  spinEntryRight,
+  hoverShake,
+  hoverExpand,
+} from "../utils/Animation";
 import resume from "../assets/resume.pdf";
 import ScrollTop from "../utils/ScrollTop";
 import { Helmet } from "react-helmet";
@@ -35,19 +41,27 @@ export const ContactMe = () => {
             className="flex justify-center py-4 md:py-10"
             variants={spinEntryRight}
           >
-            <a
-              className="rounded-md border-2 border-solid border-cyan-custom px-4 py-1 font-montserrat text-xs transition ease-in-out hover:border-indigo-700 hover:bg-cyan-custom md:py-4 md:text-xl"
+            <motion.a
+              className="rounded-md border-2 border-solid border-cyan-custom px-4 py-1 font-montserrat text-xs transition ease-in-out hover:border-indigo-700 md:py-4 md:text-xl"
               href={resume}
               download="Ryan_Coppa_Resume_Public.pdf"
+              variants={hoverExpand}
+              whileHover="hover"
+              whileTap="click"
             >
               Download My Public Resume
               <FontAwesomeIcon className="pl-2" icon={faFilePdf} size="xl" />
-            </a>
+            </motion.a>
           </motion.div>
         </div>
         <div className="flex w-screen flex-col items-center justify-center gap-4 md:flex-row md:gap-20 md:py-8">
           <motion.div variants={cardAnim}>
-            <div className="flex h-80 w-80 flex-col items-center rounded-lg bg-slate-900 hover:shadow-2xl hover:shadow-slate-500">
+            <motion.div
+              className="flex h-80 w-80 flex-col items-center rounded-lg bg-slate-900 hover:shadow-2xl hover:shadow-slate-500"
+              variants={hoverShake}
+              initial="start"
+              whileHover="hover"
+            >
               <div className="w-full rounded-t-lg bg-slate-800">
                 <img
                   className="w-1/2 p-2"
@@ -90,10 +104,15 @@ export const ContactMe = () => {
               >
                 View My Profile
               </a>
-            </div>
+            </motion.div>
           </motion.div>
           <motion.div variants={cardAnim}>
-            <div className="flex h-80 w-80 flex-col items-center rounded-lg bg-slate-900 hover:shadow-2xl hover:shadow-slate-500">
+            <motion.div
+              className="flex h-80 w-80 flex-col items-center rounded-lg bg-slate-900 hover:shadow-2xl hover:shadow-slate-500"
+              variants={hoverShake}
+              initial="start"
+              whileHover="hover"
+            >
               <div className="flex w-full flex-row rounded-t-lg bg-slate-800">
                 <img
                   className="flex w-1/3 self-center pl-2"
@@ -123,7 +142,7 @@ export const ContactMe = () => {
               >
                 View My Code
               </a>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

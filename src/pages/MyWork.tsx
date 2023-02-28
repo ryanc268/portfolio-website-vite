@@ -1,7 +1,7 @@
 //Images
 import card from "../assets/valerianX-card.jpg";
 import goonIcon from "../assets/goonbot-small.png";
-import reactbig from "../assets/visualizer-banner.png";
+import visualizationBanner from "../assets/visualizer-banner.png";
 import cubegame from "../assets/cube-game.png";
 //Router
 import { Link } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   lineAnim,
   slider,
   sliderContainer,
+  hoverShake,
 } from "../utils/Animation";
 //Components
 import { useScroll } from "../hooks/useScroll";
@@ -70,7 +71,14 @@ export const MyWork: React.FC = () => {
         ></motion.div>
         <Link to="/work/valerianX">
           <div className="flex justify-center overflow-hidden">
-            <img className="pt-4" src={card} alt="ValerianX Card" />
+            <motion.img
+              className="pt-4"
+              src={card}
+              alt="ValerianX Card"
+              variants={hoverShake}
+              initial="start"
+              whileHover="hover"
+            />
           </div>
         </Link>
       </motion.div>
@@ -95,7 +103,14 @@ export const MyWork: React.FC = () => {
           rel="noreferrer"
           target="_blank"
         >
-          <img className="pt-4" src={cubegame} alt="Cube Game Banner" />
+          <motion.img
+            className="pt-4"
+            src={cubegame}
+            alt="Cube Game Banner"
+            variants={hoverShake}
+            initial="start"
+            whileHover="hover"
+          />
         </a>
       </motion.div>
       <motion.div
@@ -114,7 +129,14 @@ export const MyWork: React.FC = () => {
           variants={lineAnim}
         ></motion.div>
         <Link className="flex justify-center" to="/music">
-          <img className="pt-4 md:w-full" src={reactbig} alt="React Icon" />
+          <motion.img
+            className="pt-4 md:w-full"
+            src={visualizationBanner}
+            alt="React Icon"
+            variants={hoverShake}
+            initial="start"
+            whileHover="hover"
+          />
         </Link>
       </motion.div>
       <motion.div
@@ -133,7 +155,14 @@ export const MyWork: React.FC = () => {
           variants={lineAnim}
         ></motion.div>
         <Link className="flex justify-center" to="/work/goon-bot">
-          <img className="pt-4 md:w-full" src={goonIcon} alt="Goon Bot Icon" />
+          <motion.img
+            className="pt-4 md:w-full"
+            src={goonIcon}
+            alt="Goon Bot Icon"
+            variants={hoverShake}
+            initial="start"
+            whileHover="hover"
+          />
         </Link>
       </motion.div>
       <ScrollTop />

@@ -123,3 +123,25 @@ export const cardAnim: Variants = {
     },
   },
 };
+
+export const hoverExpand: Variants = {
+  hover: {
+    scale: 1.075,
+  },
+  click: {
+    scale: 0.95,
+  },
+};
+
+export const hoverShake: Variants = {
+  start: {
+    rotate: 0,
+  },
+  hover: (i) => ({
+    rotate: i % 2 === 0 ? [-1, 1.3, 0] : [1, -1.4, 0],
+    transition: {
+      repeat: Infinity,
+      duration: Math.random() * 0.1 + 0.5,
+    },
+  }),
+};

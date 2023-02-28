@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { titleAnim, fade, photoAnim } from "../../utils/Animation";
+import { titleAnim, fade, photoAnim, hoverExpand } from "../../utils/Animation";
 import Wave from "../Wave";
 import portrait from "../../assets/portrait.png";
 
 const AboutSection: React.FC = () => {
   return (
-    <motion.div className="items-center justify-between text-white md:flex md:p-40">
+    <motion.div className="items-center justify-between text-white md:flex md:px-40 md:py-20">
       <motion.div className="flex-1 text-center text-3xl md:flex-1 md:text-left md:text-7xl">
         <motion.div>
           <div className="overflow-hidden">
@@ -28,12 +28,16 @@ const AboutSection: React.FC = () => {
           Contact me for any inquiries or further interest in my projects.
         </motion.p>
         <Link to="/contact">
-          <motion.button
-            className="rounded-md border-2 border-solid border-cyan-custom px-8 py-2 text-lg transition ease-in-out hover:border-indigo-700 hover:bg-cyan-custom md:py-4 md:text-xl"
-            variants={fade}
-          >
-            Contact Me
-          </motion.button>
+          <motion.div variants={fade}>
+            <motion.button
+              className="rounded-md border-2 border-solid border-cyan-custom px-8 py-2 text-lg transition ease-in-out hover:border-indigo-700 md:py-4 md:text-xl"
+              variants={hoverExpand}
+              whileHover="hover"
+              whileTap="click"
+            >
+              Contact Me
+            </motion.button>
+          </motion.div>
         </Link>
       </motion.div>
       <div className="flex w-screen justify-center overflow-hidden">
