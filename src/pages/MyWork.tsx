@@ -3,7 +3,7 @@ import card from "../assets/valerianX-card.jpg";
 import goonIcon from "../assets/goonbot-small.png";
 import visualizationBanner from "../assets/visualizer-banner.png";
 import cubegame from "../assets/cube-game.png";
-import aiVoiceBanner from "../assets/ai-voice-chat-banner.png";
+import aiVoiceBanner from "../assets/ai-voice-convos-banner.png";
 //Router
 import { Link } from "react-router-dom";
 //Animations
