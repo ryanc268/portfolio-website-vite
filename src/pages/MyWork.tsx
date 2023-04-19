@@ -146,7 +146,7 @@ export const MyWork: React.FC = () => {
         <motion.div className="h-0.5 bg-cyan-custom" variants={lineAnim} />
         <a
           className=" flex justify-center"
-          href="https://ai-voice-conversations-production.up.railway.app/"
+          href="https://ryans-ai-voice-conversations-production.up.railway.app/"
           rel="noreferrer"
           target="_blank"
         >
