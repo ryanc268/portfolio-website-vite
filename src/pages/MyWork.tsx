@@ -4,30 +4,18 @@ import goonIcon from "../assets/goonbot-small.png";
 import visualizationBanner from "../assets/visualizer-banner.png";
 import cubegame from "../assets/cube-game.png";
 import aiVoiceBanner from "../assets/ai-voice-convos-banner.png";
-//Router
-import { Link } from "react-router-dom";
 //Animations
 import { motion } from "framer-motion";
-import {
-  pageAnimation,
-  fade,
-  lineAnim,
-  slider,
-  sliderContainer,
-  hoverShake,
-} from "../utils/Animation";
+import { pageAnimation, slider, sliderContainer } from "../utils/Animation";
 //Components
-import { useScroll } from "../hooks/useScroll";
 import ScrollTop from "../utils/ScrollTop";
 import { Helmet } from "react-helmet";
+import {
+  ExternalProjectCard,
+  InternalProjectCard,
+} from "../components/ProjectCard";
 
 export const MyWork: React.FC = () => {
-  const [element, controls] = useScroll(0);
-  const [element2, controls2] = useScroll(0);
-  const [element3, controls3] = useScroll(0);
-  const [element4, controls4] = useScroll(0);
-  const [element5, controls5] = useScroll(0);
-
   return (
     <motion.div
       className="flex-1 flex-wrap justify-center py-4 text-center md:flex"
@@ -56,133 +44,36 @@ export const MyWork: React.FC = () => {
           variants={slider}
         />
       </motion.div>
-      <motion.div
-        className="px-10 py-4 md:w-2/5"
-        variants={fade}
-        animate={controls}
-        initial="hidden"
-        ref={element}
-      >
-        <motion.h2 className="py-4 text-2xl md:text-4xl">
-          <span className="text-cyan-custom">Valerian X</span> C# Mobile Game
-          Made With Unity 2D
-        </motion.h2>
-        <motion.div className="h-0.5 bg-cyan-custom" variants={lineAnim} />
-        <Link to="/work/valerianX">
-          <div className="flex justify-center overflow-hidden">
-            <motion.img
-              className="pt-4"
-              src={card}
-              alt="ValerianX Card"
-              variants={hoverShake}
-              initial="start"
-              whileHover="hover"
-            />
-          </div>
-        </Link>
-      </motion.div>
-      <motion.div
-        className="px-10 py-4 md:w-2/5"
-        variants={fade}
-        animate={controls2}
-        initial="hidden"
-        ref={element2}
-      >
-        <motion.h2 className="py-4 text-2xl md:text-4xl">
-          <span className="text-cyan-custom">Cube Game</span> Multiplayer
-          Typescript Party-Game using Websockets
-        </motion.h2>
-        <motion.div className="h-0.5 bg-cyan-custom" variants={lineAnim} />
-        <a
-          className=" flex justify-center"
-          href="https://ryanc268-typescript-websocket-game.up.railway.app/"
-          rel="noreferrer"
-          target="_blank"
-        >
-          <motion.img
-            className="pt-4"
-            src={cubegame}
-            alt="Cube Game Banner"
-            variants={hoverShake}
-            initial="start"
-            whileHover="hover"
-          />
-        </a>
-      </motion.div>
-      <motion.div
-        className="px-10 py-4 md:w-2/5"
-        variants={fade}
-        animate={controls3}
-        initial="hidden"
-        ref={element3}
-      >
-        <motion.h2 className="py-4 text-2xl md:text-4xl">
-          React <span className="text-cyan-custom">Audio Library</span> w/
-          Visualization (Featured in Music Prod Tab)
-        </motion.h2>
-        <motion.div className="h-0.5 bg-cyan-custom" variants={lineAnim} />
-        <Link className="flex justify-center" to="/music">
-          <motion.img
-            className="pt-4 md:w-full"
-            src={visualizationBanner}
-            alt="React Icon"
-            variants={hoverShake}
-            initial="start"
-            whileHover="hover"
-          />
-        </Link>
-      </motion.div>
-      <motion.div
-        className="px-10 py-4 md:w-2/5"
-        variants={fade}
-        animate={controls4}
-        initial="hidden"
-        ref={element4}
-      >
-        <motion.h2 className="py-4 text-2xl md:text-4xl">
-          <span className="text-cyan-custom">Voice Chat With AI </span>
-          Typescript full-stack project using the T3 stack
-        </motion.h2>
-        <motion.div className="h-0.5 bg-cyan-custom" variants={lineAnim} />
-        <a
-          className=" flex justify-center"
-          href="https://ryans-ai-voice-conversations-production.up.railway.app/"
-          rel="noreferrer"
-          target="_blank"
-        >
-          <motion.img
-            className="pt-4 md:w-full"
-            src={aiVoiceBanner}
-            alt="Goon Bot Icon"
-            variants={hoverShake}
-            initial="start"
-            whileHover="hover"
-          />
-        </a>
-      </motion.div>
-      <motion.div
-        className="px-10 py-4 md:w-2/5"
-        variants={fade}
-        animate={controls5}
-        initial="hidden"
-        ref={element5}
-      >
-        <motion.h2 className="py-4 text-2xl md:text-4xl">
-          <span className="text-cyan-custom">Goon Bot</span> NodeJS Discord Bot
-          (Page Under Contruction)
-        </motion.h2>
-        <motion.div className="h-0.5 bg-cyan-custom" variants={lineAnim} />
-        <Link className="flex justify-center" to="/work/goon-bot">
-          <motion.img
-            className="pt-4 md:w-full"
-            src={goonIcon}
-            alt="Goon Bot Icon"
-            variants={hoverShake}
-            initial="start"
-            whileHover="hover"
-          />
-        </Link>
-      </motion.div>
+      <InternalProjectCard
+        title="Valerian X"
+        header="C# Mobile Game Made With Unity 2D"
+        image={card}
+        link="/work/valerianX"
+      />
+      <ExternalProjectCard
+        title="Cube Game"
+        header="Multiplayer Typescript Browser Party-Game using Websockets"
+        image={cubegame}
+        link="https://ryanc268-typescript-websocket-game.up.railway.app/"
+      />
+      <InternalProjectCard
+        title="React Audio Library"
+        header="Audio Frequency Vizualizations (Featured in Music Prod Tab)"
+        image={visualizationBanner}
+        link="/music"
+      />
+      <ExternalProjectCard
+        title="Voice Chat With AI"
+        header="Typescript full-stack project using the T3 stack with ChatGPT3.5, Microsoft Neural Voices Sdk, NextAuth, and Postgres hosted on Supabase"
+        image={aiVoiceBanner}
+        link="https://ryans-ai-voice-conversations-production.up.railway.app/"
+      />
+      <InternalProjectCard
+        title="Goon Bot"
+        header="NodeJS Discord Bot aggregating game api data for player progress tracking (Page Under Contruction)"
+        image={goonIcon}
+        link="/work/goon-bot"
+      />
       <ScrollTop />
     </motion.div>
   );

@@ -72,7 +72,7 @@ export const ContactMe = () => {
               <img
                 className="my-2 flex w-20 rounded-full"
                 alt="Profile Picture"
-                src="https://media.licdn.com/dms/image/C5103AQGlLSKryMz6AQ/profile-displayphoto-shrink_200_200/0/1516980586170?e=1682553600&v=beta&t=-FHtdP1nOTMkEdQLMhhsFozdJm6MlkbC46MkSgpku8I"
+                src="https://media.licdn.com/dms/image/C5103AQGlLSKryMz6AQ/profile-displayphoto-shrink_800_800/0/1516980586170?e=1690416000&v=beta&t=wDTU-NqIvIprXFUbZoQya1Tj96UEJVl6RDBM0bMZTjw"
               />
               <h3 className="my-2 text-2xl">Ryan Coppa</h3>
               <h4 className="font-montserrat text-sm">
