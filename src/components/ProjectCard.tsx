@@ -21,26 +21,29 @@ export const InternalProjectCard: React.FC<ProjectCardProps> = ({
   const [isHovering, setIsHovering] = useState(false);
   return (
     <motion.div
-      className="h-100 m-4 md:w-2/5"
+      className="h-100 m-4 rounded-2xl md:w-2/5"
       variants={fade}
       animate={controls}
       initial="hidden"
       ref={element}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      onTouchStart={() => setIsHovering(true)}
+      onTouchEnd={() => setIsHovering(false)}
+      onTouchCancel={() => setIsHovering(false)}
     >
       <Link to={link}>
-        <div className="relative flex h-full items-center justify-center text-center">
+        <div className="relative flex h-full items-center justify-center rounded-2xl  text-center">
           {!isHovering && (
             <>
-              <div className="absolute h-full w-full bg-black opacity-30"></div>
+              <div className="absolute h-full w-full rounded-3xl bg-black opacity-30"></div>
               <h3 className="absolute pt-4 font-montserrat text-3xl md:text-5xl 2xl:text-6xl">
                 {title}
               </h3>
             </>
           )}
           <img
-            className={`h-full w-full rounded-2xl ${
+            className={`h-full w-full rounded-3xl ${
               isHovering ? "blur-md" : ""
             }`}
             src={image}
@@ -72,19 +75,22 @@ export const ExternalProjectCard: React.FC<ProjectCardProps> = ({
       ref={element}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      onTouchStart={() => setIsHovering(true)}
+      onTouchEnd={() => setIsHovering(false)}
+      onTouchCancel={() => setIsHovering(false)}
     >
       <a href={link} rel="noreferrer" target="_blank">
         <div className="relative flex h-full items-center justify-center text-center">
           {!isHovering && (
             <>
-              <div className="absolute h-full w-full bg-black opacity-30"></div>
+              <div className="absolute h-full w-full rounded-3xl bg-black opacity-30"></div>
               <h3 className="absolute pt-4 font-montserrat text-3xl md:text-5xl 2xl:text-6xl">
                 {title}
               </h3>
             </>
           )}
           <img
-            className={`h-full w-full rounded-2xl ${
+            className={`h-full w-full rounded-3xl ${
               isHovering ? "blur-md" : ""
             }`}
             src={image}
