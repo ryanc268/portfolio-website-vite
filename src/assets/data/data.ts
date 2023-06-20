@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 //Music Imports
 import GreenLightBootleg from "../musiclibrary/music/GreenLightBootleg.mp3";
+import SynthRiddim from "../musiclibrary/music/BigSynthRiddim.mp3";
 import LiquidDnbDemo from "../musiclibrary/music/LiquidDnbDemo.mp3";
 import RetroGameMusic1 from "../musiclibrary/music/RetroGame1.mp3";
 import FutureDnb from "../musiclibrary/music/FutureDnb.mp3";
@@ -29,6 +30,7 @@ import WubbyRap from "../musiclibrary/music/WubbyRap.mp3";
 
 //picture imports
 import greenlightbootleg from "../musiclibrary/art/green-light-lorde.jpg";
+import synthriddim from "../musiclibrary/art/riddimthing.jpg";
 import liquiddnb from "../musiclibrary/art/liquid-dnb.jpg";
 import retrogame1 from "../musiclibrary/art/retro-game1.png";
 import dnbrandom from "../musiclibrary/art/dnbrandom.jpg";
@@ -63,6 +65,17 @@ function songLibrary(): Song[] {
       active: true,
       color: ["#0A2623", "#167252"],
       audio: GreenLightBootleg,
+    },
+    {
+      name: "Riddim Synth Thing (CLIP)",
+      artist: "Ryan Coppa",
+      year: 2023,
+      url: "/music/synth-riddim",
+      cover: synthriddim,
+      id: uuidv4(),
+      active: false,
+      color: ["#F9E67F", "#A95A36"],
+      audio: SynthRiddim,
     },
     {
       name: "Liquid DnB Demo [Early CLIP]",
