@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet";
 
 import logo192 from "/src/assets/logo192.png";
 import icon from "/src/assets/favicon.ico";
+import ImageRecognitionAI from "./pages/work/ImageRecognitionAI";
 
 export const Router = () => {
   return (
@@ -22,6 +23,10 @@ export const Router = () => {
           <Route index element={<Home />} />
           <Route path="/work" element={<MyWork />} />
           <Route path="/work/valerianX" element={<ValerianX />} />
+          <Route
+            path="/work/image-recognition-ai"
+            element={<ImageRecognitionAI />}
+          />
           <Route path="/work/goon-bot" element={<GoonBot />} />
           <Route path="/contact" element={<ContactMe />} />
           <Route path="/music" element={<MusicLibrary />}>

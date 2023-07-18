@@ -4,6 +4,7 @@ import goonIcon from "../assets/goonbot-small.png";
 import visualizationBanner from "../assets/visualizer-banner.png";
 import cubegame from "../assets/cube-game.png";
 import aiVoiceBanner from "../assets/ai-voice-convos-banner.png";
+import aiImageRecogBanner from "../assets/ai-image-recognition-banner.png";
 //Animations
 import { motion } from "framer-motion";
 import { pageAnimation, slider, sliderContainer } from "../utils/Animation";
@@ -67,6 +68,12 @@ export const MyWork: React.FC = () => {
         header="Typescript full-stack project using the T3 stack with ChatGPT3.5, Microsoft Neural Voices Sdk, NextAuth, and Postgres hosted on Supabase"
         image={aiVoiceBanner}
         link="https://ryans-ai-voice-conversations-production.up.railway.app/"
+      />
+      <InternalProjectCard
+        title="AI Image Recognition"
+        header="Python Machine Learning model using Tensorflow. This project contains multiple different trained models used to explore Tensorflow's capability. My first Python / ML project!"
+        image={aiImageRecogBanner}
+        link="/work/image-recognition-ai"
       />
       <InternalProjectCard
         title="Goon Bot"

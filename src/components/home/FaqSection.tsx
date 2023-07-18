@@ -24,12 +24,15 @@ export const FaqSection: React.FC = () => {
               In order of experience:
             </p>
             <p className="text-sm md:text-2xl">
-              Java, Javascript/Typescript (front and back-end), NextJS, C#, SQL,
-              CSS, TailwindCSS, React, Kotlin, HTML5
+              Java, Javascript/Typescript (front and back-end), NextJS, React,
+              C#, SQL, CSS, TailwindCSS, Kotlin, HTML5, Python (Mainly
+              Tensorflow)
             </p>
             <br />
             <p className="text-sm underline md:text-2xl">Future Interests: </p>
-            <p className="text-sm md:text-2xl">Rust + Leptos & SvelteKit</p>
+            <p className="text-sm md:text-2xl">
+              Rust, Leptos, Sveltekit and more Tensorflow ML Models
+            </p>
           </div>
         </Toggle>
         <Toggle title="What Did You Use to Make This Website?">
@@ -73,6 +76,7 @@ export const FaqSection: React.FC = () => {
             <p className="text-sm md:text-2xl">
               Unity with Visual Studio for C#
             </p>
+            <p className="text-sm md:text-2xl">PyCharm for Python</p>
           </div>
         </Toggle>
         <Toggle title="What Type of Freelance Work Are You Open to Take?">
