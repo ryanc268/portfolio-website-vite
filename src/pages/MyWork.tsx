@@ -5,6 +5,7 @@ import visualizationBanner from "../assets/visualizer-banner.png";
 import cubegame from "../assets/cube-game.png";
 import aiVoiceBanner from "../assets/ai-voice-convos-banner.png";
 import aiImageRecogBanner from "../assets/ai-image-recognition-banner.png";
+import twitterArchiveBanner from "../assets/reckful-twitter.png";
 //Animations
 import { motion } from "framer-motion";
 import { pageAnimation, slider, sliderContainer } from "../utils/Animation";
@@ -50,6 +51,12 @@ export const MyWork: React.FC = () => {
         header="C# Mobile Game Made With Unity 2D"
         image={card}
         link="/work/valerianX"
+      />
+      <ExternalProjectCard
+        title="Reckful Twitter Archival Project"
+        header="Main contributor to the Twitter archival project for Reckful the streamer. Done with Typescript / Nextjs / React leveraging a Kotlin restful api backend"
+        image={twitterArchiveBanner}
+        link="https://twitter.reckful-archive.org/"
       />
       <ExternalProjectCard
         title="Cube Game"
