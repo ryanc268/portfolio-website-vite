@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 //Music Imports
+import LakeThemeRemix from "../musiclibrary/music/LakeThemeRemix.mp3";
 import GreenLightBootleg from "../musiclibrary/music/GreenLightBootleg.mp3";
 import SynthRiddim from "../musiclibrary/music/BigSynthRiddim.mp3";
 import LiquidDnbDemo from "../musiclibrary/music/LiquidDnbDemo.mp3";
@@ -29,6 +30,7 @@ import ValerianWetlandTheme from "../musiclibrary/music/ValerianWetlandTheme.mp3
 import WubbyRap from "../musiclibrary/music/WubbyRap.mp3";
 
 //picture imports
+import lakethemeremix from "../musiclibrary/art/lake-sinnoh.png";
 import greenlightbootleg from "../musiclibrary/art/green-light-lorde.jpg";
 import synthriddim from "../musiclibrary/art/riddimthing.jpg";
 import liquiddnb from "../musiclibrary/art/liquid-dnb.jpg";
@@ -56,13 +58,24 @@ import { Song } from "../../global/interfaces";
 function songLibrary(): Song[] {
   return [
     {
+      name: "Sinnoh Lake Theme (Rearrangement / Remix)",
+      artist: "Ryan Coppa",
+      year: 2023,
+      url: "/music/lake-theme-rearranged",
+      cover: lakethemeremix,
+      id: uuidv4(),
+      active: true,
+      color: ["#70A0E0", "#50F890"],
+      audio: LakeThemeRemix,
+    },
+    {
       name: "Green Light (Lorde) Dnb Bootleg [WIP]",
       artist: "Ryan Coppa",
       year: 2022,
       url: "/music/green-light-dnb-bootleg",
       cover: greenlightbootleg,
       id: uuidv4(),
-      active: true,
+      active: false,
       color: ["#0A2623", "#167252"],
       audio: GreenLightBootleg,
     },
