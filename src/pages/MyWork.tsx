@@ -1,4 +1,5 @@
 //Images
+import shadeStriderBanner from "../assets/ShadeStriderCoverArt.png";
 import card from "../assets/valerianX-card.jpg";
 import goonIcon from "../assets/goonbot-small.png";
 import visualizationBanner from "../assets/visualizer-banner.png";
@@ -46,17 +47,23 @@ export const MyWork: React.FC = () => {
           variants={slider}
         />
       </motion.div>
-      <InternalProjectCard
-        title="Valerian X"
-        header="C# Mobile Game Made With Unity 2D"
-        image={card}
-        link="/work/valerianX"
+      <ExternalProjectCard
+        title="Shade Strider"
+        header="2D Sidescrolling runner / platformer game made using C# in Godot 4. This was made in 2 weeks for the Pirate Software Game Jame 14!"
+        image={shadeStriderBanner}
+        link="https://tehryan.itch.io/shade-strider"
       />
       <ExternalProjectCard
         title="Reckful Twitter Archival Project"
         header="Main contributor to the Twitter archival project for Reckful the streamer. Done with Typescript / Nextjs / React leveraging a Kotlin restful api backend"
         image={twitterArchiveBanner}
         link="https://twitter.reckful-archive.org/"
+      />
+      <InternalProjectCard
+        title="Valerian X"
+        header="C# Mobile Game Made With Unity 2D"
+        image={card}
+        link="/work/valerianX"
       />
       <ExternalProjectCard
         title="Cube Game"

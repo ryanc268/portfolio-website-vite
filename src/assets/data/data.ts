@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 //Music Imports
 import LakeThemeRemix from "../musiclibrary/music/LakeThemeRemix.mp3";
 import GreenLightBootleg from "../musiclibrary/music/GreenLightBootleg.mp3";
+import ShadeStriderLoop from "../musiclibrary/music/ShadeStriderMainLoop.mp3";
 import SynthRiddim from "../musiclibrary/music/BigSynthRiddim.mp3";
 import LiquidDnbDemo from "../musiclibrary/music/LiquidDnbDemo.mp3";
 import RetroGameMusic1 from "../musiclibrary/music/RetroGame1.mp3";
@@ -32,6 +33,7 @@ import WubbyRap from "../musiclibrary/music/WubbyRap.mp3";
 //picture imports
 import lakethemeremix from "../musiclibrary/art/lake-sinnoh.png";
 import greenlightbootleg from "../musiclibrary/art/green-light-lorde.jpg";
+import shadestriderlogo from "../musiclibrary/art/ShadeStriderCoverArt.png";
 import synthriddim from "../musiclibrary/art/riddimthing.jpg";
 import liquiddnb from "../musiclibrary/art/liquid-dnb.jpg";
 import retrogame1 from "../musiclibrary/art/retro-game1.png";
@@ -80,15 +82,15 @@ function songLibrary(): Song[] {
       audio: GreenLightBootleg,
     },
     {
-      name: "Riddim Synth Thing (CLIP)",
+      name: "Shade Strider Main Theme",
       artist: "Ryan Coppa",
-      year: 2023,
-      url: "/music/synth-riddim",
-      cover: synthriddim,
+      year: 2024,
+      url: "/music/shade-strider-theme",
+      cover: shadestriderlogo,
       id: uuidv4(),
       active: false,
-      color: ["#F9E67F", "#A95A36"],
-      audio: SynthRiddim,
+      color: ["#14182E", "#4C6885"],
+      audio: ShadeStriderLoop,
     },
     {
       name: "Liquid DnB Demo [Early CLIP]",
@@ -111,6 +113,17 @@ function songLibrary(): Song[] {
       active: false,
       color: ["#0e0703", "#910f0b"],
       audio: RetroGameMusic1,
+    },
+    {
+      name: "Riddim Synth Thing (CLIP)",
+      artist: "Ryan Coppa",
+      year: 2023,
+      url: "/music/synth-riddim",
+      cover: synthriddim,
+      id: uuidv4(),
+      active: false,
+      color: ["#F9E67F", "#A95A36"],
+      audio: SynthRiddim,
     },
     {
       name: "Neuro DnB [CLIP]",
