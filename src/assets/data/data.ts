@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import LakeThemeRemix from "../musiclibrary/music/LakeThemeRemix.mp3";
 import GreenLightBootleg from "../musiclibrary/music/GreenLightBootleg.mp3";
 import ShadeStriderLoop from "../musiclibrary/music/ShadeStriderMainLoop.mp3";
+import ShadeStriderDnb from "../musiclibrary/music/ShadeStriderDnb.mp3";
 import SynthRiddim from "../musiclibrary/music/BigSynthRiddim.mp3";
 import LiquidDnbDemo from "../musiclibrary/music/LiquidDnbDemo.mp3";
 import RetroGameMusic1 from "../musiclibrary/music/RetroGame1.mp3";
@@ -93,7 +94,18 @@ function songLibrary(): Song[] {
       audio: ShadeStriderLoop,
     },
     {
-      name: "Liquid DnB Demo [Early CLIP]",
+      name: "Shade Strider Dnb [CLIP]",
+      artist: "Ryan Coppa",
+      year: 2024,
+      url: "/music/shade-strider-dnb",
+      cover: shadestriderlogo,
+      id: uuidv4(),
+      active: false,
+      color: ["#14182E", "#4C6885"],
+      audio: ShadeStriderDnb,
+    },
+    {
+      name: "Liquid DnB Demo [CLIP]",
       artist: "Ryan Coppa",
       year: 2023,
       url: "/music/liquid-dnb-demo",
