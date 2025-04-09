@@ -126,7 +126,7 @@ export const cardAnim: Variants = {
 
 export const hoverExpand: Variants = {
   hover: {
-    scale: 1.075,
+    scale: 1.025,
   },
   click: {
     scale: 0.95,

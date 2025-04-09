@@ -7,6 +7,7 @@ import cubegame from "../assets/cube-game.png";
 import aiVoiceBanner from "../assets/ai-voice-convos-banner.png";
 import aiImageRecogBanner from "../assets/ai-image-recognition-banner.png";
 import twitterArchiveBanner from "../assets/reckful-twitter.png";
+import ryansDevToolsBanner from "../assets/ryans-dev-tools.png";
 //Animations
 import { motion } from "framer-motion";
 import { pageAnimation, slider, sliderContainer } from "../utils/Animation";
@@ -31,19 +32,19 @@ export const MyWork: React.FC = () => {
       <CustomHelmet />
       <motion.div variants={sliderContainer}>
         <motion.div
-          className="fixed left-0 top-0 z-20 h-screen w-screen bg-indigo-900"
+          className="fixed left-0 top-0 z-0 h-screen w-screen bg-indigo-900"
           variants={slider}
         />
         <motion.div
-          className="fixed left-0 top-0 z-20 h-screen w-screen bg-cyan-600"
+          className="fixed left-0 top-0 z-0 h-screen w-screen bg-cyan-600"
           variants={slider}
         />
         <motion.div
-          className="fixed left-0 top-0 z-20 h-screen w-screen bg-violet-900"
+          className="fixed left-0 top-0 z-0 h-screen w-screen bg-violet-900"
           variants={slider}
         />
         <motion.div
-          className="fixed left-0 top-0 z-20 h-screen w-screen bg-cyan-300"
+          className="fixed left-0 top-0 z-0 h-screen w-screen bg-cyan-300"
           variants={slider}
         />
       </motion.div>
@@ -58,6 +59,12 @@ export const MyWork: React.FC = () => {
         header="Main contributor to the Twitter archival project for Reckful the streamer. Done with Typescript / Nextjs / React leveraging a Kotlin restful api backend"
         image={twitterArchiveBanner}
         link="https://twitter.reckful-archive.org/"
+      />
+      <ExternalProjectCard
+        title="Ryan's Dev Tools"
+        header="A collection of tools I've made to help myself and anyone else on common development tasks during work or hobby projects"
+        image={ryansDevToolsBanner}
+        link="https://ryans-dev-tools.netlify.app/"
       />
       <InternalProjectCard
         title="Valerian X"

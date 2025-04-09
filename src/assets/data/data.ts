@@ -5,9 +5,12 @@ import GreenLightBootleg from "../musiclibrary/music/GreenLightBootleg.mp3";
 import DeepDubDemo from "../musiclibrary/music/DeepDubDemo.mp3";
 import ShadeStriderLoop from "../musiclibrary/music/ShadeStriderMainLoop.mp3";
 import ShadeStriderDnb from "../musiclibrary/music/ShadeStriderDnb.mp3";
+import ShadeStriderMainMenu from "../musiclibrary/music/ShadeStriderMainMenu.mp3";
+import ShadeStriderJungle1 from "../musiclibrary/music/ShadeStriderJungle1.mp3";
 import SynthRiddim from "../musiclibrary/music/BigSynthRiddim.mp3";
 import LiquidDnbDemo from "../musiclibrary/music/LiquidDnbDemo.mp3";
 import RetroGameMusic1 from "../musiclibrary/music/RetroGame1.mp3";
+import DefinitelyNotCharlieXcx from "../musiclibrary/music/DefinitelyNotCharlieXcx.mp3";
 import FutureDnb from "../musiclibrary/music/FutureDnb.mp3";
 import ScaryDnb from "../musiclibrary/music/ScaryDnb.mp3";
 import BassHouseRyanGina from "../musiclibrary/music/BassHouseRyanGina.mp3";
@@ -40,6 +43,7 @@ import shadestriderlogo from "../musiclibrary/art/ShadeStriderCoverArt.png";
 import synthriddim from "../musiclibrary/art/riddimthing.jpg";
 import liquiddnb from "../musiclibrary/art/liquid-dnb.jpg";
 import retrogame1 from "../musiclibrary/art/retro-game1.png";
+import notbrat from "../musiclibrary/art/not-brat.png";
 import dnbrandom from "../musiclibrary/art/dnbrandom.jpg";
 import basshouse from "../musiclibrary/art/bass-house.jpg";
 import skrollex from "../musiclibrary/art/skrollex.jpg";
@@ -96,10 +100,10 @@ function songLibrary(): Song[] {
       audio: DeepDubDemo,
     },
     {
-      name: "Shade Strider Main Theme",
+      name: "Shade Strider World 1",
       artist: "Ryan Coppa",
       year: 2024,
-      url: "/music/shade-strider-theme",
+      url: "/music/shade-strider-world-1",
       cover: shadestriderlogo,
       id: uuidv4(),
       active: false,
@@ -107,15 +111,37 @@ function songLibrary(): Song[] {
       audio: ShadeStriderLoop,
     },
     {
-      name: "Shade Strider Dnb [CLIP]",
+      name: "Shade Strider City Boss",
       artist: "Ryan Coppa",
       year: 2024,
-      url: "/music/shade-strider-dnb",
+      url: "/music/shade-strider-city-boss",
       cover: shadestriderlogo,
       id: uuidv4(),
       active: false,
       color: ["#14182E", "#4C6885"],
       audio: ShadeStriderDnb,
+    },
+    {
+      name: "Shade Strider Main Menu",
+      artist: "Ryan Coppa",
+      year: 2025,
+      url: "/music/shade-strider-main-menu",
+      cover: shadestriderlogo,
+      id: uuidv4(),
+      active: false,
+      color: ["#14182E", "#4C6885"],
+      audio: ShadeStriderMainMenu,
+    },
+    {
+      name: "Shade Strider Jungle 1",
+      artist: "Ryan Coppa",
+      year: 2025,
+      url: "/music/shade-strider-jungle-1",
+      cover: shadestriderlogo,
+      id: uuidv4(),
+      active: false,
+      color: ["#14182E", "#4C6885"],
+      audio: ShadeStriderJungle1,
     },
     {
       name: "Liquid DnB Demo [CLIP]",
@@ -138,6 +164,17 @@ function songLibrary(): Song[] {
       active: false,
       color: ["#0e0703", "#910f0b"],
       audio: RetroGameMusic1,
+    },
+    {
+      name: "Definitely NOT Charlie XCX",
+      artist: "Ryan Coppa",
+      year: 2025,
+      url: "/music/definitely-not-charlie-xcx",
+      cover: notbrat,
+      id: uuidv4(),
+      active: false,
+      color: ["#8ACD00", "#020200"],
+      audio: DefinitelyNotCharlieXcx,
     },
     {
       name: "Riddim Synth Thing (CLIP)",
