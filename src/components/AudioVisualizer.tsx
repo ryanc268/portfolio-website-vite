@@ -5,7 +5,9 @@ import BlockVisualizer from "./visualizers/BlockVisualizer";
 import PartyVisualizer from "./visualizers/PartyVisualizer";
 import SharpVisualizer from "./visualizers/SharpVisualizer";
 import ChaosVisualizer from "./visualizers/ChaosVisualizer";
-// import RunescapeVisualizer from "./visualizers/RunescapeVisualizer";
+import WaveformVisualizer from "./visualizers/WaveformVisualizer";
+import ReflectedBarVisualizer from "./visualizers/ReflectedBarVisualizer";
+import CircleBarVisualizer from "./visualizers/CircleBarVisualizer";
 
 interface AudioVisualizerProps {
   isPlaying: boolean;
@@ -35,6 +37,14 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
       case Visualizer.BASIC:
         return (
           <BasicVisualizer
+            audioRef={audioRef}
+            audioContext={audioContext}
+            audioSource={audioSource}
+          />
+        );
+      case Visualizer.WAVEFORM:
+        return (
+          <WaveformVisualizer
             audioRef={audioRef}
             audioContext={audioContext}
             audioSource={audioSource}
@@ -72,14 +82,22 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
             audioSource={audioSource}
           />
         );
-      // case Visualizer.RS:
-      //   return (
-      //     <RunescapeVisualizer
-      //       audioRef={audioRef}
-      //       audioContext={audioContext}
-      //       audioSource={audioSource}
-      //     />
-      //   );
+      case Visualizer.CIRCLE_BAR:
+        return (
+          <CircleBarVisualizer
+            audioRef={audioRef}
+            audioContext={audioContext}
+            audioSource={audioSource}
+          />
+        );
+      case Visualizer.REFLECTED_BAR:
+        return (
+          <ReflectedBarVisualizer
+            audioRef={audioRef}
+            audioContext={audioContext}
+            audioSource={audioSource}
+          />
+        );
       default:
         return (
           <BasicVisualizer

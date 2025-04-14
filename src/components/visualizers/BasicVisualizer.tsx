@@ -11,9 +11,9 @@ const BasicVisualizer: React.FC<VisualizerProps> = ({
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const contextRef = useRef<CanvasRenderingContext2D>();
+  const contextRef = useRef<CanvasRenderingContext2D>(null);
 
-  const analyser = useRef<AnalyserNode>();
+  const analyser = useRef<AnalyserNode>(null);
 
   let animationId = 0;
 
@@ -49,7 +49,7 @@ const BasicVisualizer: React.FC<VisualizerProps> = ({
       ? canvasRef.current.width / bufferLength
       : window.innerWidth / bufferLength;
 
-    let barHeight: number;
+    let barHeight: number = 0;
     let x: number;
 
     const animate = () => {
@@ -102,7 +102,7 @@ const BasicVisualizer: React.FC<VisualizerProps> = ({
   };
   return (
     <canvas
-      className="fixed top-0 left-0 -z-10 h-screen w-screen"
+      className="fixed left-0 top-0 -z-10 h-screen w-screen"
       ref={canvasRef}
     />
   );

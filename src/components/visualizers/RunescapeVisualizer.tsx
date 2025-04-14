@@ -20,9 +20,9 @@ const RunescapeVisualizer: React.FC<VisualizerProps> = ({
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const contextRef = useRef<CanvasRenderingContext2D>();
+  const contextRef = useRef<CanvasRenderingContext2D>(null);
 
-  const analyser = useRef<AnalyserNode>();
+  const analyser = useRef<AnalyserNode>(null);
 
   const ChaosRuneImg = new Image();
   ChaosRuneImg.src = chaosRune;
@@ -67,7 +67,7 @@ const RunescapeVisualizer: React.FC<VisualizerProps> = ({
     const bufferLength = analyser.current.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
-    let barHeight: number;
+    let barHeight: number = 0;
 
     const animate = () => {
       if (contextRef.current && canvasRef.current) {

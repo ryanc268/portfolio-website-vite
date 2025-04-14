@@ -26,17 +26,17 @@ const PlayerNav: React.FC<PlayerNavProps> = ({
   setVisualizer,
 }) => {
   return (
-    <div className="flex items-center justify-around pt-2 font-montserrat text-xs md:text-xl">
+    <div className="flex items-center justify-around pt-1 font-montserrat text-xs sm:pt-2 md:text-xl">
       <div>
         <RadioGroup
           value={visualizer}
           onChange={(e) => setVisualizer(e)}
-          className="mt-2"
+          className="mt-1 sm:mt-2"
         >
           <RadioGroup.Label className="sr-only">
             Choose a memory option
           </RadioGroup.Label>
-          <div className="flex flex-row justify-center gap-1 md:gap-4 md:px-40">
+          <div className="mx-4 flex flex-row flex-wrap justify-center gap-1 sm:gap-1 md:mx-0 md:gap-4 md:px-40">
             {visualizerValues.map((option) => (
               <RadioGroup.Option
                 key={option}
@@ -47,7 +47,7 @@ const PlayerNav: React.FC<PlayerNavProps> = ({
                     checked
                       ? "border-transparent bg-indigo-600 text-xs hover:bg-indigo-700 md:text-base"
                       : "bg-tr border-gray-200 text-xs hover:bg-indigo-700 md:text-base",
-                    "flex items-center justify-center rounded-md border p-2 text-sm font-medium uppercase sm:flex-1"
+                    "flex items-center justify-center rounded-md border p-1 text-sm font-medium uppercase sm:flex-1 sm:p-2"
                   )
                 }
               >
@@ -60,10 +60,10 @@ const PlayerNav: React.FC<PlayerNavProps> = ({
         </RadioGroup>
       </div>
       <button
-        className="z-30 rounded-sm border border-slate-600 bg-zinc-800 p-2 transition-all duration-300"
+        className="z-30 mr-2 rounded-sm border border-slate-600 bg-zinc-800 p-2 transition-all duration-300 md:mr-0"
         onClick={() => setLibraryStatus(!libraryStatus)}
       >
-        Library
+        Library&nbsp;
         <FontAwesomeIcon icon={faMusic} />
       </button>
     </div>

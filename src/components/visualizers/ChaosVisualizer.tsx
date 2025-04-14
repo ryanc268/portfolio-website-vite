@@ -17,9 +17,9 @@ const ChaosVisualizer: React.FC<VisualizerProps> = ({
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const contextRef = useRef<CanvasRenderingContext2D>();
+  const contextRef = useRef<CanvasRenderingContext2D>(null);
 
-  const analyser = useRef<AnalyserNode>();
+  const analyser = useRef<AnalyserNode>(null);
 
   let animationId = 0;
 
@@ -63,7 +63,7 @@ const ChaosVisualizer: React.FC<VisualizerProps> = ({
     const bufferLength = analyser.current.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
-    let barHeight: number;
+    let barHeight: number = 0;
 
     const animate = () => {
       if (contextRef.current && canvasRef.current) {
@@ -147,7 +147,7 @@ const ChaosVisualizer: React.FC<VisualizerProps> = ({
 
   return (
     <canvas
-      className="fixed top-0 left-0 -z-10 h-screen w-screen"
+      className="fixed left-0 top-0 -z-10 h-screen w-screen"
       ref={canvasRef}
     />
   );
