@@ -50,9 +50,9 @@ export const MyWork: React.FC = () => {
       </motion.div>
       <ExternalProjectCard
         title="Shade Strider"
-        header="2D Sidescrolling runner / platformer game made using C# in Godot 4. This was made in 2 weeks for the Pirate Software Game Jame 14!"
+        header="2D Sidescrolling runner / platformer game made using C# in Godot 4. The base (demo) was made in 2 weeks for the Pirate Software Game Jame 14! The full game is currently in development."
         image={shadeStriderBanner}
-        link="https://tehryan.itch.io/shade-strider"
+        link="https://shadestrider.netlify.app/"
       />
       <ExternalProjectCard
         title="Reckful Twitter Archival Project"
