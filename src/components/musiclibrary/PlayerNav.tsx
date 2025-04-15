@@ -34,9 +34,9 @@ const PlayerNav: React.FC<PlayerNavProps> = ({
           className="mt-1 sm:mt-2"
         >
           <RadioGroup.Label className="sr-only">
-            Choose a memory option
+            Choose a visualizer
           </RadioGroup.Label>
-          <div className="mx-4 flex flex-row flex-wrap justify-center gap-1 sm:gap-1 md:mx-0 md:gap-4 md:px-40">
+          <div className="mx-4 flex flex-wrap justify-center gap-1 md:mx-0 md:gap-4 md:px-40">
             {visualizerValues.map((option) => (
               <RadioGroup.Option
                 key={option}
@@ -60,7 +60,7 @@ const PlayerNav: React.FC<PlayerNavProps> = ({
         </RadioGroup>
       </div>
       <button
-        className="z-30 mr-2 rounded-sm border border-slate-600 bg-zinc-800 p-2 transition-all duration-300 md:mr-0"
+        className="z-30 mr-2 rounded-sm border border-slate-600 bg-zinc-800 p-2 transition-all duration-300"
         onClick={() => setLibraryStatus(!libraryStatus)}
       >
         Library&nbsp;

@@ -20,17 +20,69 @@ const AudioVisualizer: React.FC<AudioVisualizerProps> = ({
   audioRef,
   visualizer,
 }) => {
-  const [audioContext] = useState<AudioContext>(new AudioContext());
+  const [audioContext] = useState<AudioContext>(() => {
+    try {
+      const context = new AudioContext();
+      console.log("AudioContext created successfully", context.state);
+      return context;
+    } catch (error) {
+      console.error("Failed to create AudioContext:", error);
+      throw error;
+    }
+  });
 
   const audioSource = useRef<MediaElementAudioSourceNode | null>(null);
 
   const didLoad = useRef<boolean>(false);
 
-  //TODO: Fix - AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page
   useEffect(() => {
-    if (didLoad.current && isPlaying) audioContext.resume();
-    else didLoad.current = true;
+    const handleStateChange = () => {
+      console.log("AudioContext state changed:", audioContext.state);
+    };
+
+    // Add state change listener
+    audioContext.onstatechange = handleStateChange;
+
+    return () => {
+      audioContext.onstatechange = null;
+    };
+  }, [audioContext]);
+
+  useEffect(() => {
+    if (didLoad.current && isPlaying) {
+      try {
+        console.log("Attempting to resume AudioContext...");
+        audioContext
+          .resume()
+          .then(() => {
+            console.log("AudioContext resumed successfully");
+          })
+          .catch((error) => {
+            console.error("Failed to resume AudioContext:", error);
+          });
+      } catch (error) {
+        console.error("Error in AudioContext resume:", error);
+      }
+    } else {
+      didLoad.current = true;
+    }
   }, [isPlaying]);
+
+  // Add error handling for audio processing
+  useEffect(() => {
+    const handleAudioError = (error: Event) => {
+      console.error("Audio processing error:", error);
+      if (error instanceof ErrorEvent) {
+        console.error("Error message:", error.message);
+      }
+    };
+
+    audioContext.addEventListener("error", handleAudioError);
+
+    return () => {
+      audioContext.removeEventListener("error", handleAudioError);
+    };
+  }, [audioContext]);
 
   const renderVizualizer = () => {
     switch (visualizer) {
