@@ -5,6 +5,7 @@ import GreenLightBootleg from "../musiclibrary/music/GreenLightBootleg.mp3";
 import DeepDubDemo from "../musiclibrary/music/DeepDubDemo.mp3";
 import ShadeStriderLoop from "../musiclibrary/music/ShadeStriderMainLoop.mp3";
 import ShadeStriderDnb from "../musiclibrary/music/ShadeStriderDnb.mp3";
+import ShadeStriderBoss2 from "../musiclibrary/music/ShadeStriderBoss2.mp3";
 import ShadeStriderMainMenu from "../musiclibrary/music/ShadeStriderMainMenu.mp3";
 import ShadeStriderJungle1 from "../musiclibrary/music/ShadeStriderJungle1.mp3";
 import SynthRiddim from "../musiclibrary/music/BigSynthRiddim.mp3";
@@ -120,6 +121,17 @@ function songLibrary(): Song[] {
       active: false,
       color: ["#14182E", "#4C6885"],
       audio: ShadeStriderDnb,
+    },
+    {
+      name: "Shade Strider Boss Test 2 [CLIP]",
+      artist: "Ryan Coppa",
+      year: 2024,
+      url: "/music/shade-strider-boss-test-2",
+      cover: shadestriderlogo,
+      id: uuidv4(),
+      active: false,
+      color: ["#14182E", "#4C6885"],
+      audio: ShadeStriderBoss2,
     },
     {
       name: "Shade Strider Main Menu",
