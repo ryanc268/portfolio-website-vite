@@ -3,6 +3,7 @@ import shadeStriderBanner from "../assets/ShadeStriderCoverArt.png";
 import card from "../assets/valerianX-card.jpg";
 import goonIcon from "../assets/goonbot-small.png";
 import visualizationBanner from "../assets/visualizer-banner.png";
+import obsidian7kdbBanner from "../assets/seven knights banner.jpg";
 import cubegame from "../assets/cube-game.png";
 import aiVoiceBanner from "../assets/ai-voice-convos-banner.png";
 import aiImageRecogBanner from "../assets/ai-image-recognition-banner.png";
@@ -71,6 +72,12 @@ export const MyWork: React.FC = () => {
         header="C# Mobile Game Made With Unity 2D"
         image={card}
         link="/work/valerianX"
+      />
+      <ExternalProjectCard
+        title="Obsidian Seven Knights: Rebirth Fan-Site"
+        header="Collaborator on a fan site for the mobile game Seven Knights: Rebirth, built almost entirely using AI to test its limits and capabilities"
+        image={obsidian7kdbBanner}
+        link="https://obsidian7kdb.info/"
       />
       <ExternalProjectCard
         title="Cube Game"

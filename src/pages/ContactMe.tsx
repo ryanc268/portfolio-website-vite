@@ -12,6 +12,7 @@ import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import linkedinlogo from "/src/assets/linkedinlogo.png";
+import linkedinProfilePicture from "/src/assets/linkedinProfilePicture.png";
 import githublogo from "/src/assets/githublogo.png";
 import githublogo2 from "/src/assets/githublogo2.png";
 import logo from "/src/assets/logo192.png";
@@ -72,7 +73,7 @@ export const ContactMe = () => {
               <img
                 className="my-2 flex w-20 rounded-full"
                 alt="Profile Picture"
-                src="https://media.licdn.com/dms/image/v2/C5103AQGlLSKryMz6AQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1516980586703?e=1749686400&v=beta&t=dAZCedUyfx41wjmnCVCJOh1K-vyWhxLun0AlFU988Jk"
+                src={linkedinProfilePicture}
               />
               <h3 className="my-2 text-2xl">Ryan Coppa</h3>
               <h4 className="font-montserrat text-sm">
