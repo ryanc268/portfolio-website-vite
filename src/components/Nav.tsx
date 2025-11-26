@@ -18,7 +18,7 @@ const letterVariants = {
   hover: {
     y: -3,
     color: "#01c4fa",
-    transition: { duration: 0.2, ease: "easeOut" },
+    transition: { duration: 0.2, ease: "easeOut" as const },
   },
 };
 
@@ -56,7 +56,7 @@ const Nav = () => {
             ))}
           </Link>
           <motion.div
-            className="absolute bottom-0 left-0 h-[1px] w-full origin-left bg-cyan-custom md:h-[2px]"
+            className="absolute bottom-0 left-0 h-px w-full origin-left bg-cyan-custom md:h-[2px]"
             variants={underlineFlowVariants}
             transition={{ duration: 0.3, ease: "linear" }}
           />

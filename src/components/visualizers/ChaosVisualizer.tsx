@@ -63,7 +63,7 @@ const ChaosVisualizer: React.FC<VisualizerProps> = ({
     const bufferLength = analyser.current.frequencyBinCount;
     const dataArray = new Uint8Array(bufferLength);
 
-    let barHeight: number = 0;
+    const barHeight: number = 0;
 
     const animate = () => {
       if (contextRef.current && canvasRef.current) {

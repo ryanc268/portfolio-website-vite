@@ -49,7 +49,7 @@ const BasicVisualizer: React.FC<VisualizerProps> = ({
       ? canvasRef.current.width / bufferLength
       : window.innerWidth / bufferLength;
 
-    let barHeight: number = 0;
+    const barHeight: number = 0;
     let x: number;
 
     const animate = () => {

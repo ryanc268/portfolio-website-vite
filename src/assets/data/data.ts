@@ -125,7 +125,7 @@ function songLibrary(): Song[] {
     {
       name: "Shade Strider Boss Test 2 [CLIP]",
       artist: "Ryan Coppa",
-      year: 2024,
+      year: 2025,
       url: "/music/shade-strider-boss-test-2",
       cover: shadestriderlogo,
       id: uuidv4(),

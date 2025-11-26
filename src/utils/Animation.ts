@@ -28,7 +28,7 @@ export const titleAnim: Variants = {
   },
   show: {
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
+    transition: { duration: 0.5, ease: "easeOut" as const },
   },
 };
 
@@ -36,7 +36,7 @@ export const fade: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { ease: "easeOut", duration: 0.75 },
+    transition: { ease: "easeOut" as const, duration: 0.75 },
   },
 };
 
@@ -46,7 +46,7 @@ export const photoAnim: Variants = {
     scale: 1,
     opacity: 1,
     transition: {
-      ease: "easeOut",
+      ease: "easeOut" as const,
       duration: 0.75,
     },
   },
@@ -63,17 +63,17 @@ export const lineAnim: Variants = {
 };
 
 export const slider: Variants = {
-  hidden: { x: "-130%", skew: "45deg" },
+  hidden: { x: "-130%", skewX: 45 },
   show: {
     x: "100%",
-    skew: "0deg",
-    transition: { ease: "easeOut", duration: 0.75 },
+    skewX: 0,
+    transition: { ease: "easeOut" as const, duration: 0.75 },
   },
 };
 
 export const sliderContainer: Variants = {
   hidden: { opacity: 1 },
-  show: { opacity: 1, transition: { staggerChildren: 0.15, ease: "easeOut" } },
+  show: { opacity: 1, transition: { staggerChildren: 0.15, ease: "easeOut" as const } },
 };
 
 export const scrollReveal: Variants = {

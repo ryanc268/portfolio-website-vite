@@ -1,9 +1,7 @@
 import { useInView } from "react-intersection-observer";
-import { AnimationControls, useAnimation } from "framer-motion";
+import { useAnimation } from "framer-motion";
 
-export const useScroll = (
-  delay: number
-): [React.Ref<HTMLDivElement>, AnimationControls] => {
+export const useScroll = (delay: number) => {
   const controls = useAnimation();
   const [element, view] = useInView({ threshold: 0.3 });
   if (view) {
@@ -12,7 +10,7 @@ export const useScroll = (
     controls.mount();
     controls.start("hidden");
   }
-  return [element, controls];
+  return [element, controls] as const;
 };
 
 export default useScroll;
