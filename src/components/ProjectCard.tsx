@@ -21,7 +21,7 @@ export const InternalProjectCard: React.FC<ProjectCardProps> = ({
   const [isHovering, setIsHovering] = useState(false);
   return (
     <motion.div
-      className="h-100 m-4 rounded-2xl md:w-2/5"
+      className="relative z-10 mx-auto mb-4 w-full max-w-lg md:mb-0 md:mx-4 md:w-2/5 md:max-w-none"
       variants={fade}
       animate={controls}
       initial="hidden"
@@ -33,24 +33,26 @@ export const InternalProjectCard: React.FC<ProjectCardProps> = ({
       onTouchCancel={() => setIsHovering(false)}
     >
       <Link to={link}>
-        <div className="relative flex h-full items-center justify-center rounded-2xl  text-center">
+        <div className="relative aspect-video overflow-hidden rounded-3xl text-center">
           {!isHovering && (
             <>
-              <div className="absolute h-full w-full rounded-3xl bg-black opacity-30"></div>
-              <h3 className="absolute pt-4 font-montserrat text-3xl md:text-5xl 2xl:text-6xl">
+              <div className="absolute inset-0 z-10 bg-black/30"></div>
+              <h3 className="absolute inset-0 z-20 flex items-center justify-center px-4 font-montserrat text-2xl md:text-5xl 2xl:text-6xl">
                 {title}
               </h3>
             </>
           )}
           <img
-            className={`h-full w-full rounded-3xl ${
+            className={`absolute inset-0 h-full w-full object-cover ${
               isHovering ? "blur-md" : ""
             }`}
             src={image}
             alt={`${title} card`}
           />
           {isHovering && (
-            <h3 className="absolute px-4 text-lg md:text-2xl">{header}</h3>
+            <h3 className="absolute inset-0 z-20 flex items-center justify-center px-4 text-base md:text-2xl">
+              {header}
+            </h3>
           )}
         </div>
       </Link>
@@ -68,7 +70,7 @@ export const ExternalProjectCard: React.FC<ProjectCardProps> = ({
   const [isHovering, setIsHovering] = useState(false);
   return (
     <motion.div
-      className="h-100 m-4 md:w-2/5"
+      className="relative z-10 mx-auto mb-4 w-full max-w-lg md:mb-0 md:mx-4 md:w-2/5 md:max-w-none"
       variants={fade}
       animate={controls}
       initial="hidden"
@@ -80,25 +82,26 @@ export const ExternalProjectCard: React.FC<ProjectCardProps> = ({
       onTouchCancel={() => setIsHovering(false)}
     >
       <a href={link} rel="noreferrer" target="_blank">
-        <div className="relative flex h-full items-center justify-center text-center">
+        <div className="relative aspect-video overflow-hidden rounded-3xl text-center">
           {!isHovering && (
             <>
-              <div className="absolute h-full w-full rounded-3xl bg-black opacity-30"></div>
-              <h3 className="absolute pt-4 font-montserrat text-3xl md:text-5xl 2xl:text-6xl">
+              <div className="absolute inset-0 z-10 bg-black/30"></div>
+              <h3 className="absolute inset-0 z-20 flex items-center justify-center px-4 font-montserrat text-2xl md:text-5xl 2xl:text-6xl">
                 {title}
               </h3>
             </>
           )}
           <img
-            className={`h-full w-full rounded-3xl ${
+            className={`absolute inset-0 h-full w-full object-cover ${
               isHovering ? "blur-md" : ""
             }`}
             src={image}
             alt={`${title} card`}
           />
-
           {isHovering && (
-            <h3 className="absolute px-4 text-lg md:text-2xl">{header}</h3>
+            <h3 className="absolute inset-0 z-20 flex items-center justify-center px-4 text-base md:text-2xl">
+              {header}
+            </h3>
           )}
         </div>
       </a>

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { VisualizerProps } from "../../global/interfaces";
+import { connectPlaybackRoute, connectVisualizationRoute } from "../../utils/audioGraph";
 
 function isMobile() {
   return window.innerWidth <= 768;
@@ -9,6 +10,7 @@ const CircleBarVisualizer: React.FC<VisualizerProps> = ({
   audioRef,
   audioContext,
   audioSource,
+  gainNode,
 }: VisualizerProps) => {
   // Increase FFT_SIZE for more bars/better circle coverage
   const FFT_SIZE = 1024;
@@ -30,7 +32,7 @@ const CircleBarVisualizer: React.FC<VisualizerProps> = ({
     contextRef.current = context;
     startVisualizer();
     return () => {
-      audioSource.current?.disconnect();
+      connectPlaybackRoute(audioSource, gainNode, analyser.current);
       cancelAnimationFrame(animationId);
     };
   }, []);
@@ -41,8 +43,7 @@ const CircleBarVisualizer: React.FC<VisualizerProps> = ({
     audioSource.current =
       audioSource.current || audioContext.createMediaElementSource(audio);
     analyser.current = audioContext.createAnalyser();
-    audioSource.current.connect(analyser.current);
-    analyser.current.connect(audioContext.destination);
+    connectVisualizationRoute(audioSource.current, analyser.current, gainNode);
     analyser.current.fftSize = FFT_SIZE;
 
     const bufferLength = analyser.current.frequencyBinCount;

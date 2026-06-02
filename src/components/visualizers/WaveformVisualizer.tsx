@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import { VisualizerProps } from "../../global/interfaces";
+import { connectPlaybackRoute, connectVisualizationRoute } from "../../utils/audioGraph";
 
 const WaveformVisualizer: React.FC<VisualizerProps> = ({
   audioRef,
   audioContext,
   audioSource,
+  gainNode,
 }: VisualizerProps) => {
   // Using a larger FFT size for more detail in the waveform
   const FFT_SIZE = 2048;
@@ -22,7 +24,7 @@ const WaveformVisualizer: React.FC<VisualizerProps> = ({
     contextRef.current = context;
     startVisualizer();
     return () => {
-      audioSource.current?.disconnect();
+      connectPlaybackRoute(audioSource, gainNode, analyser.current);
       cancelAnimationFrame(animationId);
     };
   }, []);
@@ -33,9 +35,7 @@ const WaveformVisualizer: React.FC<VisualizerProps> = ({
     audioSource.current =
       audioSource.current || audioContext.createMediaElementSource(audio);
     analyser.current = audioContext.createAnalyser();
-    audioSource.current.connect(analyser.current);
-    // Ensure audio output is connected
-    analyser.current.connect(audioContext.destination);
+    connectVisualizationRoute(audioSource.current, analyser.current, gainNode);
     analyser.current.fftSize = FFT_SIZE;
 
     const bufferLength = analyser.current.fftSize;

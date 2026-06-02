@@ -6,6 +6,7 @@ import DeepDubDemo from "../musiclibrary/music/DeepDubDemo.mp3";
 import ShadeStriderLoop from "../musiclibrary/music/ShadeStriderMainLoop.mp3";
 import ShadeStriderDnb from "../musiclibrary/music/ShadeStriderDnb.mp3";
 import ShadeStriderBoss2 from "../musiclibrary/music/ShadeStriderBoss2.mp3";
+import ShadeStriderLevelCompleted from "../musiclibrary/music/ShadeStriderLevelCompleted.mp3";
 import ShadeStriderMainMenu from "../musiclibrary/music/ShadeStriderMainMenu.mp3";
 import ShadeStriderJungle1 from "../musiclibrary/music/ShadeStriderJungle1.mp3";
 import SynthRiddim from "../musiclibrary/music/BigSynthRiddim.mp3";
@@ -125,13 +126,24 @@ function songLibrary(): Song[] {
     {
       name: "Shade Strider Boss Test 2 [CLIP]",
       artist: "Ryan Coppa",
-      year: 2025,
+      year: 2026,
       url: "/music/shade-strider-boss-test-2",
       cover: shadestriderlogo,
       id: uuidv4(),
       active: false,
       color: ["#14182E", "#4C6885"],
       audio: ShadeStriderBoss2,
+    },
+    {
+      name: "Shade Strider Level Completed",
+      artist: "Ryan Coppa",
+      year: 2026,
+      url: "/music/shade-strider-level-completed",
+      cover: shadestriderlogo,
+      id: uuidv4(),
+      active: false,
+      color: ["#14182E", "#4C6885"],
+      audio: ShadeStriderLevelCompleted,
     },
     {
       name: "Shade Strider Main Menu",

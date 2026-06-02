@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import { VisualizerProps } from "../../global/interfaces";
+import { connectPlaybackRoute, connectVisualizationRoute } from "../../utils/audioGraph";
 
 const ReflectedBarVisualizer: React.FC<VisualizerProps> = ({
   audioRef,
   audioContext,
   audioSource,
+  gainNode,
 }: VisualizerProps) => {
   const FFT_SIZE = 1024;
   const BAR_HEIGHT_SCALE = 1.5;
@@ -40,7 +42,7 @@ const ReflectedBarVisualizer: React.FC<VisualizerProps> = ({
     window.addEventListener("resize", resizeCanvas);
 
     return () => {
-      audioSource.current?.disconnect();
+      connectPlaybackRoute(audioSource, gainNode, analyser.current);
       cancelAnimationFrame(animationId);
       // Remove resize listener on cleanup
       window.removeEventListener("resize", resizeCanvas);
@@ -54,8 +56,7 @@ const ReflectedBarVisualizer: React.FC<VisualizerProps> = ({
     audioSource.current =
       audioSource.current || audioContext.createMediaElementSource(audio);
     analyser.current = audioContext.createAnalyser();
-    audioSource.current.connect(analyser.current);
-    analyser.current.connect(audioContext.destination);
+    connectVisualizationRoute(audioSource.current, analyser.current, gainNode);
     analyser.current.fftSize = FFT_SIZE;
 
     const bufferLength = analyser.current.frequencyBinCount;

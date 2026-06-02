@@ -1,4 +1,4 @@
-import React, { useState, useEffect, MutableRefObject } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlay,
@@ -7,195 +7,83 @@ import {
   faPause,
   faVolumeDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { Song, SongInfo } from "../../global/interfaces";
 import { TrackDirection } from "../../global/enums";
+import { useMusicPlayer } from "../../context/MusicPlayerContext";
 
 import logo from "/src/assets/logo192.png";
 
-interface PlayerProps {
-  audioRef: MutableRefObject<HTMLAudioElement | null>;
-  currentSong: Song;
-  isPlaying: boolean;
-  setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-  setSongInfo: React.Dispatch<React.SetStateAction<SongInfo>>;
-  songInfo: SongInfo;
-  songs: Song[];
-  setCurrentSong: React.Dispatch<React.SetStateAction<Song>>;
-  setSongs: React.Dispatch<React.SetStateAction<Song[]>>;
-}
-
-const Player: React.FC<PlayerProps> = ({
-  audioRef,
-  currentSong,
-  isPlaying,
-  setIsPlaying,
-  setSongInfo,
-  songInfo,
-  songs,
-  setCurrentSong,
-  setSongs,
-}) => {
+const Player = () => {
   const [activeVolume, setActiveVolume] = useState(false);
-  const activeLibraryHandler = (nextPrev: Song) => {
-    const newSongs = songs.map((song) => {
-      if (song.id === nextPrev.id) {
-        return {
-          ...song,
-          active: true,
-        };
-      } else {
-        return {
-          ...song,
-          active: false,
-        };
-      }
-    });
-    setSongs(newSongs);
-  };
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
 
-  //attach media session events / data every time currentSong is updated
-  useEffect(() => {
-    if ("mediaSession" in navigator) {
-      try {
-        navigator.mediaSession.setActionHandler("play", () =>
-          playSongHandler()
-        );
-        navigator.mediaSession.setActionHandler("pause", () =>
-          playSongHandler()
-        );
-        navigator.mediaSession.setActionHandler("nexttrack", async () =>
-          skipTrackHandler(TrackDirection.FORWARD)
-        );
-        navigator.mediaSession.setActionHandler("previoustrack", async () =>
-          skipTrackHandler(TrackDirection.BACK)
-        );
-        navigator.mediaSession.metadata = new MediaMetadata({
-          title: currentSong.name,
-          artist: currentSong.artist,
-          artwork: [
-            {
-              src: currentSong.cover,
-              sizes: "96x96",
-              type: "image/jpg",
-            },
-            {
-              src: currentSong.cover,
-              sizes: "128x128",
-              type: "image/jpg",
-            },
-            {
-              src: currentSong.cover,
-              sizes: "192x192",
-              type: "image/jpg",
-            },
-            {
-              src: currentSong.cover,
-              sizes: "256x256",
-              type: "image/jpg",
-            },
-            {
-              src: currentSong.cover,
-              sizes: "384x384",
-              type: "image/jpg",
-            },
-            {
-              src: currentSong.cover,
-              sizes: "512x512",
-              type: "image/jpg",
-            },
-          ],
-        });
-        mediaSessionTimeHandler();
-      } catch {
-        console.log("Error with MediaSession (Generic) on current device");
-      }
-    }
-  }, [currentSong, isPlaying]);
+  const {
+    audioRef,
+    currentSong,
+    isPlaying,
+    volume,
+    songs,
+    setCurrentSong,
+    setSongs,
+    togglePlay,
+    skipTrack,
+    changeVolume,
+    setActiveSongInLibrary,
+  } = useMusicPlayer();
 
   useEffect(() => {
-    mediaSessionTimeHandler();
-  }, [songInfo]);
+    const audio = audioRef.current;
+    if (!audio) return;
 
-  //Event Handlers
-  const playSongHandler = () => {
-    if (isPlaying) {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        setIsPlaying(false);
+    const syncTime = () => {
+      setCurrentTime(audio.currentTime);
+      if (Number.isFinite(audio.duration)) {
+        setDuration(audio.duration);
       }
-    } else {
-      if (audioRef.current) {
-        audioRef.current.volume = songInfo.volume;
-        audioRef.current.play();
-        setIsPlaying(true);
-      }
-    }
-  };
+    };
+
+    syncTime();
+    audio.addEventListener("timeupdate", syncTime);
+    audio.addEventListener("loadedmetadata", syncTime);
+
+    return () => {
+      audio.removeEventListener("timeupdate", syncTime);
+      audio.removeEventListener("loadedmetadata", syncTime);
+    };
+  }, [audioRef, currentSong.audio]);
+
   const getTime = (time: number) => {
     return (
       Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
     );
   };
 
-  //TODO: fix this
-  const mediaSessionTimeHandler = () => {
-    try {
-      navigator.mediaSession.setPositionState({
-        duration: songInfo.duration || 0,
-        position: songInfo.currentTime || 0,
-      });
-    } catch {
-      console.log(
-        "Error with MediaSession (setPositionState()) on current device"
-      );
-    }
-  };
   const dragHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (audioRef.current) audioRef.current.currentTime = +e.target.value;
-    setSongInfo({ ...songInfo, currentTime: +e.target.value });
-  };
-  const skipTrackHandler = async (direction: TrackDirection) => {
-    const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
-    if (direction === TrackDirection.FORWARD) {
-      await setCurrentSong(songs[(currentIndex + 1) % songs.length]);
-      activeLibraryHandler(songs[(currentIndex + 1) % songs.length]);
+    const nextTime = +e.target.value;
+    if (audioRef.current) {
+      audioRef.current.currentTime = nextTime;
     }
-    if (direction === TrackDirection.BACK) {
-      if ((currentIndex - 1) % songs.length === -1) {
-        await setCurrentSong(songs[songs.length - 1]);
-        activeLibraryHandler(songs[songs.length - 1]);
-        if (isPlaying) audioRef.current?.play();
-        return;
-      }
-      await setCurrentSong(songs[(currentIndex - 1) % songs.length]);
-      activeLibraryHandler(songs[(currentIndex - 1) % songs.length]);
-    }
-    if (isPlaying) audioRef.current?.play();
-  };
-  //Add Styles
-  const trackAnim = {
-    transform: `translateX(${songInfo.animationPercentage}%)`,
+    setCurrentTime(nextTime);
   };
 
-  const changeVolume = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = +e.target.value;
-    if (audioRef.current) audioRef.current.volume = value;
-    setSongInfo({ ...songInfo, volume: value });
+  const animationPercentage =
+    duration > 0 ? Math.round((currentTime / duration) * 100) : 0;
+
+  const trackAnim = {
+    transform: `translateX(${animationPercentage}%)`,
   };
 
   const uploadCustomSong = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    //Keeps track to know if any new songs upload so we can move to them
     let songsUploaded = 0;
     if (audioRef.current && e.target.files) {
+      const tempSongs = [...songs];
       for (let i = 0; i < e.target.files.length; i++) {
         const uploadId = e.target.files[i].lastModified.toString();
-        //check if the current uploaded song ID matches an id already in the library
-        //also verifies the file is an mpeg/mp3 (for phones mainly)
         const songOkay =
           songs.every((s) => s.id !== uploadId) &&
           e.target.files[i].type === "audio/mpeg";
         if (songOkay) {
-          const uploadedSong: Song = {
+          const uploadedSong = {
             name: e.target.files[i].name,
             artist: "",
             year: e.target.files[i].lastModified,
@@ -206,24 +94,23 @@ const Player: React.FC<PlayerProps> = ({
             color: ["#3B4E59", "#1B272F"],
             audio: URL.createObjectURL(e.target.files[i]),
           };
-          const tempSongs = songs;
           tempSongs.unshift(uploadedSong);
-          setSongs(tempSongs);
           songsUploaded++;
         }
       }
       if (songsUploaded > 0) {
-        await setCurrentSong(songs[0]);
-        activeLibraryHandler(songs[0]);
+        setSongs(tempSongs);
+        const firstSong = tempSongs[0];
+        await setCurrentSong(firstSong);
+        setActiveSongInLibrary(firstSong);
       }
     }
   };
+
   return (
     <div className="flex flex-col items-center justify-between md:pb-20 2xl:pb-0">
       <div className="z-10 flex w-10/12 items-center md:w-1/2">
-        <p className="px-2 text-sm md:text-xl">
-          {getTime(songInfo.currentTime)}
-        </p>
+        <p className="px-2 text-sm md:text-xl">{getTime(currentTime)}</p>
         <div
           style={{
             background: `linear-gradient(to right, ${currentSong.color[0]},${currentSong.color[1]})`,
@@ -233,8 +120,8 @@ const Player: React.FC<PlayerProps> = ({
           <input
             className="w-full cursor-pointer appearance-none bg-transparent"
             min={0}
-            max={songInfo.duration || 0}
-            value={songInfo.currentTime}
+            max={duration || 0}
+            value={currentTime}
             onChange={dragHandler}
             type="range"
           />
@@ -244,24 +131,24 @@ const Player: React.FC<PlayerProps> = ({
           ></div>
         </div>
         <p className="px-2 text-sm md:text-xl">
-          {songInfo.duration ? getTime(songInfo.duration) : "0:00"}
+          {duration ? getTime(duration) : "0:00"}
         </p>
       </div>
       <div className="z-10 flex w-3/4 items-center justify-between pt-8 md:w-1/2 md:pt-4 2xl:pt-8">
         <FontAwesomeIcon
-          onClick={() => skipTrackHandler(TrackDirection.BACK)}
+          onClick={() => skipTrack(TrackDirection.BACK)}
           className="skip-back"
           size="2x"
           icon={faAngleLeft}
         />
         <FontAwesomeIcon
-          onClick={playSongHandler}
+          onClick={() => void togglePlay()}
           className="play"
           size="2x"
           icon={isPlaying ? faPause : faPlay}
         />
         <FontAwesomeIcon
-          onClick={() => skipTrackHandler(TrackDirection.FORWARD)}
+          onClick={() => skipTrack(TrackDirection.FORWARD)}
           className="skip-forward"
           size="2x"
           icon={faAngleRight}
@@ -290,8 +177,8 @@ const Player: React.FC<PlayerProps> = ({
         />
         {activeVolume && (
           <input
-            onChange={changeVolume}
-            value={songInfo.volume}
+            onChange={(e) => changeVolume(+e.target.value)}
+            value={volume}
             max="1"
             min="0"
             step="0.01"

@@ -29,7 +29,7 @@ const ServicesSection: React.FC = () => {
               <h3 className="text-sm md:text-xl">Efficient</h3>
             </div>
             <p className="px-2 text-sm md:text-lg">
-              Always motivated to find the most effective ways to solve
+              Always strive to find the most efficient and effective ways to solve
               problems.
             </p>
           </div>
@@ -53,7 +53,7 @@ const ServicesSection: React.FC = () => {
                 src={random}
                 alt="random icon"
               />
-              <h3 className="text-sm md:text-xl">Motivated</h3>
+              <h3 className="text-sm md:text-xl">Motivation</h3>
             </div>
             <p className="px-2 text-sm md:text-lg">
               Always motivated to keep up to date with the industry and the best

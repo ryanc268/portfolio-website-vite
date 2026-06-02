@@ -24,4 +24,5 @@ export interface VisualizerProps {
   audioRef: MutableRefObject<HTMLAudioElement | null>;
   audioContext: AudioContext;
   audioSource: MutableRefObject<MediaElementAudioSourceNode | null>;
+  gainNode: GainNode;
 }

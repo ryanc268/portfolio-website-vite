@@ -13,7 +13,6 @@ import ryansDevToolsBanner from "../assets/ryans-dev-tools.png";
 import { motion } from "framer-motion";
 import { pageAnimation, slider, sliderContainer } from "../utils/Animation";
 //Components
-import ScrollTop from "../utils/ScrollTop";
 import { Helmet } from "react-helmet";
 import {
   ExternalProjectCard,
@@ -23,7 +22,7 @@ import {
 export const MyWork: React.FC = () => {
   return (
     <motion.div
-      className="flex-1 flex-wrap justify-center py-4 text-center md:flex"
+      className="relative flex flex-col items-center gap-4 px-4 py-4 text-center md:flex-row md:flex-wrap md:justify-center md:gap-0"
       variants={pageAnimation}
       initial="hidden"
       animate="show"
@@ -31,29 +30,34 @@ export const MyWork: React.FC = () => {
       style={{ background: "#1b1b1b" }}
     >
       <CustomHelmet />
-      <motion.div variants={sliderContainer}>
+      <motion.div
+        variants={sliderContainer}
+        className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+        aria-hidden
+      >
         <motion.div
-          className="fixed left-0 top-0 z-0 h-screen w-screen bg-indigo-900"
+          className="fixed left-0 top-0 h-screen w-screen bg-indigo-900"
           variants={slider}
         />
         <motion.div
-          className="fixed left-0 top-0 z-0 h-screen w-screen bg-cyan-600"
+          className="fixed left-0 top-0 h-screen w-screen bg-cyan-600"
           variants={slider}
         />
         <motion.div
-          className="fixed left-0 top-0 z-0 h-screen w-screen bg-violet-900"
+          className="fixed left-0 top-0 h-screen w-screen bg-violet-900"
           variants={slider}
         />
         <motion.div
-          className="fixed left-0 top-0 z-0 h-screen w-screen bg-cyan-300"
+          className="fixed left-0 top-0 h-screen w-screen bg-cyan-300"
           variants={slider}
         />
       </motion.div>
+      <div className="relative z-[1] flex w-full flex-col items-center gap-4 md:flex-row md:flex-wrap md:justify-center md:gap-x-8 md:gap-y-8">
       <ExternalProjectCard
         title="Shade Strider"
         header="2D Sidescrolling runner / platformer game made using C# in Godot 4. The base (demo) was made in 2 weeks for the Pirate Software Game Jame 14! The full game is currently in development."
         image={shadeStriderBanner}
-        link="https://shadestrider.netlify.app/"
+        link="https://www.shadestridergame.com/"
       />
       <ExternalProjectCard
         title="Reckful Twitter Archival Project"
@@ -109,7 +113,7 @@ export const MyWork: React.FC = () => {
         image={goonIcon}
         link="/work/goon-bot"
       />
-      <ScrollTop />
+      </div>
     </motion.div>
   );
 };

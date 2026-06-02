@@ -32,7 +32,7 @@ const Nav = () => {
   const url = location.pathname;
 
   return (
-    <nav className="sticky top-0 z-10 w-screen justify-between whitespace-nowrap bg-zinc-800 py-4 text-center md:flex md:px-40 md:py-4">
+    <nav className="sticky top-0 z-50 w-screen justify-between whitespace-nowrap bg-zinc-800 py-4 text-center md:flex md:px-40 md:py-4">
       <h1>
         <motion.div
           className="relative inline-block cursor-pointer text-xl font-semibold italic md:text-4xl"

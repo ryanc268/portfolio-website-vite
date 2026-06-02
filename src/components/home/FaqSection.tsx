@@ -15,7 +15,7 @@ export const FaqSection: React.FC = () => {
       ref={element}
     >
       <h2 className="py-2 text-3xl md:px-40 md:py-0 md:text-7xl">
-        Have questions? <span className="block text-cyan-custom">FAQ</span>
+        Have questions? <span className="text-cyan-custom block">FAQ</span>
       </h2>
       <LayoutGroup>
         <Toggle title="What Languages / Frameworks Do You Know?">
@@ -31,7 +31,7 @@ export const FaqSection: React.FC = () => {
             <br />
             <p className="text-sm underline md:text-2xl">Future Interests: </p>
             <p className="text-sm md:text-2xl">
-              Rust, Leptos, Sveltekit and more Tensorflow ML Models
+              GO, Rust and Leptos to name a few
             </p>
           </div>
         </Toggle>
@@ -55,15 +55,27 @@ export const FaqSection: React.FC = () => {
         <Toggle title="What Technologies Have You Used For Your Games?">
           <div className="text-gray-300 md:pb-8">
             <p className="text-sm md:text-2xl">
-              Right now the only game I&apos;ve made officially is Valerian X
-              which is a mobile game made in Unity with C# but I plan on
-              eventually exploring Rust as a language and making games built
-              directly into my websites. I could write Typescript games but Rust
-              seems to be the latest and greatest for web-based games (picture a
-              Javascript & C++ hybrid).
-            </p>
-            <p className="text-sm font-bold md:text-2xl">
-              Edit: I made a browser Typescript game :)
+              Right now I&apos;ve made{" "}
+              <a className="text-cyan-custom underline" href="/work/valerianX">
+                Valerian X
+              </a>{" "}
+              which is a mobile game made in Unity with C#. One of my first big
+              projects ever!
+              <br />
+              <br />
+              I&apos;ve also made{" "}
+              <a
+                className="text-cyan-custom underline"
+                href="https://www.shadestridergame.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Shade Strider
+              </a>{" "}
+              which is a 2D sidescrolling runner / platformer game made using C#
+              in Godot 4. The base (demo) was made in 2 weeks for the Pirate
+              Software Game Jame 14! The full game is currently in development
+              and will be on steam soon.
             </p>
           </div>
         </Toggle>

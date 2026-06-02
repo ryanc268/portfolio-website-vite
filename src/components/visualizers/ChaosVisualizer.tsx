@@ -1,10 +1,12 @@
 import { useEffect, useRef } from "react";
 import { VisualizerProps } from "../../global/interfaces";
+import { connectPlaybackRoute, connectVisualizationRoute } from "../../utils/audioGraph";
 
 const ChaosVisualizer: React.FC<VisualizerProps> = ({
   audioRef,
   audioContext,
   audioSource,
+  gainNode,
 }: VisualizerProps) => {
   //Only use doubles or halves
   const FFT_SIZE = 128;
@@ -35,7 +37,7 @@ const ChaosVisualizer: React.FC<VisualizerProps> = ({
     contextRef.current = context;
     startVisualizer();
     return () => {
-      audioSource.current?.disconnect();
+      connectPlaybackRoute(audioSource, gainNode, analyser.current);
       cancelAnimationFrame(animationId);
     };
   }, []);
@@ -47,8 +49,7 @@ const ChaosVisualizer: React.FC<VisualizerProps> = ({
     audioSource.current =
       audioSource.current || audioContext.createMediaElementSource(audio);
     analyser.current = audioContext.createAnalyser();
-    audioSource.current.connect(analyser.current);
-    analyser.current.connect(audioContext.destination);
+    connectVisualizationRoute(audioSource.current, analyser.current, gainNode);
     analyser.current.fftSize = FFT_SIZE;
 
     if (contextRef.current) {

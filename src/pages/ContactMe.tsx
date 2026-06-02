@@ -7,12 +7,11 @@ import {
   hoverExpand,
 } from "../utils/Animation";
 import resume from "../assets/resume.pdf";
-import ScrollTop from "../utils/ScrollTop";
 import { Helmet } from "react-helmet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import linkedinlogo from "/src/assets/linkedinlogo.png";
-import linkedinProfilePicture from "/src/assets/linkedinProfilePicture.png";
+import linkedinProfilePicture from "/src/assets/linkedinProfilePicture.jpg";
 import githublogo from "/src/assets/githublogo.png";
 import githublogo2 from "/src/assets/githublogo2.png";
 import logo from "/src/assets/logo192.png";
@@ -43,7 +42,7 @@ export const ContactMe = () => {
             variants={spinEntryRight}
           >
             <motion.a
-              className="rounded-md border-2 border-solid border-cyan-custom px-4 py-1 font-montserrat text-xs transition ease-in-out hover:border-indigo-700 md:py-4 md:text-xl"
+              className="border-cyan-custom font-montserrat rounded-md border-2 border-solid px-4 py-1 text-xs transition ease-in-out hover:border-indigo-700 md:py-4 md:text-xl"
               href={resume}
               download="Ryan_Coppa_Resume_Public.pdf"
               variants={hoverExpand}
@@ -81,7 +80,7 @@ export const ContactMe = () => {
               </h4>
               <div className="my-1 flex flex-row">
                 <a
-                  className="px-2 font-montserrat text-xs hover:underline"
+                  className="font-montserrat px-2 text-xs hover:underline"
                   href="https://www.linkedin.com/company/asics-digital/posts/?feedView=all"
                   rel="noreferrer"
                   target="_blank"
@@ -89,7 +88,7 @@ export const ContactMe = () => {
                   Runkeeper (ASICS Digital)
                 </a>
                 <a
-                  className="px-2 font-montserrat text-xs hover:underline"
+                  className="font-montserrat px-2 text-xs hover:underline"
                   href="https://www.linkedin.com/school/durham-college/?trk=public-profile-badge-profile-badge_school-name"
                   rel="noreferrer"
                   target="_blank"
@@ -98,7 +97,7 @@ export const ContactMe = () => {
                 </a>
               </div>
               <a
-                className="my-2 w-1/2 rounded-lg border border-white p-2 font-montserrat text-sm hover:bg-slate-800"
+                className="font-montserrat my-2 w-1/2 rounded-lg border border-white p-2 text-sm hover:bg-slate-800"
                 href="https://ca.linkedin.com/in/ryan-coppa?trk=profile-badge"
                 rel="noreferrer"
                 target="_blank"
@@ -136,7 +135,7 @@ export const ContactMe = () => {
                 Front-end, Full-Stack & Backend Projects
               </h4>
               <a
-                className="my-4 w-1/2 rounded-lg border border-white p-2 font-montserrat text-sm hover:bg-slate-800"
+                className="font-montserrat my-4 w-1/2 rounded-lg border border-white p-2 text-sm hover:bg-slate-800"
                 href="https://github.com/ryanc268"
                 rel="noreferrer"
                 target="_blank"
@@ -147,7 +146,6 @@ export const ContactMe = () => {
           </motion.div>
         </div>
       </div>
-      <ScrollTop />
     </motion.div>
   );
 };

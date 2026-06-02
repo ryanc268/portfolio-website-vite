@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { MyWork } from "./pages/MyWork";
 import { ContactMe } from "./pages/ContactMe";
@@ -8,33 +8,42 @@ import { AnimatePresence } from "framer-motion";
 import ValerianX from "./pages/work/ValerianX";
 import GoonBot from "./pages/work/GoonBot";
 import { Helmet } from "react-helmet";
+import { MusicPlayerProvider } from "./context/MusicPlayerContext";
+import PageBottomPad from "./components/PageBottomPad";
 
 import logo192 from "/src/assets/logo192.png";
 import icon from "/src/assets/favicon.ico";
 import ImageRecognitionAI from "./pages/work/ImageRecognitionAI";
 
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+};
+
 export const Router = () => {
+  const location = useLocation();
+
   return (
-    <>
+    <MusicPlayerProvider>
       <CustomHelmet />
       <Nav />
-      <AnimatePresence mode="wait">
-        <Routes location={location} key={location.pathname}>
-          <Route index element={<Home />} />
-          <Route path="/work" element={<MyWork />} />
-          <Route path="/work/valerianX" element={<ValerianX />} />
-          <Route
-            path="/work/image-recognition-ai"
-            element={<ImageRecognitionAI />}
-          />
-          <Route path="/work/goon-bot" element={<GoonBot />} />
-          <Route path="/contact" element={<ContactMe />} />
-          <Route path="/music" element={<MusicLibrary />}>
-            <Route path=":id" element={<MusicLibrary />} />
-          </Route>
-        </Routes>
-      </AnimatePresence>
-    </>
+      <PageBottomPad>
+        <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
+          <Routes location={location} key={location.pathname}>
+            <Route index element={<Home />} />
+            <Route path="/work" element={<MyWork />} />
+            <Route path="/work/valerianX" element={<ValerianX />} />
+            <Route
+              path="/work/image-recognition-ai"
+              element={<ImageRecognitionAI />}
+            />
+            <Route path="/work/goon-bot" element={<GoonBot />} />
+            <Route path="/contact" element={<ContactMe />} />
+            <Route path="/music" element={<MusicLibrary />} />
+            <Route path="/music/:id" element={<MusicLibrary />} />
+          </Routes>
+        </AnimatePresence>
+      </PageBottomPad>
+    </MusicPlayerProvider>
   );
 };
 
