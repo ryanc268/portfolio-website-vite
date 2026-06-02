@@ -15,6 +15,14 @@ import MiniPlayer from "../components/musiclibrary/MiniPlayer";
 
 const DEFAULT_VOLUME = 0.4;
 
+const createInitialLibraryState = () => {
+  const songs = data();
+  const currentSong = songs.find((song) => song.active) ?? songs[0];
+  return { songs, currentSong };
+};
+
+const initialLibrary = createInitialLibraryState();
+
 interface MusicPlayerContextValue {
   audioRef: React.RefObject<HTMLAudioElement | null>;
   audioSourceRef: React.MutableRefObject<MediaElementAudioSourceNode | null>;
@@ -32,7 +40,7 @@ interface MusicPlayerContextValue {
   libraryStatus: boolean;
   setLibraryStatus: React.Dispatch<React.SetStateAction<boolean>>;
   togglePlay: () => Promise<void>;
-  skipTrack: (direction: TrackDirection) => Promise<void>;
+  skipTrack: (direction: TrackDirection) => void;
   changeVolume: (volume: number) => void;
   setActiveSongInLibrary: (song: Song) => void;
   showMiniPlayer: boolean;
@@ -64,8 +72,10 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
   const location = useLocation();
   const isOnMusicPage = location.pathname.startsWith("/music");
 
-  const [songs, setSongs] = useState<Song[]>(() => data());
-  const [currentSong, setCurrentSong] = useState<Song>(() => data()[0]);
+  const [songs, setSongs] = useState<Song[]>(() => initialLibrary.songs);
+  const [currentSong, setCurrentSong] = useState<Song>(
+    () => initialLibrary.currentSong,
+  );
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(DEFAULT_VOLUME);
   const [visualizer, setVisualizer] = useState(Visualizer.BASIC);
@@ -167,20 +177,21 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const skipTrack = useCallback(
     (direction: TrackDirection) => {
+      if (songs.length === 0) return;
+
       const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
-      let nextSong = currentSong;
+      const safeIndex = currentIndex === -1 ? 0 : currentIndex;
 
-      if (direction === TrackDirection.FORWARD) {
-        nextSong = songs[(currentIndex + 1) % songs.length];
-      } else if (currentIndex - 1 === -1) {
-        nextSong = songs[songs.length - 1];
-      } else {
-        nextSong = songs[(currentIndex - 1) % songs.length];
-      }
+      const nextIndex =
+        direction === TrackDirection.FORWARD
+          ? (safeIndex + 1) % songs.length
+          : safeIndex === 0
+            ? songs.length - 1
+            : safeIndex - 1;
 
-      advanceToSong(nextSong, shouldPlayRef.current);
+      advanceToSong(songs[nextIndex], shouldPlayRef.current);
     },
-    [advanceToSong, currentSong, songs],
+    [advanceToSong, currentSong.id, songs],
   );
 
   const changeVolume = useCallback(
@@ -192,7 +203,8 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const songEndHandler = useCallback(() => {
     const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
-    const nextSong = songs[(currentIndex + 1) % songs.length];
+    const safeIndex = currentIndex === -1 ? 0 : currentIndex;
+    const nextSong = songs[(safeIndex + 1) % songs.length];
     advanceToSong(nextSong, true);
   }, [advanceToSong, currentSong.id, songs]);
 

@@ -9,52 +9,52 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
-import Abyssmark from "../../assets/work/valerianx/characters/Abyssmark.png";
-import Crycio from "../../assets/work/valerianx/characters/Crycio.png";
-import Drakala from "../../assets/work/valerianx/characters/Drakala.png";
-import Faelie from "../../assets/work/valerianx/characters/Faelie.png";
-import Frocus from "../../assets/work/valerianx/characters/Frocus.png";
-import Lightnape from "../../assets/work/valerianx/characters/Lightnape.png";
-import Raingel from "../../assets/work/valerianx/characters/Raingel.png";
-import Valentyra from "../../assets/work/valerianx/characters/Valentyra.png";
+import Abyssmark from "../../assets/projects/valerianx/characters/Abyssmark.png";
+import Crycio from "../../assets/projects/valerianx/characters/Crycio.png";
+import Drakala from "../../assets/projects/valerianx/characters/Drakala.png";
+import Faelie from "../../assets/projects/valerianx/characters/Faelie.png";
+import Frocus from "../../assets/projects/valerianx/characters/Frocus.png";
+import Lightnape from "../../assets/projects/valerianx/characters/Lightnape.png";
+import Raingel from "../../assets/projects/valerianx/characters/Raingel.png";
+import Valentyra from "../../assets/projects/valerianx/characters/Valentyra.png";
 
-import Crocgeneral from "../../assets/work/valerianx/monsters/Croc General.png";
-import Foolfuse from "../../assets/work/valerianx/monsters/Foolfuse.png";
-import Gremlin from "../../assets/work/valerianx/monsters/Gremlin.png";
-import Kobold from "../../assets/work/valerianx/monsters/Kobold.png";
-import Mossgolem from "../../assets/work/valerianx/monsters/Moss Golem.png";
-import Mothilisk from "../../assets/work/valerianx/monsters/Mothilisk.png";
-import Mysticslime from "../../assets/work/valerianx/monsters/Mystic Slime.png";
-import OtterRider from "../../assets/work/valerianx/monsters/Otter Rider.png";
-import Rythbeast from "../../assets/work/valerianx/monsters/Rythbeast.png";
-import Snowdragon from "../../assets/work/valerianx/monsters/Snow Dragon.png";
-import Snowkobold from "../../assets/work/valerianx/monsters/Snow Kobold.png";
-import Snownecro from "../../assets/work/valerianx/monsters/Snow Necro.png";
-import Snowtroll from "../../assets/work/valerianx/monsters/Snow Troll.png";
-import Snowwolf from "../../assets/work/valerianx/monsters/Snow Wolf.png";
-import Snowyeti from "../../assets/work/valerianx/monsters/Snow Yeti.png";
-import Snowgolem from "../../assets/work/valerianx/monsters/snow-golem.png";
-import Templeeye from "../../assets/work/valerianx/monsters/Temple Eye.png";
-import Templegolem from "../../assets/work/valerianx/monsters/Temple Golem.png";
-import Templereaper from "../../assets/work/valerianx/monsters/Temple Reaper.png";
-import Templespider from "../../assets/work/valerianx/monsters/Temple Spider.png";
+import Crocgeneral from "../../assets/projects/valerianx/monsters/Croc General.png";
+import Foolfuse from "../../assets/projects/valerianx/monsters/Foolfuse.png";
+import Gremlin from "../../assets/projects/valerianx/monsters/Gremlin.png";
+import Kobold from "../../assets/projects/valerianx/monsters/Kobold.png";
+import Mossgolem from "../../assets/projects/valerianx/monsters/Moss Golem.png";
+import Mothilisk from "../../assets/projects/valerianx/monsters/Mothilisk.png";
+import Mysticslime from "../../assets/projects/valerianx/monsters/Mystic Slime.png";
+import OtterRider from "../../assets/projects/valerianx/monsters/Otter Rider.png";
+import Rythbeast from "../../assets/projects/valerianx/monsters/Rythbeast.png";
+import Snowdragon from "../../assets/projects/valerianx/monsters/Snow Dragon.png";
+import Snowkobold from "../../assets/projects/valerianx/monsters/Snow Kobold.png";
+import Snownecro from "../../assets/projects/valerianx/monsters/Snow Necro.png";
+import Snowtroll from "../../assets/projects/valerianx/monsters/Snow Troll.png";
+import Snowwolf from "../../assets/projects/valerianx/monsters/Snow Wolf.png";
+import Snowyeti from "../../assets/projects/valerianx/monsters/Snow Yeti.png";
+import Snowgolem from "../../assets/projects/valerianx/monsters/snow-golem.png";
+import Templeeye from "../../assets/projects/valerianx/monsters/Temple Eye.png";
+import Templegolem from "../../assets/projects/valerianx/monsters/Temple Golem.png";
+import Templereaper from "../../assets/projects/valerianx/monsters/Temple Reaper.png";
+import Templespider from "../../assets/projects/valerianx/monsters/Temple Spider.png";
 
-import snowland1 from "../../assets/work/valerianx/landscapes/Snowland1.jpg";
-import snowland2 from "../../assets/work/valerianx/landscapes/Snowland2.jpg";
-import temple1 from "../../assets/work/valerianx/landscapes/Temple1.png";
-import temple2 from "../../assets/work/valerianx/landscapes/Temple2.png";
-import wetland1 from "../../assets/work/valerianx/landscapes/Wetland1.jpg";
-import wetland2 from "../../assets/work/valerianx/landscapes/Wetland2.jpg";
-import Forest from "../../assets/work/valerianx/landscapes/Forest.png";
-import Title from "../../assets/work/valerianx/landscapes/Title.png";
+import snowland1 from "../../assets/projects/valerianx/landscapes/Snowland1.jpg";
+import snowland2 from "../../assets/projects/valerianx/landscapes/Snowland2.jpg";
+import temple1 from "../../assets/projects/valerianx/landscapes/Temple1.png";
+import temple2 from "../../assets/projects/valerianx/landscapes/Temple2.png";
+import wetland1 from "../../assets/projects/valerianx/landscapes/Wetland1.jpg";
+import wetland2 from "../../assets/projects/valerianx/landscapes/Wetland2.jpg";
+import Forest from "../../assets/projects/valerianx/landscapes/Forest.png";
+import Title from "../../assets/projects/valerianx/landscapes/Title.png";
 
-import mainSplashAnimated from "../../assets/work/valerianx/landscapes/animated/Main_Splash.mp4";
-import snow1Animated from "../../assets/work/valerianx/landscapes/animated/Snow1.mp4";
-import snow2Animated from "../../assets/work/valerianx/landscapes/animated/Snow2.mp4";
-import wetland1Animated from "../../assets/work/valerianx/landscapes/animated/Wetland1.mp4";
-import wetland2Animated from "../../assets/work/valerianx/landscapes/animated/Wetland2.mp4";
-import temple1Animated from "../../assets/work/valerianx/landscapes/animated/Temple1.mp4";
-import temple2Animated from "../../assets/work/valerianx/landscapes/animated/Temple2.mp4";
+import mainSplashAnimated from "../../assets/projects/valerianx/landscapes/animated/Main_Splash.mp4";
+import snow1Animated from "../../assets/projects/valerianx/landscapes/animated/Snow1.mp4";
+import snow2Animated from "../../assets/projects/valerianx/landscapes/animated/Snow2.mp4";
+import wetland1Animated from "../../assets/projects/valerianx/landscapes/animated/Wetland1.mp4";
+import wetland2Animated from "../../assets/projects/valerianx/landscapes/animated/Wetland2.mp4";
+import temple1Animated from "../../assets/projects/valerianx/landscapes/animated/Temple1.mp4";
+import temple2Animated from "../../assets/projects/valerianx/landscapes/animated/Temple2.mp4";
 
 import { Helmet } from "react-helmet";
 
@@ -294,10 +294,10 @@ const ValerianX = () => {
     >
       <CustomHelmet />
 
-      <section className={`pb-3 pt-14 md:pt-16 ${PAGE_CONTAINER}`}>
+      <section className={`pb-3 pt-4 md:pt-6 ${PAGE_CONTAINER}`}>
           <motion.div variants={fade}>
             <Link
-              to="/work"
+              to="/projects"
               className="mb-2 inline-flex items-center gap-1.5 text-sm text-white/60 transition hover:text-cyan-custom"
             >
               <ChevronLeftIcon className="h-4 w-4" />
@@ -512,7 +512,7 @@ const CustomHelmet = () => {
       />
       <meta
         property="og:url"
-        content="https://www.ryancoppa.com/work/valerianX"
+        content="https://www.ryancoppa.com/projects/valerianX"
       />
       <meta name="twitter:title" content={`Project - ${title}`} />
       <meta

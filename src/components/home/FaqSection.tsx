@@ -56,7 +56,7 @@ export const FaqSection: React.FC = () => {
           <div className="text-gray-300 md:pb-8">
             <p className="text-sm md:text-2xl">
               Right now I&apos;ve made{" "}
-              <a className="text-cyan-custom underline" href="/work/valerianX">
+              <a className="text-cyan-custom underline" href="/projects/valerianX">
                 Valerian X
               </a>{" "}
               which is a mobile game made in Unity with C#. One of my first big

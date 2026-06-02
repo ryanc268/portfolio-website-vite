@@ -80,15 +80,15 @@ const Nav = () => {
         <li className="md:px-12 2xl:pl-20">
           <Link
             className="relative inline-block rounded-md px-2 py-1 text-sm transition-colors duration-200 hover:bg-white/10 hover:text-cyan-custom md:text-lg 2xl:text-xl"
-            to="/work"
+            to="/projects"
           >
-            <p>My Work</p>
+            <p>Projects</p>
             <motion.div
               className="absolute bottom-0 left-0 h-0.5 rounded-sm bg-cyan-custom md:h-1"
               transition={{ duration: 0.5 }}
               initial={{ width: "0%" }}
               animate={{
-                width: url.includes("/work") ? "100%" : "0%",
+                width: url.includes("/projects") ? "100%" : "0%",
               }}
             />
           </Link>

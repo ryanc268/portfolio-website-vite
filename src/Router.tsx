@@ -1,19 +1,20 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { MyWork } from "./pages/MyWork";
+import { Projects } from "./pages/Projects";
 import { ContactMe } from "./pages/ContactMe";
 import { MusicLibrary } from "./pages/MusicLibrary";
 import Nav from "./components/Nav";
 import { AnimatePresence } from "framer-motion";
-import ValerianX from "./pages/work/ValerianX";
-import GoonBot from "./pages/work/GoonBot";
+import ValerianX from "./pages/projects/ValerianX";
+import GoonBot from "./pages/projects/GoonBot";
 import { Helmet } from "react-helmet";
 import { MusicPlayerProvider } from "./context/MusicPlayerContext";
 import PageBottomPad from "./components/PageBottomPad";
 
 import logo192 from "/src/assets/logo192.png";
 import icon from "/src/assets/favicon.ico";
-import ImageRecognitionAI from "./pages/work/ImageRecognitionAI";
+import ImageRecognitionAI from "./pages/projects/ImageRecognitionAI";
+import { NotFound } from "./pages/NotFound";
 
 const scrollToTop = () => {
   window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -30,16 +31,30 @@ export const Router = () => {
         <AnimatePresence mode="wait" onExitComplete={scrollToTop}>
           <Routes location={location} key={location.pathname}>
             <Route index element={<Home />} />
-            <Route path="/work" element={<MyWork />} />
-            <Route path="/work/valerianX" element={<ValerianX />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/valerianX" element={<ValerianX />} />
             <Route
-              path="/work/image-recognition-ai"
+              path="/projects/image-recognition-ai"
               element={<ImageRecognitionAI />}
             />
-            <Route path="/work/goon-bot" element={<GoonBot />} />
+            <Route path="/projects/goon-bot" element={<GoonBot />} />
+            <Route path="/work" element={<Navigate to="/projects" replace />} />
+            <Route
+              path="/work/valerianX"
+              element={<Navigate to="/projects/valerianX" replace />}
+            />
+            <Route
+              path="/work/image-recognition-ai"
+              element={<Navigate to="/projects/image-recognition-ai" replace />}
+            />
+            <Route
+              path="/work/goon-bot"
+              element={<Navigate to="/projects/goon-bot" replace />}
+            />
             <Route path="/contact" element={<ContactMe />} />
             <Route path="/music" element={<MusicLibrary />} />
             <Route path="/music/:id" element={<MusicLibrary />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
       </PageBottomPad>

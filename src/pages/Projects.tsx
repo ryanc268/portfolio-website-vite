@@ -19,7 +19,7 @@ import {
   InternalProjectCard,
 } from "../components/ProjectCard";
 
-export const MyWork: React.FC = () => {
+export const Projects: React.FC = () => {
   return (
     <motion.div
       className="relative flex flex-col items-center gap-4 px-4 py-4 text-center md:flex-row md:flex-wrap md:justify-center md:gap-0"
@@ -75,7 +75,7 @@ export const MyWork: React.FC = () => {
         title="Valerian X"
         header="C# Mobile Game Made With Unity 2D"
         image={card}
-        link="/work/valerianX"
+        link="/projects/valerianX"
       />
       <ExternalProjectCard
         title="Obsidian Seven Knights: Rebirth Fan-Site"
@@ -105,13 +105,13 @@ export const MyWork: React.FC = () => {
         title="AI Image Recognition"
         header="Python Machine Learning model using Tensorflow. This project contains multiple different trained models used to explore Tensorflow's capability. My first Python / ML project!"
         image={aiImageRecogBanner}
-        link="/work/image-recognition-ai"
+        link="/projects/image-recognition-ai"
       />
       <InternalProjectCard
         title="Goon Bot"
         header="NodeJS Discord Bot aggregating game api data for player progress tracking (Page Under Contruction)"
         image={goonIcon}
-        link="/work/goon-bot"
+        link="/projects/goon-bot"
       />
       </div>
     </motion.div>
@@ -121,18 +121,18 @@ export const MyWork: React.FC = () => {
 const CustomHelmet = () => {
   return (
     <Helmet>
-      <title>My Projects</title>
+      <title>Projects</title>
       <meta
         name="description"
         content="Find out what projects I've been creating lately, stay up-to-date!"
       />
-      <meta property="og:title" content="My Projects" />
+      <meta property="og:title" content="Projects" />
       <meta
         property="og:description"
         content="See what projects I've been up to!"
       />
-      <meta property="og:url" content="https://www.ryancoppa.com/work" />
-      <meta name="twitter:title" content="My Projects" />
+      <meta property="og:url" content="https://www.ryancoppa.com/projects" />
+      <meta name="twitter:title" content="Projects" />
       <meta
         name="twitter:description"
         content="See what projects I've been up to!"
