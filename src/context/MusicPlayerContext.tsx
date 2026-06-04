@@ -23,6 +23,16 @@ const createInitialLibraryState = () => {
 
 const initialLibrary = createInitialLibraryState();
 
+const withActiveSong = (songs: Song[], songId: string): Song[] => {
+  if (songs.find((song) => song.id === songId)?.active) return songs;
+  return songs.map((song) => ({ ...song, active: song.id === songId }));
+};
+
+const getTrackIndex = (songs: Song[], songId: string) => {
+  const index = songs.findIndex((song) => song.id === songId);
+  return index === -1 ? 0 : index;
+};
+
 interface MusicPlayerContextValue {
   audioRef: React.RefObject<HTMLAudioElement | null>;
   audioSourceRef: React.MutableRefObject<MediaElementAudioSourceNode | null>;
@@ -32,7 +42,6 @@ interface MusicPlayerContextValue {
   songs: Song[];
   setSongs: React.Dispatch<React.SetStateAction<Song[]>>;
   currentSong: Song;
-  setCurrentSong: React.Dispatch<React.SetStateAction<Song>>;
   isPlaying: boolean;
   volume: number;
   visualizer: Visualizer;
@@ -42,7 +51,7 @@ interface MusicPlayerContextValue {
   togglePlay: () => Promise<void>;
   skipTrack: (direction: TrackDirection) => void;
   changeVolume: (volume: number) => void;
-  setActiveSongInLibrary: (song: Song) => void;
+  selectSong: (song: Song, continuePlaying?: boolean) => void;
   showMiniPlayer: boolean;
   closeMiniPlayer: () => void;
 }
@@ -68,6 +77,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
   const isTrackTransitionRef = useRef(false);
   const miniPlayerDismissedRef = useRef(false);
   const volumeRef = useRef(DEFAULT_VOLUME);
+  const currentSongIdRef = useRef(initialLibrary.currentSong.id);
 
   const location = useLocation();
   const isOnMusicPage = location.pathname.startsWith("/music");
@@ -81,6 +91,8 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
   const [visualizer, setVisualizer] = useState(Visualizer.BASIC);
   const [libraryStatus, setLibraryStatus] = useState(false);
   const [showMiniPlayer, setShowMiniPlayer] = useState(false);
+
+  currentSongIdRef.current = currentSong.id;
 
   const closeMiniPlayer = useCallback(() => {
     miniPlayerDismissedRef.current = true;
@@ -98,7 +110,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
     return audioContextRef.current;
   }, []);
 
-  const applyVolume = useCallback((nextVolume: number) => {
+  const changeVolume = useCallback((nextVolume: number) => {
     volumeRef.current = nextVolume;
     if (gainNodeRef.current) {
       gainNodeRef.current.gain.value = nextVolume;
@@ -131,103 +143,125 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [getAudioContext]);
 
-  const setActiveSongInLibrary = useCallback((song: Song) => {
-    setSongs((prev) => {
-      if (prev.find((item) => item.id === song.id)?.active) {
-        return prev;
+  const playAudio = useCallback(
+    async (onlyIfWanted = false) => {
+      if (onlyIfWanted && !shouldPlayRef.current) {
+        isTrackTransitionRef.current = false;
+        return;
       }
-      return prev.map((item) => ({
-        ...item,
-        active: item.id === song.id,
-      }));
-    });
+
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      if (!onlyIfWanted) {
+        shouldPlayRef.current = true;
+      }
+
+      ensureAudioGraph();
+
+      const ctx = getAudioContext();
+      if (ctx.state === "suspended") {
+        await ctx.resume();
+      }
+
+      try {
+        await audio.play();
+      } catch (error) {
+        console.error("Unable to play audio:", error);
+        shouldPlayRef.current = false;
+        isTrackTransitionRef.current = false;
+        setIsPlaying(false);
+      }
+    },
+    [ensureAudioGraph, getAudioContext],
+  );
+
+  const pausePlayback = useCallback(() => {
+    isTrackTransitionRef.current = false;
+    shouldPlayRef.current = false;
+    audioRef.current?.pause();
+    setIsPlaying(false);
   }, []);
 
-  const advanceToSong = useCallback(
-    (nextSong: Song, continuePlaying: boolean) => {
-      isTrackTransitionRef.current = true;
-      shouldPlayRef.current = continuePlaying;
-      setCurrentSong(nextSong);
-      setActiveSongInLibrary(nextSong);
-    },
-    [setActiveSongInLibrary],
-  );
+  const advanceToSong = useCallback((nextSong: Song, continuePlaying: boolean) => {
+    if (nextSong.id === currentSongIdRef.current) {
+      setSongs((prev) => withActiveSong(prev, nextSong.id));
+      return;
+    }
+
+    isTrackTransitionRef.current = true;
+    shouldPlayRef.current = continuePlaying;
+    if (continuePlaying) {
+      setIsPlaying(true);
+    }
+    setCurrentSong(nextSong);
+    setSongs((prev) => withActiveSong(prev, nextSong.id));
+  }, []);
 
   const togglePlay = useCallback(async () => {
     const audio = audioRef.current;
     if (!audio) return;
 
     if (!audio.paused) {
-      shouldPlayRef.current = false;
-      audio.pause();
+      pausePlayback();
       return;
     }
 
-    shouldPlayRef.current = true;
-    ensureAudioGraph();
+    await playAudio();
+  }, [pausePlayback, playAudio]);
 
-    try {
-      await audio.play();
-    } catch (error) {
-      console.error("Unable to play audio:", error);
-      shouldPlayRef.current = false;
-      setIsPlaying(false);
-    }
-  }, [ensureAudioGraph]);
+  const songAtOffset = useCallback(
+    (fromId: string, direction: TrackDirection) => {
+      if (songs.length === 0) return null;
+      const index = getTrackIndex(songs, fromId);
+      const nextIndex =
+        direction === TrackDirection.FORWARD
+          ? (index + 1) % songs.length
+          : index === 0
+            ? songs.length - 1
+            : index - 1;
+      return songs[nextIndex];
+    },
+    [songs],
+  );
 
   const skipTrack = useCallback(
     (direction: TrackDirection) => {
-      if (songs.length === 0) return;
-
-      const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
-      const safeIndex = currentIndex === -1 ? 0 : currentIndex;
-
-      const nextIndex =
-        direction === TrackDirection.FORWARD
-          ? (safeIndex + 1) % songs.length
-          : safeIndex === 0
-            ? songs.length - 1
-            : safeIndex - 1;
-
-      advanceToSong(songs[nextIndex], shouldPlayRef.current);
+      const nextSong = songAtOffset(currentSongIdRef.current, direction);
+      if (nextSong) {
+        advanceToSong(nextSong, shouldPlayRef.current);
+      }
     },
-    [advanceToSong, currentSong.id, songs],
+    [advanceToSong, songAtOffset],
   );
 
-  const changeVolume = useCallback(
-    (nextVolume: number) => {
-      applyVolume(nextVolume);
+  const selectSong = useCallback(
+    (song: Song, continuePlaying?: boolean) => {
+      const shouldContinue =
+        continuePlaying ?? (shouldPlayRef.current || isPlaying);
+      advanceToSong(song, shouldContinue);
     },
-    [applyVolume],
+    [advanceToSong, isPlaying],
   );
 
   const songEndHandler = useCallback(() => {
-    const currentIndex = songs.findIndex((song) => song.id === currentSong.id);
-    const safeIndex = currentIndex === -1 ? 0 : currentIndex;
-    const nextSong = songs[(safeIndex + 1) % songs.length];
-    advanceToSong(nextSong, true);
-  }, [advanceToSong, currentSong.id, songs]);
+    const nextSong = songAtOffset(currentSongIdRef.current, TrackDirection.FORWARD);
+    if (nextSong) {
+      advanceToSong(nextSong, true);
+    }
+  }, [advanceToSong, songAtOffset]);
 
   const handleCanPlay = useCallback(() => {
-    ensureAudioGraph();
-
-    if (shouldPlayRef.current) {
-      isTrackTransitionRef.current = false;
-      void audioRef.current?.play().catch(() => {
-        shouldPlayRef.current = false;
-        setIsPlaying(false);
-      });
-    } else {
-      isTrackTransitionRef.current = false;
-    }
+    void playAudio(true);
 
     if (isOnMusicPage && currentSong.url) {
       window.history.replaceState(null, "", currentSong.url);
     }
-  }, [currentSong.url, ensureAudioGraph, isOnMusicPage]);
+  }, [currentSong.url, isOnMusicPage, playAudio]);
 
   const handlePlay = useCallback(() => {
     shouldPlayRef.current = true;
+    isTrackTransitionRef.current = false;
     miniPlayerDismissedRef.current = false;
     setIsPlaying(true);
   }, []);
@@ -279,8 +313,8 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     if (!("mediaSession" in navigator)) return;
 
-    const onPlay = () => void togglePlay();
-    const onPause = () => void togglePlay();
+    const onPlay = () => void playAudio();
+    const onPause = () => pausePlayback();
     const onNext = () => skipTrack(TrackDirection.FORWARD);
     const onPrev = () => skipTrack(TrackDirection.BACK);
 
@@ -303,7 +337,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
         /* ignore cleanup errors */
       }
     };
-  }, [skipTrack, togglePlay]);
+  }, [pausePlayback, playAudio, skipTrack]);
 
   const value = useMemo(
     () => ({
@@ -315,7 +349,6 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
       songs,
       setSongs,
       currentSong,
-      setCurrentSong,
       isPlaying,
       volume,
       visualizer,
@@ -325,7 +358,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
       togglePlay,
       skipTrack,
       changeVolume,
-      setActiveSongInLibrary,
+      selectSong,
       showMiniPlayer,
       closeMiniPlayer,
     }),
@@ -337,7 +370,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
       getAudioContext,
       isPlaying,
       libraryStatus,
-      setActiveSongInLibrary,
+      selectSong,
       showMiniPlayer,
       skipTrack,
       songs,
@@ -354,6 +387,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
         ref={audioRef}
         src={currentSong.audio}
         onCanPlay={handleCanPlay}
+        onLoadedData={() => void playAudio(true)}
         onEnded={songEndHandler}
         onPlay={handlePlay}
         onPause={handlePause}

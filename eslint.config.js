@@ -39,6 +39,7 @@ export default tseslint.config(
     },
     rules: {
       ...react.configs.recommended.rules,
+      "react/prop-types": "off",
       "react/react-in-jsx-scope": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",

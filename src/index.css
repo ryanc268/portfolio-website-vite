@@ -91,7 +91,11 @@ body {
   font-family: 'Merriweather', serif;
 }
 
-button:focus,
+/* Show focus ring for keyboard only; mouse/tap clicks should not leave a persistent outline */
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }

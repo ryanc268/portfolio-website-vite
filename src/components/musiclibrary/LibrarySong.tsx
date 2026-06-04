@@ -1,45 +1,18 @@
-import React, { MutableRefObject } from "react";
+import React from "react";
 import { Song } from "../../global/interfaces";
+import { useMusicPlayer } from "../../context/MusicPlayerContext";
 
 interface LibrarySongProps {
   song: Song;
-  songs: Song[];
-  setCurrentSong: React.Dispatch<React.SetStateAction<Song>>;
-  id: string;
-  audioRef: MutableRefObject<HTMLAudioElement | null>;
-  isPlaying: boolean;
-  setSongs: React.Dispatch<React.SetStateAction<Song[]>>;
 }
 
-const LibrarySong: React.FC<LibrarySongProps> = ({
-  song,
-  songs,
-  setCurrentSong,
-  id,
-  audioRef,
-  isPlaying,
-  setSongs,
-}) => {
-  const songSelectHandler = async () => {
-    //const selectedSong = songs.filter((state) => state, id === id);
-    setCurrentSong(song);
+const LibrarySong: React.FC<LibrarySongProps> = ({ song }) => {
+  const { isPlaying, selectSong } = useMusicPlayer();
 
-    const newSongs = songs.map((song) => {
-      if (song.id === id) {
-        return {
-          ...song,
-          active: true,
-        };
-      } else {
-        return {
-          ...song,
-          active: false,
-        };
-      }
-    });
-    await setSongs(newSongs);
-    if (isPlaying) audioRef.current?.play();
+  const songSelectHandler = () => {
+    selectSong(song, isPlaying);
   };
+
   return (
     <div
       onClick={songSelectHandler}
@@ -47,15 +20,9 @@ const LibrarySong: React.FC<LibrarySongProps> = ({
         song.active ? "bg-neutral-600" : ""
       }`}
     >
-      <img
-        className="w-1/4 rounded-lg"
-        alt={song.name}
-        src={song.cover}
-      ></img>
+      <img className="w-1/4 rounded-lg" alt={song.name} src={song.cover}></img>
       <div className="px-4">
-        <h3 className="font-montserrat text-sm md:text-base">
-          {song.name}
-        </h3>
+        <h3 className="font-montserrat text-sm md:text-base">{song.name}</h3>
         <h4 className="font-montserrat text-xs font-light md:text-sm">
           {song.artist}
         </h4>

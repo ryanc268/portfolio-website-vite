@@ -16,12 +16,10 @@ export const MusicLibrary: React.FC = () => {
   const url = location.pathname;
 
   const {
-    audioRef,
     songs,
-    setSongs,
     currentSong,
-    setCurrentSong,
     isPlaying,
+    selectSong,
     visualizer,
     setVisualizer,
     libraryStatus,
@@ -33,26 +31,14 @@ export const MusicLibrary: React.FC = () => {
 
     const matchedSong = songs.find((song) => song.url === url);
     if (matchedSong) {
-      setCurrentSong((prev) =>
-        prev.id === matchedSong.id ? prev : matchedSong,
-      );
-      setSongs((prev) => {
-        if (prev.find((song) => song.id === matchedSong.id)?.active) {
-          return prev;
-        }
-        return prev.map((song) => ({
-          ...song,
-          active: song.id === matchedSong.id,
-        }));
-      });
+      selectSong(matchedSong, isPlaying);
       return;
     }
 
     if (url.startsWith("/music/")) {
       navigate("/music", { replace: true });
     }
-    // Only re-sync when the route changes.
-  }, [url, navigate]);
+  }, [url, navigate, songs, currentSong.id, isPlaying, selectSong]);
 
   return (
     <>
@@ -76,14 +62,7 @@ export const MusicLibrary: React.FC = () => {
           />
           <PlayableSong currentSong={currentSong} isPlaying={isPlaying} />
           <Player />
-          <Library
-            audioRef={audioRef}
-            songs={songs}
-            setCurrentSong={setCurrentSong}
-            isPlaying={isPlaying}
-            setSongs={setSongs}
-            libraryStatus={libraryStatus}
-          />
+        <Library songs={songs} libraryStatus={libraryStatus} />
           <AudioVisualizer isPlaying={isPlaying} visualizer={visualizer} />
         </div>
       </motion.div>

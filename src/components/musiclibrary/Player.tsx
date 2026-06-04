@@ -23,12 +23,11 @@ const Player = () => {
     isPlaying,
     volume,
     songs,
-    setCurrentSong,
     setSongs,
     togglePlay,
     skipTrack,
     changeVolume,
-    setActiveSongInLibrary,
+    selectSong,
   } = useMusicPlayer();
 
   useEffect(() => {
@@ -101,8 +100,7 @@ const Player = () => {
       if (songsUploaded > 0) {
         setSongs(tempSongs);
         const firstSong = tempSongs[0];
-        await setCurrentSong(firstSong);
-        setActiveSongInLibrary(firstSong);
+        selectSong(firstSong, isPlaying);
       }
     }
   };
