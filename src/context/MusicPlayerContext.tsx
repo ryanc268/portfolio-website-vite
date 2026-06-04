@@ -33,6 +33,61 @@ const getTrackIndex = (songs: Song[], songId: string) => {
   return index === -1 ? 0 : index;
 };
 
+const toAbsoluteUrl = (src: string) => {
+  try {
+    return new URL(src, window.location.href).href;
+  } catch {
+    return src;
+  }
+};
+
+const syncMediaSessionPosition = (audio: HTMLAudioElement) => {
+  if (!("mediaSession" in navigator) || !navigator.mediaSession.setPositionState) {
+    return;
+  }
+
+  const duration = audio.duration;
+  if (!Number.isFinite(duration) || duration <= 0) return;
+
+  try {
+    navigator.mediaSession.setPositionState({
+      duration,
+      playbackRate: audio.playbackRate,
+      position: Math.min(audio.currentTime, duration),
+    });
+  } catch {
+    /* setPositionState unsupported on this device/browser */
+  }
+};
+
+const setMediaSessionPlaybackState = (playing: boolean) => {
+  if (!("mediaSession" in navigator)) return;
+  navigator.mediaSession.playbackState = playing ? "playing" : "paused";
+};
+
+const applyMediaSessionMetadata = (song: Song) => {
+  if (!("mediaSession" in navigator)) return;
+
+  const cover = toAbsoluteUrl(song.cover);
+
+  try {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: song.name,
+      artist: song.artist,
+      artwork: [
+        { src: cover, sizes: "96x96", type: "image/jpeg" },
+        { src: cover, sizes: "128x128", type: "image/jpeg" },
+        { src: cover, sizes: "192x192", type: "image/jpeg" },
+        { src: cover, sizes: "256x256", type: "image/jpeg" },
+        { src: cover, sizes: "384x384", type: "image/jpeg" },
+        { src: cover, sizes: "512x512", type: "image/jpeg" },
+      ],
+    });
+  } catch {
+    console.log("Error with MediaSession metadata on current device");
+  }
+};
+
 interface MusicPlayerContextValue {
   audioRef: React.RefObject<HTMLAudioElement | null>;
   audioSourceRef: React.MutableRefObject<MediaElementAudioSourceNode | null>;
@@ -100,6 +155,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
     isTrackTransitionRef.current = false;
     audioRef.current?.pause();
     setIsPlaying(false);
+    setMediaSessionPlaybackState(false);
     setShowMiniPlayer(false);
   }, []);
 
@@ -155,6 +211,8 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
 
       if (!onlyIfWanted) {
         shouldPlayRef.current = true;
+        setIsPlaying(true);
+        setMediaSessionPlaybackState(true);
       }
 
       ensureAudioGraph();
@@ -171,6 +229,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
         shouldPlayRef.current = false;
         isTrackTransitionRef.current = false;
         setIsPlaying(false);
+        setMediaSessionPlaybackState(false);
       }
     },
     [ensureAudioGraph, getAudioContext],
@@ -181,6 +240,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
     shouldPlayRef.current = false;
     audioRef.current?.pause();
     setIsPlaying(false);
+    setMediaSessionPlaybackState(false);
   }, []);
 
   const advanceToSong = useCallback((nextSong: Song, continuePlaying: boolean) => {
@@ -191,12 +251,23 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
 
     isTrackTransitionRef.current = true;
     shouldPlayRef.current = continuePlaying;
+
+    applyMediaSessionMetadata(nextSong);
     if (continuePlaying) {
       setIsPlaying(true);
+      setMediaSessionPlaybackState(true);
     }
+
+    const audio = audioRef.current;
+    if (audio && continuePlaying) {
+      audio.src = nextSong.audio;
+      audio.load();
+      void playAudio(true);
+    }
+
     setCurrentSong(nextSong);
     setSongs((prev) => withActiveSong(prev, nextSong.id));
-  }, []);
+  }, [playAudio]);
 
   const togglePlay = useCallback(async () => {
     const audio = audioRef.current;
@@ -207,8 +278,9 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
       return;
     }
 
+    applyMediaSessionMetadata(currentSong);
     await playAudio();
-  }, [pausePlayback, playAudio]);
+  }, [currentSong, pausePlayback, playAudio]);
 
   const songAtOffset = useCallback(
     (fromId: string, direction: TrackDirection) => {
@@ -264,12 +336,17 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
     isTrackTransitionRef.current = false;
     miniPlayerDismissedRef.current = false;
     setIsPlaying(true);
+    setMediaSessionPlaybackState(true);
+    if (audioRef.current) {
+      syncMediaSessionPosition(audioRef.current);
+    }
   }, []);
 
   const handlePause = useCallback(() => {
     if (isTrackTransitionRef.current) return;
     shouldPlayRef.current = false;
     setIsPlaying(false);
+    setMediaSessionPlaybackState(false);
   }, []);
 
   useEffect(() => {
@@ -290,39 +367,59 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [isOnMusicPage, isPlaying]);
 
   useEffect(() => {
-    if (!("mediaSession" in navigator)) return;
-
-    try {
-      navigator.mediaSession.metadata = new MediaMetadata({
-        title: currentSong.name,
-        artist: currentSong.artist,
-        artwork: [
-          { src: currentSong.cover, sizes: "96x96", type: "image/jpg" },
-          { src: currentSong.cover, sizes: "128x128", type: "image/jpg" },
-          { src: currentSong.cover, sizes: "192x192", type: "image/jpg" },
-          { src: currentSong.cover, sizes: "256x256", type: "image/jpg" },
-          { src: currentSong.cover, sizes: "384x384", type: "image/jpg" },
-          { src: currentSong.cover, sizes: "512x512", type: "image/jpg" },
-        ],
-      });
-    } catch {
-      console.log("Error with MediaSession metadata on current device");
+    applyMediaSessionMetadata(currentSong);
+    if (audioRef.current) {
+      syncMediaSessionPosition(audioRef.current);
     }
   }, [currentSong]);
 
   useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const onProgress = () => {
+      if (shouldPlayRef.current) {
+        setMediaSessionPlaybackState(true);
+      }
+      syncMediaSessionPosition(audio);
+    };
+
+    audio.addEventListener("timeupdate", onProgress);
+    audio.addEventListener("loadedmetadata", onProgress);
+    audio.addEventListener("durationchange", onProgress);
+    audio.addEventListener("playing", onProgress);
+
+    return () => {
+      audio.removeEventListener("timeupdate", onProgress);
+      audio.removeEventListener("loadedmetadata", onProgress);
+      audio.removeEventListener("durationchange", onProgress);
+      audio.removeEventListener("playing", onProgress);
+    };
+  }, [currentSong.audio]);
+
+  const mediaSessionActionsRef = useRef({
+    playAudio,
+    pausePlayback,
+    skipTrack,
+  });
+  mediaSessionActionsRef.current = { playAudio, pausePlayback, skipTrack };
+
+  useEffect(() => {
     if (!("mediaSession" in navigator)) return;
 
-    const onPlay = () => void playAudio();
-    const onPause = () => pausePlayback();
-    const onNext = () => skipTrack(TrackDirection.FORWARD);
-    const onPrev = () => skipTrack(TrackDirection.BACK);
-
     try {
-      navigator.mediaSession.setActionHandler("play", onPlay);
-      navigator.mediaSession.setActionHandler("pause", onPause);
-      navigator.mediaSession.setActionHandler("nexttrack", onNext);
-      navigator.mediaSession.setActionHandler("previoustrack", onPrev);
+      navigator.mediaSession.setActionHandler("play", () =>
+        void mediaSessionActionsRef.current.playAudio(),
+      );
+      navigator.mediaSession.setActionHandler("pause", () =>
+        mediaSessionActionsRef.current.pausePlayback(),
+      );
+      navigator.mediaSession.setActionHandler("nexttrack", () =>
+        mediaSessionActionsRef.current.skipTrack(TrackDirection.FORWARD),
+      );
+      navigator.mediaSession.setActionHandler("previoustrack", () =>
+        mediaSessionActionsRef.current.skipTrack(TrackDirection.BACK),
+      );
     } catch {
       console.log("Error with MediaSession handlers on current device");
     }
@@ -337,7 +434,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
         /* ignore cleanup errors */
       }
     };
-  }, [pausePlayback, playAudio, skipTrack]);
+  }, []);
 
   const value = useMemo(
     () => ({
@@ -386,6 +483,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
       <audio
         ref={audioRef}
         src={currentSong.audio}
+        preload="auto"
         onCanPlay={handleCanPlay}
         onLoadedData={() => void playAudio(true)}
         onEnded={songEndHandler}
