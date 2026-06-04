@@ -225,6 +225,10 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         await audio.play();
       } catch (error) {
+        // play() often rejects while a new src is loading; onCanPlay will retry
+        if (isTrackTransitionRef.current && shouldPlayRef.current) {
+          return;
+        }
         console.error("Unable to play audio:", error);
         shouldPlayRef.current = false;
         isTrackTransitionRef.current = false;
@@ -258,16 +262,9 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
       setMediaSessionPlaybackState(true);
     }
 
-    const audio = audioRef.current;
-    if (audio && continuePlaying) {
-      audio.src = nextSong.audio;
-      audio.load();
-      void playAudio(true);
-    }
-
     setCurrentSong(nextSong);
     setSongs((prev) => withActiveSong(prev, nextSong.id));
-  }, [playAudio]);
+  }, []);
 
   const togglePlay = useCallback(async () => {
     const audio = audioRef.current;
@@ -301,10 +298,11 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
     (direction: TrackDirection) => {
       const nextSong = songAtOffset(currentSongIdRef.current, direction);
       if (nextSong) {
-        advanceToSong(nextSong, shouldPlayRef.current);
+        const keepPlaying = shouldPlayRef.current || isPlaying;
+        advanceToSong(nextSong, keepPlaying);
       }
     },
-    [advanceToSong, songAtOffset],
+    [advanceToSong, isPlaying, songAtOffset],
   );
 
   const selectSong = useCallback(
@@ -483,7 +481,7 @@ export const MusicPlayerProvider: React.FC<{ children: React.ReactNode }> = ({
       <audio
         ref={audioRef}
         src={currentSong.audio}
-        preload="auto"
+        preload="metadata"
         onCanPlay={handleCanPlay}
         onLoadedData={() => void playAudio(true)}
         onEnded={songEndHandler}
